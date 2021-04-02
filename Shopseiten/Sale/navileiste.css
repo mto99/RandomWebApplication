@@ -1,0 +1,482 @@
+
+body{
+    margin: 1cm 3cm 1cm 3cm;
+    background-color:beige;
+    max-width: 1500px;
+}
+
+/*--------------------------------------------------*/
+/* NAVILEISTE ANFANG */
+@media screen and (min-width:1px){
+    body{
+        margin: 1cm 0 1cm 0;
+    }
+
+    .flexbox{
+        margin: 15px 0 15px 0;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .logo{
+        background-color: white;
+        width: 100%;
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content: center;
+    }
+
+    .logo img{
+        width: 100%;
+    }
+
+    .menu{
+        background-color: #00336a;
+        width: 100%;
+        height: fit-content;
+        
+        display: flex;
+        flex-direction: column;
+        justify-content:space-between;
+    }
+
+    .menu_top{
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .menu_top_left{
+        padding: 5px 10px 5px 0;
+        width: fit-content;
+        
+        display: flex;
+        flex-wrap: nowrap;
+    }
+
+    .menu_top_left a{
+        color: rgb(192, 191, 191);
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 80%;
+        padding: 5px 10px 5px 10px;
+        margin: 3px 0 0 0;
+    }
+
+    .menu_top_right{
+        display: flex;
+        flex-wrap: nowrap;
+        align-items:center;
+        padding: 2px 10px 0 10px;
+    }
+
+    .searchbar form{
+        display: flex;
+        flex-wrap: nowrap;
+        flex-direction: row;
+        padding-right: 5px;
+    }
+
+    .searchbar input{
+        border-style: solid;
+        border-color: white;
+        border-width: 1px;
+        border-right: none;
+        border-radius: 5px 0 0 5px;
+        background: #00336a;
+        color: white;
+        
+        margin: 0 0 0 0 ;
+        padding: 2px 10px 2px 10px;
+    }
+
+    .searchbar button{
+        background-color: white;
+        border-color: white;
+        border-style: solid;
+        border-width: 1px;
+        color: #00336a;
+        font-weight: bold;
+        
+        border-radius: 0 5px 5px 0;
+        margin: 0 0 0 0;
+        cursor: pointer;
+    }
+
+    .menu_top_right img{
+        padding-top: 1px;
+        margin-left: 5px;
+        max-height: 26px;
+    }
+
+    .menu_bottom{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        padding: 20px 10px 0 10px;
+        height: fit-content;
+    }
+
+    .menu_item{
+        display: flex;
+        flex-direction: column;
+        
+        margin: 0 5px 0 5px;
+        padding: 0px 10px 15px 10px;
+        height: fit-content;
+        width: fit-content;
+    }
+
+    .menu_item a{
+        text-decoration: none;
+        text-transform: uppercase;
+        color:white;
+        font-family: 'SourceSansPro-Bold','SourceSansPro-Regular',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+        font-weight: bold;
+        font-size: 16px;
+    }
+
+    .menu_item a:hover{
+        color: rgb(192, 191, 191);
+    }
+
+    .menu_item img{
+        max-height: 17px;
+    }
+
+    hr{
+        color: white;
+    }
+
+    .placeholder{
+        background-color: red;
+        color: antiquewhite;
+        height: 300px;
+    }
+}
+
+/*---------------------------------*/
+
+@media screen and (min-width: 601px){
+    body{
+        margin: 1cm 1cm 1cm 1cm;
+    }
+
+    .flexbox{
+        margin: 15px 0 15px 0;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .logo{
+        background-color: white;
+        width: 100%;
+        display: flex;
+        flex-wrap: nowrap;
+    }
+
+    .logo_img img{
+        width: 100%;
+    }
+
+    .menu{
+        background-color: #00336a;
+        width: 100%;
+        height: fit-content;
+        
+        display: flex;
+        flex-direction: column;
+        justify-content:space-between;
+    }
+
+    .menu_top{
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row;
+        justify-content: space-between; 
+    }
+
+    .menu_top_left{
+        padding: 5px 10px 5px 0;
+        width: fit-content;
+        
+        display: flex;
+        flex-wrap: nowrap;
+    }
+
+    .menu_top_left a{
+        color: rgb(192, 191, 191);
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 80%;
+        padding: 5px 10px 5px 10px;
+        margin: 3px 0 0 0;
+    }
+
+    .menu_top_right{
+        display: flex;
+        flex-wrap: nowrap;
+        align-items:center;
+        padding: 2px 10px 0 10px;
+    }
+
+    .searchbar form{
+        display: flex;
+        flex-wrap: nowrap;
+        flex-direction: row;
+        padding-right: 5px;
+    }
+
+    .searchbar input{
+        border-style: solid;
+        border-color: white;
+        border-width: 1px;
+        border-right: none;
+        border-radius: 5px 0 0 5px;
+        background: #00336a;
+        color: white;
+        
+        margin: 0 0 0 0 ;
+        padding: 2px 10px 2px 10px;
+    }
+
+    .searchbar button{
+        background-color: white;
+        border-color: white;
+        border-style: solid;
+        border-width: 1px;
+        color: #00336a;
+        font-weight: bold;
+        
+        border-radius: 0 5px 5px 0;
+        margin: 0 0 0 0;
+        cursor: pointer;
+    }
+
+    .menu_top_right img{
+        padding-top: 1px;
+        margin-left: 5px;
+        max-height: 26px;
+    }
+
+    .menu_bottom{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items:center;
+
+        padding: 20px 10px 0 10px;
+        height: fit-content;
+    }
+
+    .menu_item{
+        display: flex;
+        justify-content: center;
+        
+        margin: 0 5px 0 5px;
+        padding: 0px 10px 15px 10px;
+        height: fit-content;
+        width: fit-content;
+    }
+
+    .menu_item:hover{
+        border-bottom: solid;
+        border-color: white;
+        border-width: 2px;
+    }
+
+    .menu_item a{
+        text-decoration: none;
+        text-transform: uppercase;
+        color:white;
+        font-family: 'SourceSansPro-Bold','SourceSansPro-Regular',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+        font-weight: bold;
+        font-size: 16px;
+    }
+
+    .menu_item img{
+        max-height: 17px;
+    }
+
+    hr{
+        color: white;
+    }
+
+    .placeholder{
+        background-color: green;
+        color: antiquewhite;
+        height: 300px;
+    }
+}
+
+/*-----------------------------*/
+
+@media screen and (min-width: 1101px){
+
+    body{
+        margin: 1cm 3cm 1cm 3cm;
+        background-color: beige;
+        max-width: 1300px;
+    }
+
+    .flexbox{
+        margin: 15px 0 15px 0;
+        width: 100%;
+        
+        display: flex;
+        flex-direction: row;
+    }
+
+    .logo{
+        background-color: white;
+        width: fit-content;
+        display: flex;
+        justify-content: center;
+    }
+
+    .menu{
+        background-color: #00336a;
+        width: 100%;
+        height: fit-content;
+        
+        display: flex;
+        flex-direction: column;
+        justify-content:space-between;
+    }
+
+    .menu_top{
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+
+        height: fit-content;
+    }
+
+    .menu_top_left{
+        padding: 5px 10px 5px 10px;
+        width: fit-content;
+        
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+    }
+
+    .menu_top_left a{
+        color: rgb(192, 191, 191);
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 80%;
+        padding: 5px 10px 5px 10px;
+        margin: 5px 0 0 0;
+    }
+
+    .menu_top_left a:hover{
+        color: white;
+    }
+
+    .menu_top_right{
+        padding: 5px 10px 5px 10px;
+        width: auto;
+        height: auto;
+
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content:right;
+
+        box-sizing: border-box;
+    }
+
+    .searchbar form{
+        display: flex;
+        flex-wrap: nowrap;
+        flex-direction: row;
+        align-items: baseline;
+    }
+
+    .searchbar input{
+        margin: 5px 0 0 0 ;
+        padding: 2px 10px 2px 10px;
+        border-style: solid;
+        border-color: white;
+        border-width: 2px;
+        border-right: none;
+        border-radius: 5px 0 0 5px;
+        background: #00336a;
+        color: white;
+    }
+
+    .searchbar button{
+        background-color: white;
+        border-color: white;
+        border-style: solid;
+        border-width: 3px;
+        color: #00336a;
+        font-weight: bold;
+        
+        border-radius: 0 5px 5px 0;
+        cursor: pointer;
+    }
+
+    .menu_top_right img{
+        max-height: 30px;
+        padding: 0 10px 0 15px;
+        margin: 5px 0 0 0;
+    }
+
+    .menu_bottom{
+        display: flex;
+        flex-direction: row;
+        flex-wrap:nowrap;
+        justify-content: space-between;
+        align-items:center;
+
+        padding: 20px 10px 0 10px;
+        height: fit-content;
+    }
+
+    .menu_item{
+        display: flex;
+        justify-content:space-between;
+        
+        margin: 0 5px 0 5px;
+        padding: 0px 10px 15px 10px;
+        height: fit-content;
+        width: fit-content;
+    }
+    .menu_item:hover{
+        border-bottom: solid;
+        border-color: white;
+        border-width: 2px;
+    }
+
+    .menu_item a{
+        text-decoration: none;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        color:white;
+        font-family: 'SourceSansPro-Bold','SourceSansPro-Regular',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+        font-weight: bold;
+        font-size: 20px;
+    }
+
+    .menu_item img{
+        max-height: 23px;
+        padding: 0 0 0 0;
+        cursor: pointer;
+    }
+
+    hr{
+        color:white;
+    }
+
+    .placeholder{
+        background-color: blueviolet;
+        height: 300px;
+        margin: 15px 0 15px 0;
+    }
+}
+/* NAVILEISTE ENDE */
+/*--------------------------------------------------*/
