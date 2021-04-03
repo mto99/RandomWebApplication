@@ -24,6 +24,7 @@ body{
 
     .path a{
         text-decoration: none;
+        color: black;
         font-family: 'Arial';
         font-size: 15px;
     }
@@ -157,7 +158,6 @@ body{
     }
 
     .path{
-        
         align-items: baseline;
         padding: 10px;
         display: flex;
