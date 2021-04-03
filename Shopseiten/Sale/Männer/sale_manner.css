@@ -10,11 +10,140 @@ body{
         margin: 1cm 0 1cm 0;
     }
 
+    .content{
+        background-color: gray;
+        margin: 15px 0 15px 0;
+        width:100%;
+
+        display: flex;
+        flex-direction: column;
+    }
+
+    .path{
+        background-color: red;
+        display: inline;
+    }
+
+    .path a{
+        text-decoration: none;
+        color: black;
+        font-family: 'Arial';
+        font-size: 15px;
+    }
+
+    .content_bottom{
+        padding: 10px;
+
+        display: flex;
+        flex-direction: column;
+    }
+
+    .sidepanel{
+        background-color: green;
+        min-width: max-content;
+        height: 100%;
+    }
+
+    .filter{
+        padding: 5px;
+        width: inherit;
+    }
+
+    .products{
+        background-color: blue;
+        display: grid;
+        grid-template-columns: 2fr;
+    }
+
+    .clothe_box{
+        margin: 15px;
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: column;
+    }
+
+    .clothe_box img{
+        max-width: 100%;
+    }
+
+    .clothe_box span{
+        color: black;
+        font-family: CASansPro-Regular,Arial,sans-serif;
+        font-size: 20px;
+        line-height: 1.4;
+        word-break: break-all;
+    }
+
 }
 
 @media screen and (min-width: 601px){
     body{
         margin: 1cm 1cm 1cm 1cm;
+    }
+
+    .content{
+        background-color: gray;
+        margin: 15px 0 15px 0;
+        width:100%;
+
+        display: flex;
+        flex-direction: column;
+    }
+
+    .path{
+        background-color: red;
+        display: inline;
+    }
+
+    .path a{
+        text-decoration: none;
+        color: black;
+        font-family: 'Arial';
+        font-size: 15px;
+    }
+
+    .content_bottom{
+        padding: 10px;
+
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .sidepanel{
+        background-color: green;
+        min-width: max-content;
+        height: 100%;
+    }
+
+    .filter{
+        padding: 5px;
+        width: inherit;
+    }
+
+    .products{
+        background-color: blue;
+        display: grid;
+        grid-template-columns: 2fr 2fr;
+    }
+
+    .clothe_box{
+        margin: 15px;
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: column;
+    }
+
+    .clothe_box img{
+        max-width: 100%;
+    }
+
+    .clothe_box span{
+        color: black;
+        font-family: CASansPro-Regular,Arial,sans-serif;
+        font-size: 20px;
+        line-height: 1.4;
+        word-break: break-all;
     }
 
 }
@@ -39,7 +168,7 @@ body{
 
     .path{
         background-color: red;
-        display:inline;
+        
         align-items: baseline;
         padding: 10px;
         display: flex;
@@ -63,15 +192,13 @@ body{
 
     .sidepanel{
         background-color: green;
-        min-width: fit-content;
+        min-width: max-content;
         height: 100%;
     }
 
     .filter{
-        display: flex;
-        flex-wrap: wrap;
         padding: 5px;
-        width: 150px;
+        width: inherit;
     }
 
     .products{
