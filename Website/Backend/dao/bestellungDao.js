@@ -1,5 +1,5 @@
 const helper = require('../helper.js');
-const BestellpositionDao = require('./bestellpositionDao.js');
+//const BestellpositionDao = require('./bestellpositionDao.js'); nicht verfügbar
 const PersonDao = require('./personDao.js');
 const ZahlungsartDao = require('./zahlungsartDao.js');
 
