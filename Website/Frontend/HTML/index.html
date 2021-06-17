@@ -1,0 +1,222 @@
+<html>
+
+<head>
+    <link rel="stylesheet" type_="text/css" href="../CSS/navileiste.css">
+    <link rel="stylesheet" type="text/css" href="../CSS/index.css">
+    <link rel="stylesheet" type="text/css" href="../CSS/slideshow.css">
+    <link rel="stylesheet" type="text/css" href="../CSS/fussleiste.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="../Javascript/sessionHandling.js"></script>
+    <script src="../Javascript/urlParameter.js"></script>
+    <script src="../Javascript/suche.js"></script>
+    <script src="../Javascript/account.js"></script> <!--Für Logout-->
+
+    <title>Willkommen im HS-Shop</title>
+    <meta charset="utf-8">
+</head>
+
+<body>
+    <!--FLEXBOX-->
+    <nav>
+        <div class="flexbox">
+            <div class="logo" >
+                <div class="logo_img"><a title="Home" href="../HTML/index.html"><img src="../Bilder/navi_logo_shop.png" alt="An Error occured!"></a></div>
+            </div>
+    
+            <div class="menu">
+                <div class="menu_top">
+    
+                    <div class="menu_top_left">
+                        <a href="../HTML/kontakt.html">Kontakt</a>
+                        <a href="https://www.hs-albsig.de/hochschule/ueber-uns/hochschulportrait">Über die Hochschule</a>
+                    </div>
+    
+                    <div class="menu_top_right">
+                        <div class="searchbar"><form action="../HTML/suche.html" method="">
+                            <input type="search" id="suche" maxlength="50" placeholder="Suche..">
+                            <button type="submit" onclick="search()">Go!</button></form></div>
+                        <div class="tooltip">
+                            <a title="Account" href="../HTML/account.html"><img src="../Bilder/navi_account.png" alt="Account"></a>
+                            <span class="tooltiptext">
+                                <a href="../HTML/anmeldung.html"><button>Anmelden/Registrieren</button></a><br>
+                                <input type="button" onclick="logout()" value="Ausloggen">
+                            </span>
+
+                        </div>
+                    </div>
+                </div>
+    
+                <hr width="95%">
+    
+                <div class="menu_bottom">
+                    <div class="menu_item"><a href="../HTML/produkt_hauptseite.html?oberkategorie=Sale">Sale</a></div>
+                    <div class="menu_item"><a href="../HTML/produkt_hauptseite.html?oberkategorie=Männer">Männer</a></div>
+                    <div class="menu_item"><a href="../HTML/produkt_hauptseite.html?oberkategorie=Frauen">Frauen</a></div>
+                    <div class="menu_item"><a href="../HTML/produkt_hauptseite.html?oberkategorie=Accessoires">Accessoires</a></div>
+                    <div class="menu_item"><a title="Warenkorb" href="../HTML/warenkorb.html"><img src="../Bilder/navi_warenkorb.png" alt="Cart"></a></div>
+                </div>
+            </div>
+                
+        </div>
+    </nav>
+    <!--ENDE FLEXBOX-->
+
+
+    <!--SEITENINHALT-->
+    <main>
+        <div class="content">
+
+            <div class="sliderWrapper">
+                <div class="slider">
+             
+                    <input type="radio" name="slider" class="control01" id="slide01" checked="checked">
+                    <input type="radio" name="slider" class="control01" id="slide02">
+                    <input type="radio" name="slider" class="control01" id="slide03">
+                    <input type="radio" name="slider" class="control01" id="slide04">
+             
+                    <input type="radio" name="slider" class="control02" id="slide101">
+                    <input type="radio" name="slider" class="control02" id="slide102">
+                    <input type="radio" name="slider" class="control02" id="slide103">
+                    <input type="radio" name="slider" class="control02" id="slide104">
+                     
+                    <ul class="slideList">
+                        <li class="slide slide01">
+                            <img src="../Bilder/slideshow_1.jpg" alt="" width="100%">
+                            <div class="slidebox"><p>Entdecke neue Produkte!</p></div>
+                        </li>
+                        <li class="slide slide02">
+                            <img src="../Bilder/slideshow_2.jpg" alt="" width="100%">
+                            <div class="slidebox"><p>Bereit für den Sommer?</p></div>
+                        </li>
+                        <li class="slide slide03">
+                            <img src="../Bilder/slideshow_3.jpg" alt="" width="100%">
+                            <div class="slidebox"><p>Covid-19: <br>Masken besorgen!</p></div>
+                        </li>
+                        <li class="slide slide04">
+                            <img src="../Bilder/slideshow_4.jpg" alt="" width="100%">
+                            <div class="slidebox"><p>Folgt uns auf Social Media <br>für aktuelle Neuigkeiten!</p></div>
+                        </li>
+                    </ul>
+             
+                    <ul class="slideControl slideControl01">
+                        <li><label for="slide01">Nummer 1</label></li>
+                        <li><label for="slide02">Nummer 2</label></li>
+                        <li><label for="slide03">Nummer 3</label></li>
+                        <li><label for="slide04">Nummer 4</label></li>
+                    </ul>
+             
+                    <ul class="slideControl slideControl02">
+                        <li><label for="slide101">Nummer 101</label></li>
+                        <li><label for="slide102">Nummer 102</label></li>
+                        <li><label for="slide103">Nummer 103</label></li>
+                        <li><label for="slide104">Nummer 104</label></li>
+                    </ul>
+                </div>
+            </div>
+
+
+            <!--Kategorien Container-->
+            <div class="kategorien">
+                <div class="kategorie_box">
+                    <a href="../HTML/produkt_produktseite.html?oberkategorie=Accessoires;unterkategorie=Masken">
+                    <div class="kategorie_content"><img src="../Bilder/index_kategorie_masken.jpg"></div>
+                    <div class="kategorie_text"><span>Masken</span></div>
+                    </a>
+                </div>
+
+                <div class="kategorie_box">
+                    <a href="../HTML/produkt_produktseite.html?oberkategorie=Männer;unterkategorie=T-Shirts">
+                    <div class="kategorie_content"><img src="../Bilder/index_kategorie_manner_tshirts.jpg"></div>
+                    <div class="kategorie_text"><span>Männer: T-Shirts</span></div>
+                    </a>
+                </div>
+
+                <div class="kategorie_box">
+                    <a href="../HTML/produkt_produktseite.html?oberkategorie=Frauen;unterkategorie=T-Shirts">
+                    <div class="kategorie_content"><img src="../Bilder/index_kategorie_frauen_tshirts.jpg"></div>
+                    <div class="kategorie_text"><span>Frauen: T-Shirts</span></div>
+                    </a>
+                </div>
+
+                <div class="kategorie_box">
+                    <a href="../HTML/produkt_hauptseite.html?oberkategorie=Sale">
+                    <div class="kategorie_content"><img src="../Bilder/index_kategorie_sale.jpg"></div>
+                    <div class="kategorie_text"><span>Sale</span></div>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </main>
+    <!--ENDE SEITENINHALT-->
+
+
+    <!--FUSSLEISTE-->
+    <hr width="100%" style="color: #00336a; margin-top: 20px;">
+    <div class="footbox">
+        <footer>
+            <!--Fussleiste oben-->
+            <div class="footer_top">
+                <div class="footer_top_kontakt">
+                    <h3>Noch Fragen?</h3>
+                    <text>&#129046 <a href="../HTML/kontakt.html">zum Kontaktformular</a></text>
+                </div>
+
+                <div class="footer_top_zahlung">
+                    <h3>Zahlungsarten</h3>
+                    <table>
+                        <tr>
+                            <td><img src="../Bilder/footer_mastercard_logo.png" alt="mastercard"></td>
+                            <td><img src="../Bilder/footer_visa_logo.png" alt="visa"></td>
+                        </tr>
+                        <tr>
+                            <td><img src="../Bilder/footer_sepa_logo.png" alt="sepa"></td>
+                            <td><img src="../Bilder/footer_auf_rechnung_logo.png" alt="auf rechnung"></td>
+                        </tr>
+                    </table> 
+                </div>
+
+                <div class="footer_top_versand">
+                    <h3>Versandpartner</h3>
+                    <img src="../Bilder/footer_hermes_logo.png" alt="hermes">
+                </div>
+
+                <div class="footer_top_folgen">
+                    <h3>Folge uns:</h3>
+                    <a href="facebook.com"><img src="../Bilder/footer_facebook_logo.png" alt="facebook"></a>
+                    <a href="instagram.com"><img src="../Bilder/footer_insta_logo.png" alt="instagram"></a>
+                </div>
+
+            </div>
+
+            <!--Fussleiste unten-->
+            <div class="footer_bottom">
+                <div class="footer_bottom_kategorien">
+                    <h3>Kategorien</h3>
+                    <a href="../HTML/produkt_hauptseite.html?oberkategorie=Sale">Sale %</a><br>
+                    <a href="../HTML/produkt_hauptseite.html?oberkategorie=Männer">Männer</a><br>
+                    <a href="../HTML/produkt_hauptseite.html?oberkategorie=Frauen">Frauen</a><br>
+                    <a href="../HTML/produkt_hauptseite.html?oberkategorie=Accessoires">Accessoires</a><br>
+                </div>
+
+                <div class="footer_bottom_rechtliches">
+                    <h3>Rechtliches</h3>
+                    <a href="../HTML/agb.html">AGB</a><br>
+                    <a href="../HTML/impressum.html">Impressum</a><br>
+                </div>
+
+                <div class="footer_bottom_sponsoren">
+                    <h3>Sponsoren & Partner</h3>
+                    <a href="https://www.hs-albsig.de/hochschule/ueber-uns/hochschulportrait">
+                        <img src="../Bilder/footer_hochschule_logo.png" alt="Hochschule">
+                    </a><br>
+                </div>
+
+            </div>
+
+        </footer>
+    </div>
+    <!--ENDE FUSSLEISTE-->
+
+</body>
+</html>

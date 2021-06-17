@@ -1,0 +1,61 @@
+
+body{
+    margin: 1cm 3cm 1cm 3cm;
+    background-color:beige;
+    max-width: 1500px;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+.content{
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+
+@media screen and (min-width:1px){
+    body{
+        margin: 1cm 0 1cm 0;
+    }
+
+    .content{
+        display: flex;
+        flex-direction: column;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    .content h2{
+        color: #00336a;   
+    }
+
+    .suchergebnis{
+        text-decoration: underline;
+        line-height: 2;
+        padding: 10px;
+        font-size: 18px;
+    }
+
+
+}
+
+
+@media screen and (min-width: 601px){
+    body{
+        margin: 1cm 1cm 1cm 1cm;
+    }
+
+    /*Der Rest wie min width: 1px*/
+}
+
+
+@media screen and (min-width: 1101px){
+
+    body{
+        margin: 1cm 3cm 1cm 3cm;
+        background-color: beige;
+        max-width: 1300px;
+    }
+
+        /*Der Rest wie min width: 1px*/
+
+}
+

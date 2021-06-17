@@ -1,0 +1,343 @@
+
+body{
+    margin: 1cm 3cm 1cm 3cm;
+    background-color:beige;
+    max-width: 1500px;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+.content{
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+
+.path{
+        
+    align-items: baseline;
+    padding: 10px;
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.path a{
+    text-decoration: none;
+    color: black;
+    font-family: 'Arial';
+    font-size: 15px;
+}
+
+.path span{
+    color: black;
+    font-size: 13px;
+    padding: 0 15px 0 15px;
+}
+
+.path a:hover{
+    text-decoration: underline;
+}
+
+hr{
+    color: #00336a;
+    background-color: #00336a;
+    height: 1px;
+}
+
+.content h3{
+    font-size: 25px;
+    color: #00336a;
+}
+
+
+
+@media screen and (min-width:1px){
+    body{
+        margin: 1cm 0 1cm 0;
+    }
+
+    /*Inputs hier speziell anpassen*/
+    .content input[type="text"],
+    .content input[type="email"]{
+        height: 35px;
+        min-width: 100%;
+        font-size: 17px;
+        border: 3px solid #00336a;
+        border-radius: 7px;
+        margin: 2px 2px 10px 2px;
+    }
+
+    .content textarea{
+        height: 300px;
+        width: 100%;
+        font-size: 17px;
+        font-family: Arial, Helvetica, sans-serif;
+        border: 3px solid #00336a;
+        border-radius: 7px;
+        margin: 2px 2px 10px 2px;
+    }
+
+    .content input[type="radio"]{
+        margin: 2px 5px 10px 5px;
+    }
+
+    .content input[type="submit"]{
+        width: 101%;
+        height: 38px;
+        background-color: #00336a;
+        color: white;
+
+        border: 3px solid #00336a;
+        border-radius: 7px;
+        font-size: 17px;
+        cursor: pointer;
+        margin: 10px 2px 10px 1px;
+    }
+
+    .content input[type="submit"]:hover{
+        color: #00336a;
+        background-color: white;
+    }
+
+    /*................*/
+
+    .einleitung{
+        margin: 0 0 15px 0;
+        padding: 15px;
+    }
+
+    .content h1{
+        font-size: 30px;
+        color: #00336a;
+    }
+
+    .content p{
+        font-size: 19px;
+    }
+
+    .subcontent{
+        margin: 15px 0 0 0;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+    }
+
+    .kontakt{
+        padding: 15px;
+        margin: 0 10px 15px 0;
+    }
+
+    .kontaktinfo{
+        padding: 0 10px 15px 15px;
+        border: 2px solid #00336a;
+        border-radius: 3px;
+        height: max-content;
+        margin: 15px 10px 15px 0;
+    }
+
+    .kontaktinfo text{
+        color: #00336a;
+    }
+    .kontaktinfo tab{
+        padding-left: 60px;
+    }
+
+   
+}
+
+/*---------------------------------*/
+
+@media screen and (min-width: 601px){
+    body{
+        margin: 1cm 1cm 1cm 1cm;
+    }
+
+    .einleitung{
+        margin: 0 0 15px 0;
+        padding: 15px;
+    }
+
+    .content h1{
+        font-size: 30px;
+        color: #00336a;
+    }
+
+    .content p{
+        font-size: 19px;
+    }
+
+    .subcontent{
+        margin: 15px 0 0 0;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        flex-wrap: wrap;
+    }
+
+    .kontakt{
+        padding: 15px;
+        margin: 0 10px 15px 0;
+    }
+
+    .kontaktinfo{
+        padding: 0 0 15px 0;
+        border: 2px solid #00336a;
+        border-radius: 3px;
+        height: max-content;
+        margin: 15px 0 0 10px;
+    }
+
+    .kontaktinfo text{
+        color: #00336a;
+    }
+    .kontaktinfo tab{
+        padding-left: 60px;
+    }
+
+    /*xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    FORMULAR INPUTS*/
+
+    .content input[type="text"],
+    .content input[type="email"]{
+        height: 35px;
+        min-width: 510px;
+        font-size: 17px;
+        border: 3px solid #00336a;
+        border-radius: 7px;
+        margin: 2px 2px 10px 2px;
+    }
+
+    .content textarea{
+        height: 300px;
+        width: 510px;
+        font-size: 17px;
+        font-family: Arial, Helvetica, sans-serif;
+        border: 3px solid #00336a;
+        border-radius: 7px;
+        margin: 2px 2px 10px 2px;
+    }
+
+    .content input[type="radio"]{
+        margin: 2px 5px 10px 5px;
+    }
+
+    .content input[type="submit"]{
+        width: 100%;
+        height: 38px;
+        background-color: #00336a;
+        color: white;
+
+        border: 3px solid #00336a;
+        border-radius: 7px;
+        font-size: 17px;
+        cursor: pointer;
+        margin: 10px 0 10px 0;
+    }
+
+    .content input[type="submit"]:hover{
+        color: #00336a;
+        background-color: white;
+    }
+
+    /*ENDE INPUTS 
+    xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx*/
+
+    
+}
+
+/*-----------------------------*/
+
+@media screen and (min-width: 1101px){
+
+    body{
+        margin: 1cm 3cm 1cm 3cm;
+        background-color: beige;
+        max-width: 1300px;
+    }
+
+    .einleitung{
+        margin: 0 0 15px 0;
+        padding: 15px;
+    }
+
+    .content h1{
+        font-size: 40px;
+        color: #00336a;
+    }
+
+    .content p{
+        font-size: 20px;
+    }
+
+    .subcontent{
+        margin: 15px 0 0 0;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .kontakt{
+        padding: 15px;
+    }
+
+    .kontaktinfo{
+        padding: 15px;
+        border: 2px solid #00336a;
+        border-radius: 3px;
+        height: max-content;
+    }
+
+    .kontaktinfo text{
+        color: #00336a;
+    }
+    .kontaktinfo tab{
+        padding-left: 60px;
+    }
+
+    /*xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    FORMULAR INPUTS*/
+
+    .content input[type="text"],
+    .content input[type="email"]{
+        height: 35px;
+        min-width: 510px;
+        font-size: 17px;
+        border: 3px solid #00336a;
+        border-radius: 7px;
+        margin: 2px 2px 10px 2px;
+    }
+
+    .content textarea{
+        height: 300px;
+        width: 510px;
+        font-size: 17px;
+        font-family: Arial, Helvetica, sans-serif;
+        border: 3px solid #00336a;
+        border-radius: 7px;
+        margin: 2px 2px 10px 2px;
+    }
+
+    .content input[type="radio"]{
+        margin: 2px 5px 10px 5px;
+    }
+
+    .content input[type="submit"]{
+        width: 100%;
+        height: 38px;
+        background-color: #00336a;
+        color: white;
+
+        border: 3px solid #00336a;
+        border-radius: 7px;
+        font-size: 17px;
+        cursor: pointer;
+        margin: 10px 0 10px 0;
+    }
+
+    .content input[type="submit"]:hover{
+        color: #00336a;
+        background-color: white;
+    }
+
+    /*ENDE INPUTS 
+    xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx*/
+}

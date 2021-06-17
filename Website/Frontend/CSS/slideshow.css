@@ -1,0 +1,575 @@
+/* Definition der Animationen */
+/* 1. Bewegung des Sliders */
+@keyframes slidesStart01 {
+    0%, 15% {left: 0;}
+    25%, 40% {left: -100%;}
+    50%, 65% {left: -200%;}
+    75%, 90% {left: -300%;}
+    100% {left: -400%;}
+}
+ 
+@-webkit-keyframes slidesStart01 {
+    0%, 15% {left: 0;}
+    25%, 40% {left: -100%;}
+    50%, 65% {left: -200%;}
+    75%, 90% {left: -300%;}
+    100% {left: -400%;}
+}
+ 
+@keyframes slidesStart101 {
+    0%, 15% {left: 0;}
+    25%, 40% {left: -100%;}
+    50%, 65% {left: -200%;}
+    75%, 90% {left: -300%;}
+    100% {left: -400%;}
+}
+ 
+@-webkit-keyframes slidesStart101 {
+    0%, 15% {left: 0;}
+    25%, 40% {left: -100%;}
+    50%, 65% {left: -200%;}
+    75%, 90% {left: -300%;}
+    100% {left: -400%;}
+}
+ 
+@keyframes slidesStart02 {
+    90.01% {left: 0;}
+    0%, 15%, 100% {left: -100%;}
+    25%, 40% {left: -200%;}
+    50%, 65% {left: -300%;}
+    75%, 90% {left: -400%;}
+}
+ 
+@-webkit-keyframes slidesStart02 {
+    90.01% {left: 0;}
+    0%, 15%, 100% {left: -100%;}
+    25%, 40% {left: -200%;}
+    50%, 65% {left: -300%;}
+    75%, 90% {left: -400%;}
+}
+ 
+@keyframes slidesStart102 {
+    90.01% {left: 0;}
+    0%, 15%, 100% {left: -100%;}
+    25%, 40% {left: -200%;}
+    50%, 65% {left: -300%;}
+    75%, 90% {left: -400%;}
+}
+ 
+@-webkit-keyframes slidesStart102 {
+    90.01% {left: 0;}
+    0%, 15%, 100% {left: -100%;}
+    25%, 40% {left: -200%;}
+    50%, 65% {left: -300%;}
+    75%, 90% {left: -400%;}
+}
+ 
+@keyframes slidesStart03 {
+    65.01% {left: 0;}
+    0%, 15%, 100% {left: -200%;}
+    25%, 40% {left: -300%;}
+    50%, 65% {left: -400%;}
+    75%, 90% {left: -100%;}
+}
+ 
+@-webkit-keyframes slidesStart03 {
+    65.01% {left: 0;}
+    0%, 15%, 100% {left: -200%;}
+    25%, 40% {left: -300%;}
+    50%, 65% {left: -400%;}
+    75%, 90% {left: -100%;}
+}
+ 
+@keyframes slidesStart103 {
+    65.01% {left: 0;}
+    0%, 15%, 100% {left: -200%;}
+    25%, 40% {left: -300%;}
+    50%, 65% {left: -400%;}
+    75%, 90% {left: -100%;}
+}
+ 
+@-webkit-keyframes slidesStart103 {
+    65.01% {left: 0;}
+    0%, 15%, 100% {left: -200%;}
+    25%, 40% {left: -300%;}
+    50%, 65% {left: -400%;}
+    75%, 90% {left: -100%;}
+}
+ 
+@keyframes slidesStart04 {
+    40.01% {left: 0;}
+    0%, 15%, 100% {left: -300%;}
+    25%, 40% {left: -400%;}
+    50%, 65% {left: -100%;}
+    75%, 90% {left: -200%;}
+}
+ 
+@-webkit-keyframes slidesStart04 {
+    40.01% {left: 0;}
+    0%, 15%, 100% {left: -300%;}
+    25%, 40% {left: -400%;}
+    50%, 65% {left: -100%;}
+    75%, 90% {left: -200%;}
+}
+ 
+@keyframes slidesStart104 {
+    40.01% {left: 0;}
+    0%, 15%, 100% {left: -300%;}
+    25%, 40% {left: -400%;}
+    50%, 65% {left: -100%;}
+    75%, 90% {left: -200%;}
+}
+ 
+@-webkit-keyframes slidesStart104 {
+    40.01% {left: 0;}
+    0%, 15%, 100% {left: -300%;}
+    25%, 40% {left: -400%;}
+    50%, 65% {left: -100%;}
+    75%, 90% {left: -200%;}
+}
+ 
+/* 2. Wechsel des ersten Slides ans Ende und zurück */
+@keyframes slide01ToEndStart01 {
+    89.99% {left: 0;}
+    90%, 100% {left: 100%;}
+}
+ 
+@-webkit-keyframes slide01ToEndStart01 {
+    89.99% {left: 0;}
+    90%, 100% {left: 100%;}
+}
+ 
+@keyframes slide01ToEndStart101 {
+    89.99% {left: 0;}
+    90%, 100% {left: 100%;}
+}
+ 
+@-webkit-keyframes slide01ToEndStart101 {
+    89.99% {left: 0;}
+    90%, 100% {left: 100%;}
+}
+ 
+@keyframes slide01ToEndStart02 {
+    49.99%, 90.01% {left: 0;}
+    50%, 90% {left: 100%;}
+}
+ 
+@-webkit-keyframes slide01ToEndStart02 {
+    49.99%, 90.01% {left: 0;}
+    50%, 90% {left: 100%;}
+}
+ 
+@keyframes slide01ToEndStart102 {
+    49.99%, 90.01% {left: 0;}
+    50%, 90% {left: 100%;}
+}
+ 
+@-webkit-keyframes slide01ToEndStart102 {
+    49.99%, 90.01% {left: 0;}
+    50%, 90% {left: 100%;}
+}
+ 
+@keyframes slide01ToEndStart03 {
+    24.99%, 65.01% {left: 0;}
+    25%, 65% {left: 100%;}
+}
+ 
+@-webkit-keyframes slide01ToEndStart03 {
+    24.99%, 65.01% {left: 0;}
+    25%, 65% {left: 100%;}
+}
+ 
+@keyframes slide01ToEndStart103 {
+    24.99%, 65.01% {left: 0;}
+    25%, 65% {left: 100%;}
+}
+ 
+@-webkit-keyframes slide01ToEndStart103 {
+    24.99%, 65.01% {left: 0;}
+    25%, 65% {left: 100%;}
+}
+ 
+@keyframes slide01ToEndStart04 {
+    40.01% {left: 0;}
+    0%, 40% {left: 100%;}
+}
+ 
+@-webkit-keyframes slide01ToEndStart04 {
+    40.01% {left: 0;}
+    0%, 40% {left: 100%;}
+}
+ 
+@keyframes slide01ToEndStart104 {
+    40.01% {left: 0;}
+    0%, 40% {left: 100%;}
+}
+ 
+@-webkit-keyframes slide01ToEndStart104 {
+    40.01% {left: 0;}
+    0%, 40% {left: 100%;}
+}
+ 
+/* 3. Animationen für den Farbwechsel in den Controls */
+@keyframes slideControl01 {
+    24.99% {background: #00336a;}
+    25%, 100% {background: none;}
+}
+ 
+@-webkit-keyframes slideControl01 {
+    24.99% {background: #00336a;}
+    25%, 100% {background: none;}
+}
+ 
+@keyframes slideControl101 {
+    24.99% {background: #00336a;}
+    25%, 100% {background: none;}
+}
+ 
+@-webkit-keyframes slideControl101 {
+    24.99% {background: #00336a;}
+    25%, 100% {background: none;}
+}
+ 
+@keyframes slideControl02 {
+    24.99%, 50% {background: none;}
+    25%, 49.99% {background: #00336a;}
+}
+ 
+@-webkit-keyframes slideControl02 {
+    24.99%, 50% {background: none;}
+    25%, 49.99% {background: #00336a;}
+}
+ 
+@keyframes slideControl102 {
+    24.99%, 50% {background: none;}
+    25%, 49.99% {background: #00336a;}
+}
+ 
+@-webkit-keyframes slideControl102 {
+    24.99%, 50% {background: none;}
+    25%, 49.99% {background: #00336a;}
+}
+ 
+@keyframes slideControl03 {
+    49.99%, 75% {background: none;}
+    50%, 74.99% {background: #00336a;}
+}
+ 
+@-webkit-keyframes slideControl03 {
+    49.99%, 75% {background: none;}
+    50%, 74.99% {background: #00336a;}
+}
+ 
+@keyframes slideControl103 {
+    49.99%, 75% {background: none;}
+    50%, 74.99% {background: #00336a;}
+}
+ 
+@-webkit-keyframes slideControl103 {
+    49.99%, 75% {background: none;}
+    50%, 74.99% {background: #00336a;}
+}
+ 
+@keyframes slideControl04 {
+    74.99% {background: none;}
+    75%, 100% {background: #00336a;}
+}
+ 
+@-webkit-keyframes slideControl04 {
+    74.99% {background: none;}
+    75%, 100% {background: #00336a;}
+}
+ 
+@keyframes slideControl104 {
+    74.99% {background: none;}
+    75%, 100% {background: #00336a;}
+}
+ 
+@-webkit-keyframes slideControl104 {
+    74.99% {background: none;}
+    75%, 100% {background: #00336a;}
+}
+ 
+/* Basisfunktionalität des Sliders */
+.slider {
+    overflow: hidden;
+}
+ 
+.slider input {
+    position: absolute;
+    left: -10000px;
+    top: 0;
+}
+ 
+.slideList {
+    width: 400%; /* Anzahl der Slides mal 100 */
+    position: relative; /* über die relative Positionierung wird der Slider durchs Sichtfenster geschoben */
+    -webkit-transition: left 2s;
+    -moz-transition: left 2s;
+    -o-transition: left 2s;
+    transition: left 2s; /* für den fließenden Schub */
+    margin: 0;
+    padding: 0;
+}
+ 
+.slideList:after {
+    content: ".";
+    display: block;
+    height: .1px;
+    clear: both;
+    visibility: hidden;
+    font-size: 0;
+    overflow: hidden;
+}
+ 
+.slide {
+    list-style: none;
+    width: 25%; /* Breite gleich 100 / Anzahl Slides */
+    float: left;
+    position: relative;
+    left: 0;
+    -webkit-transition: left 0s .5s;
+    -moz-transition: left 0s .5s;
+    -o-transition: left 0s .5s;
+    transition: left 0s .5s; /*bei Klick auf ein Control werden alle Slides wieder auf Original-Position geschoben, hier für den ersten relevant. Damit die Aktion erst nach der slides-Verschiebung beginnt, kommt ein delay hinzu*/
+}
+ 
+#slide04:checked ~ .slideList .slide,
+#slide104:checked ~ .slideList .slide {
+    -webkit-transition-delay: 2s;
+    -moz-transition-delay: 2s;
+    -o-transition-delay: 2s;
+    transition-delay: 2s; /* damit er nicht zu früh zurückrutscht */
+}
+.slideList img {
+    width: 100%;
+    height: auto;
+    vertical-align: bottom;
+}
+ 
+/* Zuweisung der Keyframe-Animationen */
+.slideList,
+.slide,
+.slideControl label {
+    -webkit-animation: 20s 2s infinite;
+    animation: 20s 2s infinite; /* allgemeingültige Werte für die Keyframe-Animation */
+}
+ 
+/* Positionierung und Aufruf der passenden Animation in Abhängigkeit des Status der Radiobuttons */
+#slide01:checked ~ .slideList {
+    -webkit-animation-name: slidesStart01;
+    animation-name: slidesStart01;
+    left: 0;
+}
+ 
+#slide02:checked ~ .slideList {
+    -webkit-animation-name: slidesStart02;
+    animation-name: slidesStart02;
+    left: -100%;
+}
+ 
+#slide03:checked ~ .slideList {
+    -webkit-animation-name: slidesStart03;
+    animation-name: slidesStart03;
+    left: -200%;
+}
+ 
+#slide04:checked ~ .slideList {
+    -webkit-animation-name: slidesStart04;
+    animation-name: slidesStart04;
+    left: -300%;
+}
+ 
+/* Damit der Wechsel von 01 zu 101, 02 zu 102 usw. klappt, muss jeweils eine andere Animation aufgerufen werden*/
+#slide101:checked ~ .slideList {
+    -webkit-animation-name: slidesStart101;
+    animation-name: slidesStart101;
+    left: 0;
+}
+ 
+#slide102:checked ~ .slideList {
+    -webkit-animation-name: slidesStart102;
+    animation-name: slidesStart102;
+    left: -100%;
+}
+ 
+#slide103:checked ~ .slideList {
+    -webkit-animation-name: slidesStart103;
+    animation-name: slidesStart103;
+    left: -200%;
+}
+ 
+#slide104:checked ~ .slideList {
+    -webkit-animation-name: slidesStart104;
+    animation-name: slidesStart104;
+    left: -300%;
+}
+ 
+/* Der erste Slide wird jeweils zur rechten Zeit an den Anfang oder das Ende gestellt */
+#slide01:checked ~ .slideList .slide01 {
+    -webkit-animation-name: slide01ToEndStart01;
+    animation-name: slide01ToEndStart01;
+}
+ 
+#slide02:checked ~ .slideList .slide01 {
+    -webkit-animation-name: slide01ToEndStart02;
+    animation-name: slide01ToEndStart02;
+}
+ 
+#slide03:checked ~ .slideList .slide01 {
+    -webkit-animation-name: slide01ToEndStart03;
+    animation-name: slide01ToEndStart03;
+}
+ 
+#slide04:checked ~ .slideList .slide01 {
+    -webkit-animation-name: slide01ToEndStart04;
+    animation-name: slide01ToEndStart04;
+}
+ 
+/* Separate Animations-Namen für die zweite Steuerung */
+#slide101:checked ~ .slideList .slide01 {
+    -webkit-animation-name: slide01ToEndStart101;
+    animation-name: slide01ToEndStart101;
+}
+ 
+#slide102:checked ~ .slideList .slide01 {
+    -webkit-animation-name: slide01ToEndStart102;
+    animation-name: slide01ToEndStart102;
+}
+ 
+#slide103:checked ~ .slideList .slide01 {
+    -webkit-animation-name: slide01ToEndStart103;
+    animation-name: slide01ToEndStart103;
+}
+ 
+#slide104:checked ~ .slideList .slide01 {
+    -webkit-animation-name: slide01ToEndStart104;
+    animation-name: slide01ToEndStart104;
+}
+ 
+/* nur zur Deko */
+.sliderWrapper {
+    position: relative;
+    border: 1px solid #ddd;
+    margin-bottom: 40px;
+}
+
+ 
+.slide p {
+    position: absolute;
+    bottom: 1em;
+    left: 0;
+    background: #00336a;
+    color:white;
+    font-family: 'Poppins', sans-serif;
+    font-size: 28px;
+    padding: .4em 1em;
+}
+ 
+/* Steuerung durch den Benutzer */
+.slideControl {
+    width: 80px;
+    position: absolute;
+    bottom: -40px;
+    left: 50%;
+    margin-left: -40px;
+}
+ 
+.control01:checked ~ .slideControl01,
+.control02:checked ~ .slideControl02 {
+    left: -5000px; /* Blendet die nicht benötigten Labels aus */
+}
+ 
+.slideControl li {
+    float: left;
+    margin: 0 4px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    position: relative;
+    text-indent: -10000px;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 2px 2px #ccc;
+    list-style: none;
+}
+ 
+.slideControl label {
+    display: block;
+    cursor: pointer;
+    background: none;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    box-sizing: border-box;
+    border: 2px solid #fff;
+}
+ 
+.slideControl label:hover {
+    background: #00336a!important;
+}
+ 
+#slide01:checked ~ .slideControl label[for="slide101"],
+#slide02:checked ~ .slideControl label[for="slide102"],
+#slide03:checked ~ .slideControl label[for="slide103"],
+#slide04:checked ~ .slideControl label[for="slide104"] {
+    -webkit-animation-name: slideControl01;
+    animation-name: slideControl01;
+    background: #00336a;
+}
+ 
+#slide101:checked ~ .slideControl label[for="slide01"],
+#slide102:checked ~ .slideControl label[for="slide02"],
+#slide103:checked ~ .slideControl label[for="slide03"],
+#slide104:checked ~ .slideControl label[for="slide04"]  {
+    -webkit-animation-name: slideControl101;
+    animation-name: slideControl101;
+    background: #00336a;
+}
+ 
+#slide01:checked ~ .slideControl label[for="slide102"],
+#slide02:checked ~ .slideControl label[for="slide103"],
+#slide03:checked ~ .slideControl label[for="slide104"],
+#slide04:checked ~ .slideControl label[for="slide101"] {
+    -webkit-animation-name: slideControl02;
+    animation-name: slideControl02;
+}
+ 
+#slide101:checked ~ .slideControl label[for="slide02"],
+#slide102:checked ~ .slideControl label[for="slide03"],
+#slide103:checked ~ .slideControl label[for="slide04"],
+#slide104:checked ~ .slideControl label[for="slide01"]  {
+    -webkit-animation-name: slideControl102;
+    animation-name: slideControl102;
+}
+ 
+#slide01:checked ~ .slideControl label[for="slide103"],
+#slide02:checked ~ .slideControl label[for="slide104"],
+#slide03:checked ~ .slideControl label[for="slide101"],
+#slide04:checked ~ .slideControl label[for="slide102"]  {
+    -webkit-animation-name: slideControl03;
+    animation-name: slideControl03;
+}
+ 
+#slide101:checked ~ .slideControl label[for="slide03"],
+#slide102:checked ~ .slideControl label[for="slide04"],
+#slide103:checked ~ .slideControl label[for="slide01"],
+#slide104:checked ~ .slideControl label[for="slide02"]  {
+    -webkit-animation-name: slideControl103;
+    animation-name: slideControl103;
+}
+ 
+#slide01:checked ~ .slideControl label[for="slide104"],
+#slide02:checked ~ .slideControl label[for="slide101"],
+#slide03:checked ~ .slideControl label[for="slide102"],
+#slide04:checked ~ .slideControl label[for="slide103"] {
+    -webkit-animation-name: slideControl04;
+    animation-name: slideControl04;
+}
+ 
+#slide101:checked ~ .slideControl label[for="slide04"],
+#slide102:checked ~ .slideControl label[for="slide01"],
+#slide103:checked ~ .slideControl label[for="slide02"],
+#slide104:checked ~ .slideControl label[for="slide03"]  {
+    -webkit-animation-name: slideControl104;
+    animation-name: slideControl104;
+}

@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="../CSS/navileiste.css">
+    <link rel="stylesheet" type="text/css" href="../CSS/produkt.css">
+    <link rel="stylesheet" type="text/css" href="../CSS/fussleiste.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="../Javascript/sessionHandling.js"></script>
+    <script src="../Javascript/urlParameter.js"></script>
+    <script src="../Javascript/suche.js"></script>
+    <script src="../Javascript/account.js"></script> <!--Für Logout-->
+    <script src="../Javascript/cart.js"></script> <!--Für Ablegen in Warenkorb-->
+
+    <meta charset="utf-8">
+</head>
+
+<body>
+    <!--FLEXBOX-->
+    <nav>
+        <div class="flexbox">
+            <div class="logo" >
+                <div class="logo_img"><a title="Home" href="../HTML/index.html"><img src="../Bilder/navi_logo_shop.png" alt="An Error occured!"></a></div>
+            </div>
+    
+            <div class="menu">
+                <div class="menu_top">
+    
+                    <div class="menu_top_left">
+                        <a href="../HTML/kontakt.html">Kontakt</a>
+                        <a href="https://www.hs-albsig.de/hochschule/ueber-uns/hochschulportrait">Über die Hochschule</a>
+                    </div>
+    
+                    <div class="menu_top_right">
+                        <div class="searchbar"><form action="../HTML/suche.html" method="">
+                            <input type="search" id="suche" maxlength="50" placeholder="Suche..">
+                            <button type="submit" onclick="search()">Go!</button></form></div>
+                        <div class="tooltip">
+                            <a title="Account" href="../HTML/account.html"><img src="../Bilder/navi_account.png" alt="Account"></a>
+                            <span class="tooltiptext">
+                                <a href="../HTML/anmeldung.html"><button>Anmelden/Registrieren</button></a><br>
+                                <input type="button" onclick="logout()" value="Ausloggen">
+                            </span>
+
+                        </div>
+                    </div>
+                </div>
+    
+                <hr width="95%">
+    
+                <div class="menu_bottom">
+                    <div class="menu_item"><a href="produkt_hauptseite.html" onclick="selectPath('Sale')">Sale</a></div>
+                    <div class="menu_item"><a href="produkt_hauptseite.html" onclick="selectPath('Männer')">Männer</a></div>
+                    <div class="menu_item"><a href="produkt_hauptseite.html" onclick="selectPath('Frauen')">Frauen</a></div>
+                    <div class="menu_item"><a href="produkt_hauptseite.html" onclick="selectPath('Accessoires')">Accessoires</a></div>
+                    <div class="menu_item"><a title="Warenkorb" href="../HTML/warenkorb.html"><img src="../Bilder/navi_warenkorb.png" alt="Cart"></a></div>
+                </div>
+            </div>
+                
+        </div>
+    </nav>
+    <!--ENDE FLEXBOX-->
+
+
+    <!--SEITENINHALT-->
+    <div class="content">
+        <div class="content_top">
+            <div class="produkt_image">
+                <!--Dynamischer Inhalt-->
+            </div>
+
+            <div class="produkt_inhalt">
+                <h2 id="uberschrift">
+                    <!--Dynamischer Inhalt-->
+                </h2>
+                <span id="grosse_text">Größe</span>
+                <select id="grosse" name="grosse" required="on">
+                    <option value="" aria-selected="true">Bitte auswählen</option>
+                    <option value="s">S</option>
+                    <option value="m">M</option>
+                    <option value="l">L</option>
+                    <option value="xl">XL</option>
+                </select>
+
+                <span id="preis">12,99€</span>
+
+                <div class="anzahl_warenkorb">
+                    <select id="anzahl" name="anzahl">
+                        <option value="1" selected="selected">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                    </select>
+
+                    <input type="button" onclick="productToCart()" value="In den Warenkorb">
+                </div>
+            </div>
+
+        </div>
+
+        <div class="content_bottom">
+            <h3>Artikelbeschreibung</h3>
+            <p id="beschreibung">
+                <!--Dynmaischer Inhalt-->>
+            </p>
+
+        </div>
+    </div>
+    <!--ENDE SEITENINHALT-->
+
+    <script>
+
+        $(document).ready(function(){
+            console.log('Document ready, loading data from Service');
+
+            var oberkategorie = getUrlFirstParameterValue('oberkategorie');
+            var id = getUrlThirdParameterValue('id');
+            console.log('ProduktID:'+id);
+
+            $.ajax({
+                url: 'http://localhost:8000/wba2api/produkt/alle',
+                method: 'get',
+                dataType: 'json'
+            }).done(function(response){
+                console.log('Data loaded successfully');
+                console.log(response);
+
+
+                //Tabtitel
+                var content = "<title>HS-Shop: " + response.daten[id].titel + "</title>";
+                $('head').append(content);
+
+
+                //PRODUKT
+                var obj = response.daten[id];
+
+                // Bild
+                $('.produkt_image').html("<img src="+obj.bild+" alt='produkt'>");
+
+                //Produkttitel
+                document.getElementById('uberschrift').innerHTML = obj.titel;
+
+                //Preis
+                var alterpreis = (obj.nettopreis*(obj.mehrwertsteuer/100+1)).toFixed(2);
+                var preis = (alterpreis*0.9).toFixed(2);
+                if (oberkategorie == 'Sale'){
+                    
+                    document.getElementById('preis').innerHTML = '<span><del>' + alterpreis + '</del>\t</span><span>' +preis +'</span>';
+                }
+                else{
+                    document.getElementById('preis').innerHTML = alterpreis;
+
+                }
+                document.getElementById
+
+                //Beschreibung
+                document.getElementById('beschreibung').innerHTML = obj.beschreibung;
+
+            }).fail(function(jqXHR, statusText, error){
+                console.log('Error occured');
+                console.log('Response code: ' + jqXHR.status + ' - Message: ' + jqXHR.responseText);
+                alert(jqXHR.responseText);
+            });
+
+        });
+
+    </script>
+
+
+    <!--FUSSLEISTE-->
+    <hr width="100%" style="color: #00336a; margin-top: 20px;">
+    <div class="footbox">
+        <footer>
+            <!--Fussleiste oben-->
+            <div class="footer_top">
+                <div class="footer_top_kontakt">
+                    <h3>Noch Fragen?</h3>
+                    <text>&#129046 <a href="../HTML/kontakt.html">zum Kontaktformular</a></text>
+                </div>
+
+                <div class="footer_top_zahlung">
+                    <h3>Zahlungsarten</h3>
+                    <table>
+                        <tr>
+                            <td><img src="../Bilder/footer_mastercard_logo.png" alt="mastercard"></td>
+                            <td><img src="../Bilder/footer_visa_logo.png" alt="visa"></td>
+                        </tr>
+                        <tr>
+                            <td><img src="../Bilder/footer_sepa_logo.png" alt="sepa"></td>
+                            <td><img src="../Bilder/footer_auf_rechnung_logo.png" alt="auf rechnung"></td>
+                        </tr>
+                    </table> 
+                </div>
+
+                <div class="footer_top_versand">
+                    <h3>Versandpartner</h3>
+                    <img src="../Bilder/footer_hermes_logo.png" alt="hermes">
+                </div>
+
+                <div class="footer_top_folgen">
+                    <h3>Folge uns:</h3>
+                    <a href="facebook.com"><img src="../Bilder/footer_facebook_logo.png" alt="facebook"></a>
+                    <a href="instagram.com"><img src="../Bilder/footer_insta_logo.png" alt="instagram"></a>
+                </div>
+
+            </div>
+
+            <!--Fussleiste unten-->
+            <div class="footer_bottom">
+                <div class="footer_bottom_kategorien">
+                    <a href="../HTML/produkt_hauptseite.html" onclick="selectPath('Sale')">Sale %</a><br>
+                    <a href="../HTML/produkt_hauptseite.html" onclick="selectPath('Männer')">Männer</a><br>
+                    <a href="../HTML/produkt_hauptseite.html" onclick="selectPath('Frauen')">Frauen</a><br>
+                    <a href="../HTML/produkt_hauptseite.html" onclick="selectPath('Sale')">Accessoires</a><br>
+                </div>
+
+                <div class="footer_bottom_rechtliches">
+                    <h3>Rechtliches</h3>
+                    <a href="../HTML/agb.html">AGB</a><br>
+                    <a href="../HTML/impressum.html">Impressum</a><br>
+                </div>
+
+                <div class="footer_bottom_sponsoren">
+                    <h3>Sponsoren & Partner</h3>
+                    <a href="https://www.hs-albsig.de/hochschule/ueber-uns/hochschulportrait">
+                        <img src="../Bilder/footer_hochschule_logo.png" alt="Hochschule">
+                    </a><br>
+                </div>
+
+            </div>
+
+        </footer>
+    </div>
+    <!--ENDE FUSSLEISTE-->
+
+
+</body>
+
+</html>
+

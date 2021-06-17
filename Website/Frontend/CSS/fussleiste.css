@@ -1,0 +1,244 @@
+
+body{
+    margin: 1cm 3cm 1cm 3cm;
+    background-color:beige;
+    max-width: 1500px;
+    font-family: 'SourceSansPro-Bold','SourceSansPro-Regular',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+}
+
+@media screen and (min-width:1px){
+    body{
+        margin: 1cm 0 1cm 0;
+    }
+
+    .footbox{
+        margin: 15px 0 15px 0;
+        width: 100%;
+        
+        display: flex;
+        flex-direction: column;
+    }
+
+    .footer_top{
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+
+        color: #00336a;
+        height: max-content;
+        padding: 20px;
+    }
+
+
+    .footer_top_kontakt{
+        margin: 10px;
+    }
+
+    .footer_top_kontakt text{
+        white-space: nowrap;
+    }
+
+    .footer_top_kontakt a{
+        text-decoration: underline;
+        color: #00336a;
+    }
+
+    .footer_top_zahlung{
+        margin: 10px;
+    }
+
+    .footer_top_zahlung img{
+        max-width: 150px;
+        max-height: 50px;
+    }
+
+    .footer_top_zahlung table{
+        border-spacing: 20px;
+        
+    }
+
+    .footer_top_versand{
+        margin: 10px;
+    }
+
+    .footer_top_versand img{
+        max-width: 200px;
+    }
+
+    .footer_top_folgen{
+        margin: 10px
+    }
+
+    .footer_top_folgen img{
+        width: 30px;
+    }
+
+
+
+
+    .footer_bottom{
+        background-color: #00336a;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+
+        color: white;
+        padding: 20px;
+        height: max-content;
+
+        line-height: 2;
+    }
+
+    .footer_bottom a{
+        text-decoration: none;
+        color: white;
+    }
+
+    .footer_bottom img{
+        max-width: 150px;
+    }
+
+    .footer_bottom_kategorien{
+        white-space: nowrap;
+        margin: 10px;
+    }
+
+    .footer_bottom_rechtliches{
+        white-space: nowrap;
+        margin: 10px;
+    }
+
+    .footer_bottom_sponsoren{
+        white-space: nowrap;
+        margin: 10px;
+    }
+
+}
+
+
+@media screen and (min-width: 601px){
+    body{
+        margin: 1cm 1cm 1cm 1cm;
+    }
+
+    
+    /*Dasselbe wie oben @media min 1px
+    */
+
+
+}
+
+
+@media screen and (min-width: 1101px){
+
+    body{
+        margin: 1cm 3cm 1cm 3cm;
+        background-color: beige;
+        max-width: 1300px;
+    }
+
+    .footbox{
+        margin: 15px 0 15px 0;
+        width: 100%;
+        
+        display: flex;
+        flex-direction: column;
+    }
+
+    .footer_top{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+
+        color: #00336a;
+        height: max-content;
+        padding: 20px;
+    }
+
+
+    .footer_top_kontakt{
+        margin: 10px;
+    }
+
+    .footer_top_kontakt text{
+        white-space: nowrap;
+    }
+
+    .footer_top_kontakt a{
+        text-decoration: underline;
+        color: #00336a;
+    }
+
+    .footer_top_zahlung{
+        margin: 10px;
+    }
+
+    .footer_top_zahlung img{
+        max-width: 150px;
+        max-height: 50px;
+    }
+
+    .footer_top_zahlung table{
+        border-spacing: 20px;
+        
+    }
+
+    .footer_top_versand{
+        margin: 10px;
+    }
+
+    .footer_top_versand img{
+        max-width: 200px;
+    }
+
+    .footer_top_folgen{
+        margin: 10px
+    }
+
+    .footer_top_folgen img{
+        width: 30px;
+    }
+
+
+
+
+    .footer_bottom{
+        background-color: #00336a;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+
+        color: white;
+        padding: 20px;
+        height: max-content;
+
+        line-height: 2;
+    }
+
+    .footer_bottom a{
+        text-decoration: none;
+        color: white;
+    }
+
+    .footer_bottom img{
+        max-width: 150px;
+    }
+
+    .footer_bottom_kategorien{
+        white-space: nowrap;
+        margin: 10px;
+    }
+
+    .footer_bottom_rechtliches{
+        white-space: nowrap;
+        margin: 10px;
+    }
+
+    .footer_bottom_sponsoren{
+        white-space: nowrap;
+        margin: 10px;
+    }
+
+}
+

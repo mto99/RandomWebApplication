@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="../CSS/navileiste.css">
+    <link rel="stylesheet" type="text/css" href="../CSS/agb_und_impressum.css">
+    <link rel="stylesheet" type="text/css" href="../CSS/fussleiste.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="../Javascript/sessionHandling.js"></script>
+    <script src="../Javascript/suche.js"></script>
+    <script src="../Javascript/account.js"></script> <!--Für Logout-->
+
+    <title>HS-Shop: AGB</title>
+    <meta charset="utf-8">
+</head>
+
+<body>
+
+    <!--FLEXBOX-->
+    <nav>
+        <div class="flexbox">
+            <div class="logo" >
+                <div class="logo_img"><a title="Home" href="../HTML/index.html"><img src="../Bilder/navi_logo_shop.png" alt="An Error occured!"></a></div>
+            </div>
+    
+            <div class="menu">
+                <div class="menu_top">
+    
+                    <div class="menu_top_left">
+                        <a href="../HTML/kontakt.html">Kontakt</a>
+                        <a href="https://www.hs-albsig.de/hochschule/ueber-uns/hochschulportrait">Über die Hochschule</a>
+                    </div>
+    
+                    <div class="menu_top_right">
+                        <div class="searchbar"><form action="../HTML/suche.html" method="">
+                            <input type="search" id="suche" maxlength="50" placeholder="Suche..">
+                            <button type="submit" onclick="search()">Go!</button></form></div>
+                        <div class="tooltip">
+                            <a title="Account" href="../HTML/account.html"><img src="../Bilder/navi_account.png" alt="Account"></a>
+                            <span class="tooltiptext">
+                                <a href="../HTML/anmeldung.html"><button>Anmelden/Registrieren</button></a><br>
+                                <input type="button" onclick="logout()" value="Ausloggen">
+                            </span>
+
+                        </div>
+                    </div>
+                </div>
+    
+                <hr width="95%">
+    
+                <div class="menu_bottom">
+                    <div class="menu_item"><a href="produkt_hauptseite.html" onclick="selectPath('Sale')">Sale</a></div>
+                    <div class="menu_item"><a href="produkt_hauptseite.html" onclick="selectPath('Männer')">Männer</a></div>
+                    <div class="menu_item"><a href="produkt_hauptseite.html" onclick="selectPath('Frauen')">Frauen</a></div>
+                    <div class="menu_item"><a href="produkt_hauptseite.html" onclick="selectPath('Accessoires')">Accessoires</a></div>
+                    <div class="menu_item"><a title="Warenkorb" href="../HTML/warenkorb.html"><img src="../Bilder/navi_warenkorb.png" alt="Cart"></a></div>
+                </div>
+            </div>
+                
+        </div>
+    </nav>
+    <!--ENDE FLEXBOX-->
+
+
+    <!--SEITENINHALT-->
+    <div class="content">
+
+        <div class="path">
+            <a href="../HTML/index.html">Home</a>
+            <span>&#5171</span>
+            <a href="../HTML/agb.html">AGB</a>
+        </div>
+
+        <div align="center">
+            <b>Allgemeine Geschäftsbedingungen (AGB)</b>
+        </div>
+        <p><b>§ 1<br> Geltungsbereich &amp; Abwehrklausel</b></p>
+        <div align="justify">
+            <p>(1) Für die über diesen Internet-Shop begründeten Rechtsbeziehungen zwischen dem Betreiber des Shops (nachfolgend „Anbieter“) und seinen Kunden gelten ausschließlich die folgenden Allgemeinen Geschäftsbedingungen in der jeweiligen Fassung zum Zeitpunkt der Bestellung.</p>
+            <p>(2) Abweichende Allgemeine Geschäftsbedingungen des Kunden werden zurückgewiesen.</p>
+        </div>
+        <p><b>§ 2<br> Zustandekommen des Vertrages</b></p>
+        <div align="justify">
+            <p>(1) Die Präsentation der Waren im Internet-Shop stellt kein bindendes Angebot des Anbieters auf Abschluss eines Kaufvertrages dar. Der Kunde wird hierdurch lediglich aufgefordert, durch eine Bestellung ein Angebot abzugeben.</p>
+            <p>(2) Durch das Absenden der Bestellung im Internet-Shop gibt der Kunde ein verbindliches Angebot gerichtet auf den Abschluss eines Kaufvertrages über die im Warenkorb enthaltenen Waren ab. Mit dem Absenden der Bestellung erkennt der Kunde auch diese Geschäftsbedingungen als für das Rechtsverhältnis mit dem Anbieter allein maßgeblich an.</p>
+            <p>(3) Der Anbieter bestätigt den Eingang der Bestellung des Kunden durch Versendung einer Bestätigungs-E-Mail. Diese Bestellbestätigung stellt noch nicht die Annahme des Vertragsangebotes durch den Anbieter dar. Sie dient lediglich der Information des Kunden, dass die Bestellung beim Anbieter eingegangen ist. Die Erklärung der Annahme des Vertragsangebotes erfolgt durch die Auslieferung der Ware oder eine ausdrückliche Annahmeerklärung.</p>
+        </div>
+        <p><b>§ 3<br> Eigentumsvorbehalt</b></p>
+        <div align="justify">
+            <p>Die gelieferte Ware verbleibt bis zur vollständigen Bezahlung im Eigentum des Anbieters.</p>
+        </div>
+        <p><b>§ 4<br> Fälligkeit</b></p>
+        <div align="justify">Die Zahlung des Kaufpreises ist mit Vertragsschluss fällig.            
+        </div>
+        <p><b>§ 5<br> Gewährleistung</b></p>
+        <div align="justify">
+            <p>(1) Die Gewährleistungsrechte des Kunden richten sich nach den allgemeinen gesetzlichen Vorschriften, soweit nachfolgend nichts anderes bestimmt ist. Für Schadensersatzansprüche des Kunden gegenüber dem Anbieter gilt die Regelung in § 6 dieser AGB.</p>
+            <p>(2) Die Verjährungsfrist für Gewährleistungsansprüche des Kunden beträgt bei Verbrauchern bei neu hergestellten Sachen 2 Jahre, bei gebrauchten Sachen 1 Jahr. Gegenüber Unternehmern beträgt die Verjährungsfrist bei neu hergestellten Sachen und bei gebrauchten Sachen 1 Jahr.<br>
+                Die vorstehende Verkürzung der Verjährungsfristen gilt nicht für Schadensersatzansprüche des Kunden aufgrund einer Verletzung des Lebens, des Körpers, der Gesundheit sowie für Schadensersatzansprüche aufgrund einer Verletzung wesentlicher Vertragspflichten. Wesentliche Vertragspflichten sind solche, deren Erfüllung zur Erreichung des Ziels des Vertrags notwendig ist, z.B. hat der Anbieter dem Kunden die Sache frei von Sach- und Rechtsmängeln zu übergeben und<br> 
+                das Eigentum an ihr zu verschaffen.<br> 
+                Die vorstehende Verkürzung der Verjährungsfristen gilt ebenfalls nicht für Schadensersatzansprüche, die auf einer vorsätzlichen oder grob fahrlässigen Pflichtverletzung des Anbieters, seiner gesetzlichen Vertreter oder Erfüllungsgehilfen beruhen.<br> 
+                Gegenüber Unternehmern ebenfalls ausgenommen von der Verkürzung der Verjährungsfristen ist<br> 
+                der Rückgriffsanspruch nach § 478 BGB.</p>
+            <p>(3) Eine Garantie wird von dem Anbieter nicht erklärt.</p>
+        </div>
+        <p><b>§ 6<br> Haftungsausschluss</b></p>
+        <div align="justify">
+            <p>(1) Schadensersatzansprüche des Kunden sind ausgeschlossen, soweit nachfolgend nichts anderes bestimmt ist. Der vorstehende Haftungsausschluss gilt auch zugunsten der gesetzlichen Vertreter und Erfüllungsgehilfen des Anbieters, sofern der Kunde Ansprüche gegen diese geltend macht.</p>
+            <p>(2) Von dem unter Ziffer 1 bestimmten Haftungsausschluss ausgenommen sind Schadensersatzansprüche aufgrund einer Verletzung des Lebens, des Körpers, der Gesundheit und Schadensersatzansprüche aus der Verletzung wesentlicher Vertragspflichten. Wesentliche Vertragspflichten sind solche, deren Erfüllung zur Erreichung des Ziels des Vertrags notwendig ist, z.B. hat der Anbieter dem Kunden die Sache frei von Sach- und Rechtsmängeln zu übergeben und<br> 
+                das Eigentum an ihr zu verschaffen. Von dem Haftungsausschluss ebenfalls ausgenommen ist die Haftung für Schäden, die auf einer vorsätzlichen oder grob fahrlässigen Pflichtverletzung des Anbieters, seiner gesetzlichen Vertreter oder Erfüllungsgehilfen beruhen.</p>
+            <p>(3) Vorschriften des Produkthaftungsgesetzes (ProdHaftG) bleiben unberührt.</p>
+        </div>
+        <p><b>§ 7<br> Abtretungs- und Verpfändungsverbot</b></p>
+        <div align="justify">Die Abtretung oder Verpfändung von dem Kunden gegenüber dem Anbieter zustehenden<br> 
+            Ansprüchen oder Rechten ist ohne Zustimmung des Anbieters ausgeschlossen, sofern der Kunde<br> 
+            nicht ein berechtigtes Interesse an der Abtretung oder Verpfändung nachweist.
+        </div>
+        <p><b>§ 8<br> Aufrechnung</b></p>
+        <div align="justify">
+            <p>Ein Aufrechnungsrecht des Kunden besteht nur, wenn seine zur Aufrechnung gestellte Forderung rechtskräftig festgestellt wurde oder unbestritten ist.</p>
+        </div>
+        <p><b>§ 9<br> Rechtswahl &amp; Gerichtsstand</b></p>
+        <div align="justify">
+            (1) Auf die vertraglichen Beziehungen zwischen dem Anbieter und dem Kunden findet das Recht der Bundesrepublik Deutschland Anwendung. Von dieser Rechtswahl ausgenommen sind die<br> 
+            zwingenden Verbraucherschutzvorschriften des Landes, in dem der Kunde seinen gewöhnlichen<br> 
+            Aufenthalt hat. Die Anwendung des UN-Kaufrechts ist ausgeschlossen.(2) Gerichtsstand für alle Streitigkeiten aus dem Vertragsverhältnis zwischen dem Kunden und dem Anbieter ist der Sitz des Anbieters, sofern es sich bei dem Kunden um einen Kaufmann, eine juristische Person des öffentlichen Rechts oder ein öffentlich-rechtliches Sondervermögen handelt.
+        </div>
+        <p><b>§ 10<br> Salvatorische Klausel</b></p>
+        <div align="justify">Sollte eine Bestimmung dieser Allgemeinen Geschäftsbedingungen unwirksam sein, wird davon die Wirksamkeit der übrigen Bestimmungen nicht berührt.            
+        </div>
+    </div>
+    <!--ENDE SEITENINHALT-->
+
+
+    <!--FUSSLEISTE-->
+    <hr width="100%" style="color: #00336a; margin-top: 20px;">
+    <div class="footbox">
+        <footer>
+            <!--Fussleiste oben-->
+            <div class="footer_top">
+                <div class="footer_top_kontakt">
+                    <h3>Noch Fragen?</h3>
+                    <text>&#129046 <a href="../HTML/kontakt.html">zum Kontaktformular</a></text>
+                </div>
+
+                <div class="footer_top_zahlung">
+                    <h3>Zahlungsarten</h3>
+                    <table>
+                        <tr>
+                            <td><img src="../Bilder/footer_mastercard_logo.png" alt="mastercard"></td>
+                            <td><img src="../Bilder/footer_visa_logo.png" alt="visa"></td>
+                        </tr>
+                        <tr>
+                            <td><img src="../Bilder/footer_sepa_logo.png" alt="sepa"></td>
+                            <td><img src="../Bilder/footer_auf_rechnung_logo.png" alt="auf rechnung"></td>
+                        </tr>
+                    </table> 
+                </div>
+
+                <div class="footer_top_versand">
+                    <h3>Versandpartner</h3>
+                    <img src="../Bilder/footer_hermes_logo.png" alt="hermes">
+                </div>
+
+                <div class="footer_top_folgen">
+                    <h3>Folge uns:</h3>
+                    <a href="facebook.com"><img src="../Bilder/footer_facebook_logo.png" alt="facebook"></a>
+                    <a href="instagram.com"><img src="../Bilder/footer_insta_logo.png" alt="instagram"></a>
+                </div>
+
+            </div>
+
+            <!--Fussleiste unten-->
+            <div class="footer_bottom">
+                <div class="footer_bottom_kategorien">
+                    <h3>Kategorien</h3>
+                    <a href="../HTML/produkt_hauptseite.html" onclick="selectPath('Sale')">Sale %</a><br>
+                    <a href="../HTML/produkt_hauptseite.html" onclick="selectPath('Männer')">Männer</a><br>
+                    <a href="../HTML/produkt_hauptseite.html" onclick="selectPath('Frauen')">Frauen</a><br>
+                    <a href="../HTML/produkt_hauptseite.html" onclick="selectPath('Sale')">Accessoires</a><br>
+                </div>
+
+                <div class="footer_bottom_rechtliches">
+                    <h3>Rechtliches</h3>
+                    <a href="../HTML/agb.html">AGB</a><br>
+                    <a href="../HTML/impressum.html">Impressum</a><br>
+                </div>
+
+                <div class="footer_bottom_sponsoren">
+                    <h3>Sponsoren & Partner</h3>
+                    <a href="https://www.hs-albsig.de/hochschule/ueber-uns/hochschulportrait">
+                        <img src="../Bilder/footer_hochschule_logo.png" alt="Hochschule">
+                    </a><br>
+                </div>
+
+            </div>
+
+        </footer>
+    </div>
+    <!--ENDE FUSSLEISTE-->
+    
+
+</body>
+
+</html>

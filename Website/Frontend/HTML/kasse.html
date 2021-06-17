@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="../CSS/navileiste.css">
+    <link rel="stylesheet" type="text/css" href="../CSS/kasse.css">
+    <link rel="stylesheet" type="text/css" href="../CSS/fussleiste.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="../Javascript/sessionHandling.js"></script>
+    <script src="../Javascript/suche.js"></script>
+    <script src="../Javascript/cartSumCalc.js"></script>
+    <script src="../Javascript/kasse.js"></script> <!--Kasse Tabs-->
+    <script src="../Javascript/account.js"></script> <!--Für Logout-->
+
+    <meta charset="utf-8">
+    <title>HS-Shop: Kasse</title>
+</head>
+
+<body>
+
+    <!--FLEXBOX-->
+    <nav>
+        <div class="flexbox">
+            <div class="logo" >
+                <div class="logo_img"><a title="Home" href="../HTML/index.html"><img src="../Bilder/navi_logo_shop.png" alt="An Error occured!"></a></div>
+            </div>
+    
+            <div class="menu">
+                <div class="menu_top">
+    
+                    <div class="menu_top_left">
+                        <a href="../HTML/kontakt.html">Kontakt</a>
+                        <a href="https://www.hs-albsig.de/hochschule/ueber-uns/hochschulportrait">Über die Hochschule</a>
+                    </div>
+    
+                    <div class="menu_top_right">
+                        <div class="searchbar"><form action="../HTML/suche.html" method="">
+                            <input type="search" id="suche" maxlength="50" placeholder="Suche..">
+                            <button type="submit" onclick="search()">Go!</button></form></div>
+                        <div class="tooltip">
+                            <a title="Account" href="../HTML/account.html"><img src="../Bilder/navi_account.png" alt="Account"></a>
+                            <span class="tooltiptext">
+                                <a href="../HTML/anmeldung.html"><button>Anmelden/Registrieren</button></a><br>
+                                <input type="button" oncklick="logout()" value="Ausloggen">
+                            </span>
+
+                        </div>
+                    </div>
+                </div>
+    
+                <hr width="95%">
+    
+                <div class="menu_bottom">
+                    <div class="menu_item"><a href="produkt_hauptseite.html" onclick="selectPath('Sale')">Sale</a></div>
+                    <div class="menu_item"><a href="produkt_hauptseite.html" onclick="selectPath('Männer')">Männer</a></div>
+                    <div class="menu_item"><a href="produkt_hauptseite.html" onclick="selectPath('Frauen')">Frauen</a></div>
+                    <div class="menu_item"><a href="produkt_hauptseite.html" onclick="selectPath('Accessoires')">Accessoires</a></div>
+                    <div class="menu_item"><a title="Warenkorb" href="../HTML/warenkorb.html"><img src="../Bilder/navi_warenkorb.png" alt="Cart"></a></div>
+                </div>
+            </div>
+                
+        </div>
+    </nav>
+    <!--ENDE FLEXBOX-->
+
+
+    <!--SEITENINHALT-->
+    <div class="content">
+        <div class="content_top">
+            <h2>Kasse</h2>
+            <p>Gesamtsumme: <span id="endpreis">00,00€</span></p>
+            <p> </p>
+
+            <h3>Wählen Sie eine Zahlungsart aus:</h3>
+        </div>
+
+        <div class="content_zahlung">
+
+             <!-- Tab links -->
+            <div class="tab">
+                <button class="tablinks" onclick="openTab(event, 'Kreditkarte')">Kreditkarte</button>
+                <button class="tablinks" onclick="openTab(event, 'SEPA')">SEPA</button>
+                <button class="tablinks" onclick="openTab(event, 'Auf_Rechnung')">Auf Rechnung</button>
+            </div>
+            
+            <!-- Tab content -->
+            <div id="Kreditkarte" class="tabcontent">
+                <h3>Kreditkarte</h3>
+                <form class="form_kreditkarte" action="" method="">
+                    <div class="kartennummer">
+                        <text>Kreditkartennummer</text><br>
+                        <input type="number" id="kartennummer" name="kartennummer" maxlength="16" required>
+                    </div>
+                    
+                    <div class="ccv">
+                        <text>CCV</text><br>
+                        <input type="number" name="ccv" required maxlength="3" onkeyup="checkIfNumber()">
+                    </div>
+
+                    <div class="ablaufdatum">
+                        <text>Ablaufdatum</text><br>
+                        <input type="month" name="benutzername" required placeholder="yyyy/MM">
+                    </div>
+
+                    <hr>
+
+                    <div class="strasse">
+                        <text>Straße, Hausnummer</text><br>
+                        <input type="text" name="strasse" required="on">
+                    </div>
+
+                    <div class="plz">
+                        <text>PLZ</text><br>
+                        <input type="number" name="plz" maxlength="5" required>
+                    </div>
+
+                    <div class="stadt">
+                        <text>Stadt</text><br>
+                        <input type="text" name="stadt" required>
+                    </div>
+
+                    <div class="agb">
+                        <input type="checkbox" name="agb" required>
+                        Ich stimme den <a href="../HTML/agb.html">AGBs</a> zu.
+                    </div>
+
+                    <div class="buy">
+                        <input type="submit" value="Bezahlen" onclick="buy()">
+                    </div>
+
+                </form>
+            </div>
+            
+            <div id="SEPA" class="tabcontent">
+                <h3>SEPA</h3>
+                
+                <form class="form_sepa" action="" method="">
+                    <div class="iban">
+                        <text>Kontoinhaber</text><br>
+                        <input type="text" name="kontoinhaber" required onkeyup="">
+                    </div>
+
+                    <div class="ccv">
+                        <text>IBAN</text><br>
+                        <input type="text" id="iban" name="iban" required maxlength="24" onkeyup="checkIfIBAN()">
+                        <b id="fault2" style="color: red;"></b>
+                    </div>
+
+                    <div class="BIC">
+                        <text>BIC</text><br>
+                        <input type="text" name="bic" required maxlength="">
+                    </div>
+
+                    <hr>
+
+                    <div class="strasse">
+                        <text>Straße, Hausnummer</text><br>
+                        <input type="text" name="strasse" required>
+                    </div>
+
+                    <div class="ort">
+                        <div class="plz">
+                            <text>PLZ</text><br>
+                            <input type="number" name="plz" required maxlength="5">
+                        </div>
+
+                        <div class="stadt">
+                            <text>Stadt</text><br>
+                            <input type="text" name="stadt" required>
+                        </div>
+                    </div>
+
+                    <div class="agb">
+                        <input type="checkbox" name="agb" required>
+                        Ich stimme den <a href="../HTML/agb.html">AGBs</a> zu.
+                    </div>
+
+                    <div class="buy">
+                        <input type="submit" value="Bezahlen" onclick="buy()">
+                    </div>
+
+                </form>
+
+            </div>
+            
+            <div id="Auf_Rechnung" class="tabcontent">
+                <h3>Auf Rechnung</h3>
+                <span id="uberweisungsdaten"><b>Überweisungsdaten</b></span><br>
+                <span id="empfanger_name"><b>Zahlungsempfänger:</b> HS-Shop</span><br>
+                <span id="empfanger_iban"><b>IBAN:</b> DE00 1111 2222 3333 4444 5555 66</span><br>
+                <span id="empfanger_bic"><b>BIC: </b>BIC123456</span><br>
+                <span id="empfanger_bank"><b>Bank:</b> Spahrkasse Zollernalb</span><br> <!--Rechtschreibfehler mit Absicht ;)-->
+
+                <hr>
+
+                <div class="strasse">
+                    <text>Straße, Hausnummer</text><br>
+                    <input type="text" name="strasse" required>
+                </div>
+
+                <div class="ort">
+                    <div class="plz">
+                        <text>PLZ</text><br>
+                        <input type="number" name="plz" required maxlength="5">
+                    </div>
+
+                    <div class="stadt">
+                        <text>Stadt</text><br>
+                        <input type="text" name="stadt" required>
+                    </div>
+                </div>
+
+                <div class="agb">
+                    <input type="checkbox" name="agb" required>
+                    Ich stimme den <a href="../HTML/agb.html">AGBs</a> zu.
+                </div>
+
+                <div class="buy">
+                    <input type="submit" value="Kaufen" onclick="buy()">
+                </div>
+                
+            </div> 
+
+        </div> 
+
+
+    </div>
+    <!--ENDE SEITENINHALT-->
+
+
+    <!--FUSSLEISTE-->
+    <hr width="100%" style="color: #00336a; margin-top: 20px;">
+    <div class="footbox">
+        <footer>
+            <!--Fussleiste oben-->
+            <div class="footer_top">
+                <div class="footer_top_kontakt">
+                    <h3>Noch Fragen?</h3>
+                    <text>&#129046 <a href="../HTML/kontakt.html">zum Kontaktformular</a></text>
+                </div>
+
+                <div class="footer_top_zahlung">
+                    <h3>Zahlungsarten</h3>
+                    <table>
+                        <tr>
+                            <td><img src="../Bilder/footer_mastercard_logo.png" alt="mastercard"></td>
+                            <td><img src="../Bilder/footer_visa_logo.png" alt="visa"></td>
+                        </tr>
+                        <tr>
+                            <td><img src="../Bilder/footer_sepa_logo.png" alt="sepa"></td>
+                            <td><img src="../Bilder/footer_auf_rechnung_logo.png" alt="auf rechnung"></td>
+                        </tr>
+                    </table> 
+                </div>
+
+                <div class="footer_top_versand">
+                    <h3>Versandpartner</h3>
+                    <img src="../Bilder/footer_hermes_logo.png" alt="hermes">
+                </div>
+
+                <div class="footer_top_folgen">
+                    <h3>Folge uns:</h3>
+                    <a href="facebook.com"><img src="../Bilder/footer_facebook_logo.png" alt="facebook"></a>
+                    <a href="instagram.com"><img src="../Bilder/footer_insta_logo.png" alt="instagram"></a>
+                </div>
+
+            </div>
+
+            <!--Fussleiste unten-->
+            <div class="footer_bottom">
+                <div class="footer_bottom_kategorien">
+                    <h3>Kategorien</h3>
+                    <a href="../HTML/produkt_hauptseite.html" onclick="selectPath('Sale')">Sale %</a><br>
+                    <a href="../HTML/produkt_hauptseite.html" onclick="selectPath('Männer')">Männer</a><br>
+                    <a href="../HTML/produkt_hauptseite.html" onclick="selectPath('Frauen')">Frauen</a><br>
+                    <a href="../HTML/produkt_hauptseite.html" onclick="selectPath('Sale')">Accessoires</a><br>
+                </div>
+
+                <div class="footer_bottom_rechtliches">
+                    <h3>Rechtliches</h3>
+                    <a href="../HTML/agb.html">AGB</a><br>
+                    <a href="../HTML/impressum.html">Impressum</a><br>
+                </div>
+
+                <div class="footer_bottom_sponsoren">
+                    <h3>Sponsoren & Partner</h3>
+                    <a href="https://www.hs-albsig.de/hochschule/ueber-uns/hochschulportrait">
+                        <img src="../Bilder/footer_hochschule_logo.png" alt="Hochschule">
+                    </a><br>
+                </div>
+
+            </div>
+
+        </footer>
+    </div>
+    <!--ENDE FUSSLEISTE-->
+    
+
+</body>
+
+</html>

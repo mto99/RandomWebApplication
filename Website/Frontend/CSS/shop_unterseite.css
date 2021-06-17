@@ -1,0 +1,235 @@
+
+body{
+    margin: 1cm 3cm 1cm 3cm;
+    background-color:beige;
+    max-width: 1500px;
+}
+
+/*--------Style Site-----------------*/
+
+.path{
+        
+    align-items: baseline;
+    padding: 10px;
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.path a{
+    text-decoration: none;
+    color: black;
+    font-family: 'Arial';
+    font-size: 15px;
+}
+
+.path span{
+    color: black;
+    font-size: 13px;
+    padding: 0 15px 0 15px;
+}
+
+.path a:hover{
+    text-decoration: underline;
+}
+
+.clothe_box img{
+    max-width: 100%;
+}
+
+.clothe_box span{
+    color: black;
+    font-family: CASansPro-Regular,Arial,sans-serif;
+    font-size: 17px;
+    line-height: 1.4;
+    word-break: break-all;
+}
+
+.content hr{
+    width: 100%;
+    color: #00336a;
+}
+
+/*---------Filter------------*/
+.sidepanel{
+    min-width: max-content;
+    height: max-content;
+    margin: 0 10px 0 0px;
+}
+
+.filter{
+    padding: 5px;
+    font-family: 'Poppins', sans-serif;
+    
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: left;
+}
+
+.filter h3{
+    margin: 5px 0 10px 0;
+}
+
+.filter select{
+    border: 2px solid #00336a;
+    border-radius: 7px;
+    height: 30px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.filter input[type="text"]{
+    border: 2px solid #00336a;
+    border-radius: 7px;
+    height: 30px;
+    width: 60px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.filter strong{
+    margin: 0 10px 0 10px;
+}
+
+.filter h5{
+    font-size: 15px;
+    margin: 10px 0 10px 0;
+}
+
+.filter_preis_box{
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    flex-wrap: nowrap;
+    align-items: baseline;
+}
+
+.filter_auswahlen{
+    margin: 20px 0 0 0;
+}
+
+.filter_auswahlen input[type="submit"]{
+    border: 2px solid #00336a;
+    border-radius: 7px;
+    font-family: 'Poppins', sans-serif;
+    color: white;
+    background-color: #00336a;
+    height: 30px;
+    width: 100%;
+    cursor: pointer;
+}
+
+.filter_auswahlen input[type="submit"]:hover{
+    background-color: white;
+    color: #00336a;
+}
+
+
+@media screen and (min-width:1px){
+    body{
+        margin: 1cm 0 1cm 0;
+    }
+
+    .content{
+        margin: 15px 0 15px 0;
+        width:100%;
+
+        display: flex;
+        flex-direction: column;
+    }
+
+    .content_bottom{
+        padding: 10px;
+
+        display: flex;
+        flex-direction: column;
+    }
+
+    .products{
+        display: grid;
+        grid-template-columns: 2fr;
+    }
+
+    .clothe_box{
+        margin: 15px;
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: column;
+    }
+
+}
+
+@media screen and (min-width: 601px){
+    body{
+        margin: 1cm 1cm 1cm 1cm;
+    }
+
+    .content{
+        margin: 15px 0 15px 0;
+        width:100%;
+
+        display: flex;
+        flex-direction: column;
+    }
+
+
+    .content_bottom{
+        padding: 10px;
+
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .products{
+        display: grid;
+        grid-template-columns: 3fr 3fr;
+    }
+
+    .clothe_box{
+        margin: 15px;
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: column;
+    }
+
+}
+
+
+@media screen and (min-width: 1101px){
+
+    body{
+        margin: 1cm 3cm 1cm 3cm;
+        background-color: beige;
+        max-width: 1300px;
+    }
+
+    .content{
+        margin: 15px 0 15px 0;
+        width: 100%;
+
+        display: flex;
+        flex-direction: column;
+    }
+
+
+    .content_bottom{
+        padding: 10px;
+
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .products{
+        display: grid;
+        grid-template-columns: 2fr 2fr 2fr;
+    }
+
+    .clothe_box{
+        margin: 15px;
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: column;
+    }
+
+}
+

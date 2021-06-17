@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="../CSS/navileiste.css">
+    <link rel="stylesheet" type="text/css" href="../CSS/account.css">
+    <link rel="stylesheet" type="text/css" href="../CSS/fussleiste.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="../Javascript/sessionHandling.js"></script>
+    <script src="../Javascript/suche.js"></script>
+    <script src="../Javascript/anmeldung.js"></script>
+    <script src="../Javascript/account.js"></script> <!--Für Logout-->
+
+    <meta charset="utf-8">
+    <title>HS-Shop: Account</title>
+</head> 
+
+<body>
+    <!--FLEXBOX-->
+    <nav>
+        <div class="flexbox">
+            <div class="logo" >
+                <div class="logo_img"><a title="Home" href="../HTML/index.html"><img src="../Bilder/navi_logo_shop.png" alt="An Error occured!"></a></div>
+            </div>
+    
+            <div class="menu">
+                <div class="menu_top">
+    
+                    <div class="menu_top_left">
+                        <a href="../HTML/kontakt.html">Kontakt</a>
+                        <a href="https://www.hs-albsig.de/hochschule/ueber-uns/hochschulportrait">Über die Hochschule</a>
+                    </div>
+    
+                    <div class="menu_top_right">
+                        <div class="searchbar"><form action="../HTML/suche.html" method="">
+                            <input type="search" id="suche" maxlength="50" placeholder="Suche..">
+                            <button type="submit" onclick="search()">Go!</button></form></div>
+                        <div class="tooltip">
+                            <a title="Account" href="../HTML/account.html"><img src="../Bilder/navi_account.png" alt="Account"></a>
+                            <span class="tooltiptext">
+                                <a href="../HTML/anmeldung.html"><button>Anmelden/Registrieren</button></a><br>
+                                <input type="button" onclick="logout()" value="Ausloggen">
+                            </span>
+
+                        </div>
+                    </div>
+                </div>
+    
+                <hr width="95%">
+    
+                <div class="menu_bottom">
+                    <div class="menu_item"><a href="produkt_hauptseite.html" onclick="selectPath('Sale')">Sale</a></div>
+                    <div class="menu_item"><a href="produkt_hauptseite.html" onclick="selectPath('Männer')">Männer</a></div>
+                    <div class="menu_item"><a href="produkt_hauptseite.html" onclick="selectPath('Frauen')">Frauen</a></div>
+                    <div class="menu_item"><a href="produkt_hauptseite.html" onclick="selectPath('Accessoires')">Accessoires</a></div>
+                    <div class="menu_item"><a title="Warenkorb" href="../HTML/warenkorb.html"><img src="../Bilder/navi_warenkorb.png" alt="Cart"></a></div>
+                </div>
+            </div>
+                
+        </div>
+    </nav>
+    <!--ENDE FLEXBOX-->
+
+    <!--ACCOUNT-->
+    <div class="content">
+
+        <form class="info_form" action="" method="">
+            <h2>Persönliche Daten</h2>
+            <div class="content_info">
+                <div class="content_info_top">
+                    <div class="form_anrede">
+                        <text>Anrede</text><br>
+                        <select name="anrede" id="anrede">
+                            <option value="">Herr</option>
+                            <option value="">Frau</option>
+                        </select>
+                    </div>
+
+                    <div class="form_vorname">
+                        <text>Vorname</text><br>
+                        <input type="text" id="vorname" name="vorname" maxlength="40" required="on"
+                            value="name">
+                    </div>
+
+                    <div class="form_nachname">
+                        <text>Nachname</text><br>
+                        <input type="text" id="nachname" name="nachname" maxlength="40" required="on"
+                            value="randomName">
+                    </div>
+
+                    <div class="form_benutzername">
+                        <text>Benutzername</text><br>
+                        <input type="text" name="benutzername" required="on" maxlength="20" onkeyup="checkUsername()"
+                            value="theUsername">
+                        <b style="color: red;"></b>
+                    </div>
+
+                    <div class="email">
+                        <text>E-Mail</text><br>
+                        <input type="email" name="email" required="on" value="random@random.random">
+                    </div>
+
+                    <br>
+
+                    <div class="form_strasse">
+                        <text>Straße, Hausnummer</text><br>
+                        <input type="text" id="strasse" name="strasse" required>
+                    </div>
+					
+					<div class="form_plz">
+                        <text>PLZ</text><br>
+                        <input type="number" id="plz" name="plz" maxlength="5" required>
+                    </div>
+					
+					<div class="form_stadt">
+                        <text>Stadt</text><br>
+                        <input type="text" id="stadt" name="stadt" required>
+                    </div>
+                </div>
+
+
+                <div class="content_info_bottom">
+
+                    <div class="submit">
+                        <input type="submit" value="Ändern" onclick="submitData()">
+                    </div>
+
+                    <div><a href="../HTML/reset_change_password.html">&#129046 Passwort ändern</a></div>
+
+                </div>
+            </div>
+        </form>
+
+        <hr>
+
+        <div class="content_kaufe">
+            <h2>Käufe</h2>
+            <div class="content_kaufe_bottom">
+                <div class="tabelle_top">
+                    <div class="tabelle_artikel">
+                        <span id="artikel">Artikel</span>
+                    </div>
+
+                    <div class="tabelle_anzahl">
+                        <span id="anzahl">Anzahl</span>
+                    </div>
+
+                    <div class="tabelle_stuckpreis">
+                        <span id="stuckzahl">Einzelpreis</span>
+                    </div>
+
+                    <div class="tabelle_summe">
+                        <span id="summe">Summe</span>
+                    </div>
+
+                </div>
+
+                <hr>
+
+                <div class="tabelle_content">
+                    <div class="tabelle_artikel">
+                        <div>
+                            <img src="../Bilder/maske.jpeg">
+                        </div>
+                        <div>
+                            <span class="artikelname">Offizielle Maske der HS-AlbSig</span><br>
+                            <span class="artikelbeschreibung">100% Baumwolle</span>
+                        </div>
+                        
+                    </div>
+
+                    <div class="tabelle_anzahl">
+                        <select name="anzahl" id="anzahl">
+                            <option value="1" selected="selected">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="7">7</option>
+                            <option value="6">6</option>
+                            <option value="9">9</option>
+                            <option value="8">8</option>
+                            <option value="10">10</option>
+                        </select>
+                    </div>
+
+                    <div class="tabelle_stuckpreis">
+                        <span class="stuckpreis">5,00€</span>
+                    </div>
+
+                    <div class="tabelle_summe">
+                        <span class="summe">0,00€</span>
+                    </div>
+
+                    
+                </div>
+
+                <hr>
+
+                <div class="tabelle_content">
+                    <div class="tabelle_artikel">
+                        <div>
+                            <img src="../Bilder/maske1.jpeg">
+                        </div>
+                        <div>
+                            <span class="artikelname">Offizielle Maske der HS-AlbSig</span><br>
+                            <span class="artikelbeschreibung">100% Baumwolle</span>
+                        </div>
+                        
+                    </div>
+
+                    <div class="tabelle_anzahl">
+                        <select name="anzahl" id="anzahl">
+                            <option value="1" selected="selected">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="7">7</option>
+                            <option value="6">6</option>
+                            <option value="9">9</option>
+                            <option value="8">8</option>
+                            <option value="10">10</option>
+                        </select>
+                    </div>
+
+                    <div class="tabelle_stuckpreis">
+                        <span class="stuckpreis">9,99€</span>
+                    </div>
+
+                    <div class="tabelle_summe">
+                        <span class="summe">0,00€</span>
+                    </div>
+
+                    
+                </div>
+
+                <hr>
+
+
+            </div>
+        </div>
+            
+
+    </div>
+    <!--ENDE ACCOUNT-->
+
+
+    <!--FUSSLEISTE-->
+    
+    <div class="footbox">
+        <footer>
+            <!--Fussleiste oben-->
+            <div class="footer_top">
+                <div class="footer_top_kontakt">
+                    <h3>Noch Fragen?</h3>
+                    <text>&#129046 <a href="../HTML/kontakt.html">zum Kontaktformular</a></text>
+                </div>
+
+                <div class="footer_top_zahlung">
+                    <h3>Zahlungsarten</h3>
+                    <table>
+                        <tr>
+                            <td><img src="../Bilder/footer_mastercard_logo.png" alt="mastercard"></td>
+                            <td><img src="../Bilder/footer_visa_logo.png" alt="visa"></td>
+                        </tr>
+                        <tr>
+                            <td><img src="../Bilder/footer_sepa_logo.png" alt="sepa"></td>
+                            <td><img src="../Bilder/footer_auf_rechnung_logo.png" alt="auf rechnung"></td>
+                        </tr>
+                    </table> 
+                </div>
+
+                <div class="footer_top_versand">
+                    <h3>Versandpartner</h3>
+                    <img src="../Bilder/footer_hermes_logo.png" alt="hermes">
+                </div>
+
+                <div class="footer_top_folgen">
+                    <h3>Folge uns:</h3>
+                    <a href="facebook.com"><img src="../Bilder/footer_facebook_logo.png" alt="facebook"></a>
+                    <a href="instagram.com"><img src="../Bilder/footer_insta_logo.png" alt="instagram"></a>
+                </div>
+
+            </div>
+
+            <!--Fussleiste unten-->
+            <div class="footer_bottom">
+                <div class="footer_bottom_kategorien">
+                    <h3>Kategorien</h3>
+                    <a href="../HTML/produkt_hauptseite.html" onclick="selectPath('Sale')">Sale %</a><br>
+                    <a href="../HTML/produkt_hauptseite.html" onclick="selectPath('Männer')">Männer</a><br>
+                    <a href="../HTML/produkt_hauptseite.html" onclick="selectPath('Frauen')">Frauen</a><br>
+                    <a href="../HTML/produkt_hauptseite.html" onclick="selectPath('Sale')">Accessoires</a><br>
+                </div>
+
+                <div class="footer_bottom_rechtliches">
+                    <h3>Rechtliches</h3>
+                    <a href="../HTML/agb.html">AGB</a><br>
+                    <a href="../HTML/impressum.html">Impressum</a><br>
+                </div>
+
+                <div class="footer_bottom_sponsoren">
+                    <h3>Sponsoren & Partner</h3>
+                    <a href="https://www.hs-albsig.de/hochschule/ueber-uns/hochschulportrait">
+                        <img src="../Bilder/footer_hochschule_logo.png" alt="Hochschule">
+                    </a><br>
+                </div>
+
+            </div>
+
+        </footer>
+    </div>
+    <!--ENDE FUSSLEISTE-->
+    
+
+</body>
+
+</html>

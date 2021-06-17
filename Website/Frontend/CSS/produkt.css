@@ -1,0 +1,153 @@
+body{
+    margin: 1cm 3cm 1cm 3cm;
+    background-color:beige;
+    max-width: 1500px;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+.content{
+    display: flex;
+    flex-direction: column;
+    font-family: 'Popppins', sans-serif;
+}
+
+#uberschrift{
+    color: black;
+}
+
+#grosse_text{
+    font-size: 22px;
+    margin-bottom: 10px;
+}
+
+#grosse {
+    border: 3px solid #00336a;
+    border-radius: 7px;
+    font-size: 18px;
+    width: 150px;
+    height: auto;
+}
+
+#preis{
+    font-size: 18px;
+    padding: 20px 0 20px 0;
+}
+
+#anzahl{
+    border: 3px solid #00336a;
+    border-radius: 7px;
+    font-size: 18px;
+    width: 200px;
+    height: 50px;
+    margin: 10px 5px 10px 5px;
+}
+
+.anzahl_warenkorb input[type="button"]{
+    border: 3px solid #e32f06;
+    border-radius: 7px;
+    background-color: #e32f06;
+    color: white;
+    font-size: 18px;
+    height: 50px;
+    width: 200px;
+    margin: 10px 5px 10px 5px;
+}
+
+.anzahl_warenkorb input[type="button"]:hover{
+    color: #e32f06;
+    background-color: white;
+    cursor: pointer;
+}
+
+
+
+@media screen and (min-width: 1px) {
+    body{
+        margin: 1cm 0 1cm 0;
+    }
+
+    .content_top{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .produkt_image{
+        max-width: 100%;
+        margin: 0 10px 0 10px;
+    }
+
+    .produkt_image img{
+        width: 100%;
+    }
+
+    .produkt_inhalt{
+        display: flex;
+        flex-direction: column;
+        padding: 5px 20px 5px 20px;
+    }
+
+    .anzahl_warenkorb{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .content_bottom{
+        margin: 10px 15px 10px 15px;
+
+    }
+
+}
+
+
+@media screen and (min-width: 601px) {
+    body{
+        margin: 1cm 1cm 1cm 1cm;
+    }
+
+    .content_top{
+        display: flex;
+        flex-direction: row;
+        margin: 10px 15px 10px 15px;
+    }
+
+    .produkt_image{
+        min-width: 300px;
+        width: 500px;
+    }
+
+    .produkt_image img{
+        width: 100%;
+    }
+
+    .produkt_inhalt{
+        display: flex;
+        flex-direction: column;
+        padding: 5px 20px 5px 20px;
+    }
+
+    .anzahl_warenkorb{
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .content_bottom{
+        margin: 10px 15px 10px 15px;
+
+    }
+
+}
+
+
+@media screen and (min-width: 1101px){
+    body{
+        margin: 1cm 3cm 1cm 3cm;
+        background-color: beige;
+        max-width: 1300px;
+    }
+
+    /*Der Rest wie min-width: 601px*/
+
+}
+
+
+

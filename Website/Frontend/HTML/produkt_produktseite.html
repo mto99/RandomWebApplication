@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="../CSS/navileiste.css">
+    <link rel="stylesheet" type="text/css" href="../CSS/shop_unterseite.css">
+    <link rel="stylesheet" type="text/css" href="../CSS/fussleiste.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="../Javascript/sessionHandling.js"></script>
+    <script src="../Javascript/urlParameter.js"></script>
+    <script src="../Javascript/suche.js"></script>
+    <script src="../Javascript/filter.js"></script>
+    <script src="../Javascript/account.js"></script> <!--Für Logout-->
+
+    <meta charset="utf-8">
+    
+</head>
+
+<body>
+    <!--FLEXBOX-->
+    <nav>
+        <div class="flexbox">
+            <div class="logo" >
+                <div class="logo_img"><a title="Home" href="../HTML/index.html"><img src="../Bilder/navi_logo_shop.png" alt="An Error occured!"></a></div>
+            </div>
+    
+            <div class="menu">
+                <div class="menu_top">
+    
+                    <div class="menu_top_left">
+                        <a href="../HTML/kontakt.html">Kontakt</a>
+                        <a href="https://www.hs-albsig.de/hochschule/ueber-uns/hochschulportrait">Über die Hochschule</a>
+                    </div>
+    
+                    <div class="menu_top_right">
+                        <div class="searchbar"><form action="../HTML/suche.html" method="">
+                            <input type="search" id="suche" maxlength="50" placeholder="Suche..">
+                            <button type="submit" onclick="search()">Go!</button></form></div>
+                        <div class="tooltip">
+                            <a title="Account" href="../HTML/account.html"><img src="../Bilder/navi_account.png" alt="Account"></a>
+                            <span class="tooltiptext">
+                                <a href="../HTML/anmeldung.html"><button>Anmelden/Registrieren</button></a><br>
+                                <input type="button" onclick="logout()" value="Ausloggen">
+                            </span>
+
+                        </div>
+                    </div>
+                </div>
+    
+                <hr width="95%">
+    
+                <div class="menu_bottom">
+                    <div class="menu_item"><a href="../HTML/produkt_hauptseite.html?oberkategorie=Sale">Sale</a></div>
+                    <div class="menu_item"><a href="../HTML/produkt_hauptseite.html?oberkategorie=Männer">Männer</a></div>
+                    <div class="menu_item"><a href="../HTML/produkt_hauptseite.html?oberkategorie=Frauen">Frauen</a></div>
+                    <div class="menu_item"><a href="../HTML/produkt_hauptseite.html?oberkategorie=Accessoires">Accessoires</a></div>
+                    <div class="menu_item"><a title="Warenkorb" href="../HTML/warenkorb.html"><img src="../Bilder/navi_warenkorb.png" alt="Cart"></a></div>
+                </div>
+            </div>
+                
+        </div>
+    </nav>
+    <!--ENDE FLEXBOX-->
+
+    <!--SEITENINHALT-->
+    <div class="content">
+        
+        <!--Pfad-->
+        <div class="path">
+            <!--Dynmaischer Inhalt-->
+        </div>
+
+        <div class="content_bottom">
+
+            <!--Filterpanel-->
+            <div class="sidepanel">
+                
+                <div class="filter">
+                    <hr>
+                    <h3>Filter</h3>
+                    <form action="" method="">
+
+                        <div class="filter_sortierung">
+                            <h5>Sortierung</h5>
+                            <select name="sort" id="sort">
+                                <option value="beliebig" selected>Beliebig</option>
+                                <option value="niedrigster_preis">Niedrigster Preis</option>
+                                <option value="hochster_preis">Höchster Preis</option>
+                            </select>
+                        </div>
+
+                        <div class="filter_preis">
+                            <h5>Preis</h5>
+                            <div class="filter_preis_box">
+                                <div class="min_preis">
+                                    <input inputmode="decimal" type="text" id="minpreis" name="preis" onkeyup="checkIfNumber()">
+                                </div>
+                                <strong>-</strong>
+                                <div class="max_preis">
+                                    <input inputmode="decimal" type="text" id="maxpreis" name="preis" onkeyup="checkIfNumber()">
+                                </div>
+                            </div>
+                            
+                        </div>
+
+                        <div class="filter_grosse">
+                            <h5>Größe</h5>
+                            <select name="size" id="size">
+                                <option value="allegrossen" selected="on">Alle Größen</option>
+                                <option value="s">S</option>
+                                <option value="m">M</option>
+                                <option value="l">L</option>
+                                <option value="xl">XL</option>
+                            </select>
+                        </div>
+
+                        <div class="filter_auswahlen">
+                            <input type="submit" id="filter_auswahlen" value="Filter auswählen" onclick="">
+                        </div>
+
+                    </form>
+                </div>
+    
+            </div>
+            
+            <!--Kleidungen Box-->
+            <div class="products">
+
+                <!--Dynamischer Seiteninhalt-->
+                
+    
+            </div>
+
+        </div>
+
+    </div>
+    <!--ENDE SEITENINHALT-->
+
+
+    <script>
+        console.log("Bestätigt:");
+
+        $(document).ready(function() {
+            console.log('loading all products');
+
+            var oberkategorie = getUrlFirstParameterValue('oberkategorie');
+            var unterkategorie = getUrlSecondParameterValue('unterkategorie');
+            var id = getUrlThirdParameterValue('id');
+            console.log('Url-Parameter: Oberkategorie:'+oberkategorie+', Unterkategorie:'+unterkategorie+', Id:'+id);
+			
+			$.ajax({
+                url: 'http://localhost:8000/wba2api/produkt/alle',
+                method: 'get',
+				dataType: 'json'
+            }).done(function (response) {
+                console.log(response);
+
+                //Tabtitel
+                var content = "<title>HS-Shop: "+oberkategorie+" - "+unterkategorie+"</title>";
+                $('head').append(content);
+
+                //Pfad
+                var content="";
+                content += "<a href='../HTML/index.html'>Home</a>";
+                content += "<span>&#5171</span>";
+                content += "<a href='../HTML/produkt_hauptseite.html?oberkategorie="+oberkategorie+"'>" + oberkategorie + "</a>";
+                content += "<span>&#5171</span>";
+                content += "<a href='../HTML/produkt_produktseite.html?oberkategorie="+oberkategorie+";unterkategorie="+unterkategorie+";id="+id+"'>";
+                content += unterkategorie;
+                content += "</a> </div>";
+
+                $('.path').html(content);
+
+                //Produkte
+                var content='';
+
+                for (i=0; i< response.daten.length; i++){
+                    var obj = response.daten[i];
+
+                    //wenn Produkte der Kategorie id entsprechen -->laden
+                    if (obj.kategorieid == id){
+                        content += ' <div class="clothe_box"> ';
+                        content += "<a href='../HTML/produkt.html?oberkategorie="+oberkategorie+";unterkategorie="+unterkategorie+";id="+obj.id+"'>";
+                        content += '<img src="' + obj.bild + '" alt="Produktbild">';
+                        if (oberkategorie == 'Sale'){
+                            content += '<span>' + obj.titel + '</span><br>';
+                            var preis =  (obj.nettopreis*(obj.mehrwertsteuer/100+1)).toFixed(2);
+                            content += '<span><del>' + preis + '</del>\t</span>';
+                            var neuerPreis = (preis *0.9).toFixed(2); //Rabatt
+                            content += '<span>' +neuerPreis +'</span>';
+                            content += '</a>';
+                            content += '</div>';
+                        }
+                        else{
+                            content += '<span>' + obj.titel + '</span><br>';
+                            var preis =  (obj.nettopreis*(obj.mehrwertsteuer/100+1)).toFixed(2);
+                            content += '<span>' + preis + '</span>';
+                            content += '</a>';
+                            content += '</div>';
+                        }
+                        
+                    }
+                }
+
+                $('.products').html(content);
+
+            }).fail(function (jqXHR, statusText, error) {
+                console.log('Response Code: ' + jqXHR.status + ' - Fehlermeldung: ' + jqXHR.responseText);
+                alert('Ein Fehler ist aufgetreten');
+            });
+        });
+        
+    </script>
+
+
+    <!--FUSSLEISTE-->
+    <hr width="100%" style="color: #00336a; margin-top: 20px;">
+    <div class="footbox">
+        <footer>
+            <!--Fussleiste oben-->
+            <div class="footer_top">
+                <div class="footer_top_kontakt">
+                    <h3>Noch Fragen?</h3>
+                    <text>&#129046 <a href="../HTML/kontakt.html">zum Kontaktformular</a></text>
+                </div>
+
+                <div class="footer_top_zahlung">
+                    <h3>Zahlungsarten</h3>
+                    <table>
+                        <tr>
+                            <td><img src="../Bilder/footer_mastercard_logo.png" alt="mastercard"></td>
+                            <td><img src="../Bilder/footer_visa_logo.png" alt="visa"></td>
+                        </tr>
+                        <tr>
+                            <td><img src="../Bilder/footer_sepa_logo.png" alt="sepa"></td>
+                            <td><img src="../Bilder/footer_auf_rechnung_logo.png" alt="auf rechnung"></td>
+                        </tr>
+                    </table> 
+                </div>
+
+                <div class="footer_top_versand">
+                    <h3>Versandpartner</h3>
+                    <img src="../Bilder/footer_hermes_logo.png" alt="hermes">
+                </div>
+
+                <div class="footer_top_folgen">
+                    <h3>Folge uns:</h3>
+                    <a href="facebook.com"><img src="../Bilder/footer_facebook_logo.png" alt="facebook"></a>
+                    <a href="instagram.com"><img src="../Bilder/footer_insta_logo.png" alt="instagram"></a>
+                </div>
+
+            </div>
+
+            <!--Fussleiste unten-->
+            <div class="footer_bottom">
+                <div class="footer_bottom_kategorien">
+                    <h3>Kategorien</h3>
+                    <a href="../HTML/produkt_hauptseite.html?oberkategorie=Sale">Sale %</a><br>
+                    <a href="../HTML/produkt_hauptseite.html?oberkategorie=Männer">Männer</a><br>
+                    <a href="../HTML/produkt_hauptseite.html?oberkategorie=Frauen">Frauen</a><br>
+                    <a href="../HTML/produkt_hauptseite.html?oberkategorie=Accessoires">Accessoires</a><br>
+                </div>
+
+                <div class="footer_bottom_rechtliches">
+                    <h3>Rechtliches</h3>
+                    <a href="../HTML/agb.html">AGB</a><br>
+                    <a href="../HTML/impressum.html">Impressum</a><br>
+                </div>
+
+                <div class="footer_bottom_sponsoren">
+                    <h3>Sponsoren & Partner</h3>
+                    <a href="https://www.hs-albsig.de/hochschule/ueber-uns/hochschulportrait">
+                        <img src="../Bilder/footer_hochschule_logo.png" alt="Hochschule">
+                    </a><br>
+                </div>
+
+            </div>
+
+        </footer>
+    </div>
+    <!--ENDE FUSSLEISTE-->
+    
+
+</body>
+
+</html>
