@@ -1,5 +1,5 @@
 const helper = require('../helper.js');
-const AdresseDao = require('./adresseDao.js');
+///const AdresseDao = require('./adresseDao.js');
 
 class PersonDao {
 
@@ -12,9 +12,9 @@ class PersonDao {
     }
 
     loadById(id) {
-        const adresseDao = new AdresseDao(this._conn);
+        /***const adresseDao = new AdresseDao(this._conn);***/
 
-        var sql = 'SELECT * FROM Person WHERE ID=?';
+        var sql = 'SELECT * FROM User WHERE ID=?';
         var statement = this._conn.prepare(sql);
         var result = statement.get(id);
 
@@ -23,24 +23,25 @@ class PersonDao {
 
         result = helper.objectKeysToLower(result);
 
-        if (result.anrede == 0) 
+        /***if (result.anrede == 0) 
             result.anrede = 'Herr';
         else 
             result.anrede = 'Frau';
 
-        result.geburtstag = helper.formatToGermanDate(helper.parseSQLDateTimeString(result.geburtstag));
-
         result.adresse = adresseDao.loadById(result.adresseid);
         delete result.adresseid;
+        ***/
 
         return result;
     }
 
     loadAll() {
+        /***
         const adresseDao = new AdresseDao(this._conn);
         var addresses = adresseDao.loadAll();
+        ***/
 
-        var sql = 'SELECT * FROM Person';
+        var sql = 'SELECT * FROM User';
         var statement = this._conn.prepare(sql);
         var result = statement.all();
 
@@ -54,23 +55,13 @@ class PersonDao {
                 result[i].anrede = 'Herr';
             else 
                 result[i].anrede = 'Frau';
-
-            result[i].geburtstag = helper.formatToGermanDate(helper.parseSQLDateTimeString(result[i].geburtstag));
-            
-            for (var element of addresses) {
-                if (element.id == result[i].adresseid) {
-                    result[i].adresse = element;
-                    break;
-                }
-            }
-            delete result[i].adresseid;
         }
 
         return result;
     }
 
     exists(id) {
-        var sql = 'SELECT COUNT(ID) AS cnt FROM Person WHERE ID=?';
+        var sql = 'SELECT COUNT(ID) AS cnt FROM User WHERE ID=?';
         var statement = this._conn.prepare(sql);
         var result = statement.get(id);
 
@@ -80,10 +71,25 @@ class PersonDao {
         return false;
     }
 
-    create(anrede = 'Herr', vorname = '', nachname = '', adresseid = 1, telefonnummer = '', email = '', geburtstag = null) {
-        var sql = 'INSERT INTO Person (Anrede,Vorname,Nachname,AdresseID,Telefonnummer,Email,Geburtstag) VALUES (?,?,?,?,?,?,?)';
+    
+    //Von Muhammed hinzugefügt für die Registrierung 
+    //Überprüft ob der eingebene Benutzername bereits vergeben ist
+    existsUsername(username) {
+        var sql = 'SELECT ID FROM User WHERE Benutzername=?';
         var statement = this._conn.prepare(sql);
-        var params = [(helper.strStartsWith(anrede, 'He') ? 0 : 1), vorname, nachname, adresseid, telefonnummer, email, (helper.isNull(geburtstag) ? null : helper.formatToSQLDate(geburtstag))];
+        var result = statement.get(username);
+
+        if (result != null){
+            return true;
+        }
+        return false;
+    }
+
+    create(anrede = 'Herr', vorname = '', nachname = '', benutzername = '', email = '', sicherheitsfrage = '', 
+        sicherheitsantwort = '', passwort = '', strassehausnr = '', plz = '', wohnort = '') {
+        var sql = 'INSERT INTO User (Anrede,Vorname,Nachname,Benutzername,Email,Sicherheitsfrage,Sicherheitsantwort,Passwort,StrasseHausnr,PLZ,Wohnort) VALUES (?,?,?,?,?,?,?,?,?,?,?)';
+        var statement = this._conn.prepare(sql);
+        var params = [anrede, vorname, nachname, benutzername, email, sicherheitsfrage, sicherheitsantwort, passwort, strassehausnr, plz, wohnort];
         var result = statement.run(params);
 
         if (result.changes != 1) 
@@ -93,10 +99,13 @@ class PersonDao {
         return newObj;
     }
 
-    update(id, anrede = 'Herr', vorname = '', nachname = '', adresseid = 1, telefonnummer = '', email = '', geburtstag = null) {
-        var sql = 'UPDATE Person SET Anrede=?,Vorname=?,Nachname=?,AdresseID=?,Telefonnummer=?,Email=?,Geburtstag=? WHERE ID=?';
+    update(id, anrede = 'Herr', vorname = '', nachname = '', benutzername = '', email = '', sicherheitsfrage = '', 
+        sicherheitsantwort = '', passwort = '', strassehausnr = '', plz = '', wohnort = '') {
+        var sql = 'UPDATE User SET \
+                Anrede=?,Vorname=?,Nachname=?,Benutzername=?,Email=?,Sicherheitsfrage=?,Sicherheitsantwort=?,Passwort=?,StrasseHausnr=?,PLZ=?,Wohnort=? \
+                WHERE ID=?';
         var statement = this._conn.prepare(sql);
-        var params = [(helper.strStartsWith(anrede, 'He') ? 0 : 1), vorname, nachname, adresseid, telefonnummer, email, (helper.isNull(geburtstag) ? null : helper.formatToSQLDate(geburtstag)), id];
+        var params = [id, anrede, vorname, nachname, benutzername, email, sicherheitsfrage, sicherheitsantwort, passwort, strassehausnr, plz, wohnort];
         var result = statement.run(params);
 
         if (result.changes != 1) 
@@ -108,7 +117,7 @@ class PersonDao {
 
     delete(id) {
         try {
-            var sql = 'DELETE FROM Person WHERE ID=?';
+            var sql = 'DELETE FROM User WHERE ID=?';
             var statement = this._conn.prepare(sql);
             var result = statement.run(id);
 

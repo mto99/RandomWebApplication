@@ -67,11 +67,11 @@
         <div class="anmeldung">
             <h3>Anmelden</h3>
             <div class="anmeldung_content">
-                <form class="anmeldeformular" action="" method="">
+                <form class="anmeldeformular" name="anmeldeformular" id="anmeldeformular" method="GET">
                     <text>Benutzername oder E-Mail-Adresse:</text><br>
-                    <input type="text" name="anmelden" maxlength="40"><br>
+                    <input type="text" id="name" name="anmelden" maxlength="40"><br>
                     <text>Passwort:</text><br>
-                    <input type="password" name="anmelden" minlength="8"><br>
+                    <input type="password" id='passwort' name="anmelden" minlength="8"><br>
                     <a href="../HTML/reset_change_password.html">Passwort vergessen?</a><br>
                     <input type="submit" value="Anmelden">
                 </form>
@@ -90,7 +90,7 @@
             <h3>Registrieren</h3>
             <div class="registrierung_content">
 
-                <form class="registformular" name="registrierungsform" id="registrierungsform" >
+                <form class="registformular" name="registrierungsform" id="registrierungsform" method='POST'>
                     <div class="form_anrede">
                         <text>Anrede</text><br>
                         <label>Herr</label><input type="radio" class="anrede" name="anrede" value="Herr" checked>
@@ -109,7 +109,8 @@
 
                     <div class="form_benutzername">
                         <text>Benutzername</text><br>
-                        <input type="text" id="benutzername" name="benutzername" maxlength="20" required onkeyup="checkUsername()">
+                        <input type="text" id="benutzername" name="benutzername" maxlength="20" required><br>
+                        <b id="alertUsername" style="color: red; font-size: 13px;"></b>
                     </div>
 
                     <div class="email">
@@ -175,15 +176,19 @@
     </div>
     <!--ENDE FORMULAR-->
 
-
     
     <script>
         $(document).ready(function(){
+
+            $('#anmeldeformular').submit(function(){
+                //Hier kommt der code für die Anmeldung
+            });
+
+
             $('#registrierungsform').submit(function() {
-            //$('#submit').click(function() {
                 console.log("[sta] Ready!");
 
-                //read form
+                //read form data
                 function checkedRadio(){
                     const anrede = document.getElementsByName('anrede');
                     for (i=0; i < anrede.length; i++){
@@ -210,7 +215,6 @@
                 const plz = ''+plzInt;
                 console.log("PLZ: " + typeof(plz));
                 const wohnort = $('#ort').val();
-                //var person = {anrede,vorname,nachname,benutzername,email,passwort,sfrage,santwort,strassehausnr,plz,wohnort};
                 var person = { 'anrede':anrede, 'vorname':vorname, 'nachname':nachname, 'benutzername':benutzername, 'email':email, 'passwort':passwort, 
                         'sicherheitsfrage':sfrage, 'sicherheitsantwort':santwort, 'strassehausnr':strassehausnr, 'plz':plz, 'wohnort':wohnort };
 
@@ -222,7 +226,6 @@
                     method: 'post',
                     url: 'http://localhost:8000/wba2api/person',
                     contentType: 'application/json',
-                    //contentType: false,
                     data: JSON.stringify(person)
                 }).done(function(response){
                     console.log("[inf] success");
@@ -230,214 +233,17 @@
 
                 }).fail(function(jqXHR,statusText,error){
                     console.log("[err] response code: " + jqXHR.status + "\nerror msg: " + jqXHR.responseText);
+
+                    if (jqXHR.responseText.includes('Username')){
+                        console.log("Benutzername bereits vergeben.");
+                        $('#alertUsername').html('Benutzername bereits vergeben!');
+                    }
                 });
                 return false;
             });
         });
     </script>
     
-
-    <!--
-    <script>
-        $('#registrierungsform').submit(function(event) {
-            console.log("[STATUS] Ready!");
-
-            //read form
-            function checkedRadio(){
-                const anrede = document.getElementsByName('anrede');
-                for (i=0; i<anrede.length;i++){
-                    if (anrede[i].checked){return anrede[i].value;}
-                }
-            }
-            const anrede = checkedRadio();
-            const vorname = document.getElementById('vorname').value;
-            const nachname = document.getElementById('nachname').value;
-            const benutzername = document.getElementById('benutzername').value;
-            const email = document.getElementById('email').value;
-            if (comparePasswords() == true){ //if both passwords are equal
-                const passwort = document.getElementById('passwort').value;
-            } else {
-                alert("FEHLER! Passwörter stimmen nicht überein!");
-            }
-            const sfrage = document.getElementById('sicherheitsfrage').value;
-            const santwort = document.getElementById('sicherheitsantwort').value;
-            const strassehausnr = document.getElementById('strasse').value;
-            const plz = document.getElementById('plz').value;
-            const wohnort = document.getElementById('ort').value;
-            daten = {anrede,vorname,nachname,benutzername,email,passwort,sfrage,santwort,strassehausnr,plz,wohnort};
-
-            console.log('[INFO] Formdata: ', daten);
-
-
-            // disable default event
-            event.preventDefault();
-
-            // convert data of form to object
-            var form = document.getElementById('registrierungsform');
-            var formData = new FormData(form);
-
-
-            // send form with ajax
-            $.ajax({
-                url: 'http://localhost:8000/wba2api/person',
-                type: 'POST',
-                data: formData,
-                /*contentType: false,
-                cache: false,*/
-                processData: false,
-                dataType: 'json'
-            })
-            .done(function(response) {
-                console.log('Response received' + response);
-                for (i in response){
-                    console.log(response[i]);
-                }
-                
-                
-                //read form
-                function checkedRadio(){
-                    const anrede = document.getElementsByName('anrede');
-                    for (i=0; i<anrede.length;i++){
-                        if (anrede[i].checked){return anrede[i].value;}
-                    }
-                }
-                const anrede = checkedRadio();
-                const vorname = document.getElementById('vorname').value;
-                const nachname = document.getElementById('nachname').value;
-                const benutzername = document.getElementById('benutzername').value;
-                const email = document.getElementById('email').value;
-                if (comparePasswords() == true){ //if both passwords are equal
-                    const passwort = document.getElementById('passwort').value;
-                } else {
-                    alert("FEHLER! Passwörter stimmen nicht überein!");
-                }
-                const sfrage = document.getElementById('sicherheitsfrage').value;
-                const santwort = document.getElementById('sicherheitsantwort').value;
-                const strassehausnr = document.getElementById('strasse').value;
-                const plz = document.getElementById('plz').value;
-                const wohnort = document.getElementById('ort').value;
-                data = {anrede,vorname,nachname,benutzername,email,passwort,sfrage,santwort,strassehausnr,plz,wohnort};
-
-                console.log('[INFO] Formdata: ', data);
-                
-                
-                
-                
-            })
-            .fail(function(xhr) {
-                console.log('error received');
-                console.log(xhr);
-                
-            });
-        });
-    </script>
-    -->
-
-    <!--
-    <script>
-        console.log("[sta] Ready!");
-
-        function clearValidationError() {
-			$("#anrede").removeClass('invalid-input');
-            $("#vorname").removeClass('invalid-input');
-			$("#nachname").removeClass('invalid-input');
-            $("#benutzername").removeClass('invalid-input');
-			$("#email").removeClass('invalid-input');
-			$("#password").removeClass('invalid-input');
-            $("#password_wdh").removeClass('invalid-input');
-            $("#sicherheitsfrage").removeClass('invalid-input');
-            $("#sicherheitsantwort").removeClass('invalid-input');
-			$("#strasse").removeClass('invalid-input');
-			$("#plz").removeClass('invalid-input');
-			$("#ort").removeClass('invalid-input');
-			
-		}
-
-        async function submitData() {
-            
-            //read form
-            function checkedRadio(){
-                const anrede = document.getElementsByName('anrede');
-                for (i=0; i<anrede.length;i++){
-                    if (anrede[i].checked){return anrede[i].value;}
-                }
-            }
-            const anrede = checkedRadio();
-            const vorname = document.getElementById('vorname').value;
-            const nachname = document.getElementById('nachname').value;
-            const benutzername = document.getElementById('benutzername').value;
-            const email = document.getElementById('email').value;
-            if (comparePasswords() == true){ //if both passwords are equal
-                const passwort = document.getElementById('passwort').value;
-            } else {
-                alert("FEHLER! Passwörter stimmen nicht überein!");
-            }
-            const sfrage = document.getElementById('sicherheitsfrage').value;
-            const santwort = document.getElementById('sicherheitsantwort').value;
-            const strassehausnr = document.getElementById('strasse').value;
-            const plz = document.getElementById('plz').value;
-            const wohnort = document.getElementById('ort').value;
-            person = {anrede,vorname,nachname,benutzername,email,passwort,sfrage,santwort,strassehausnr,plz,wohnort};
-
-            console.log('[inf] Formdata: ', person);
-
-            var form = document.getElementById('registrierungsform');
-            var formData = new FormData(form);
-
-			const response = await fetch('http://localhost:8000/wba2api/person', {
-				method: 'post',
-				data: formData,
-                processData: false,
-                dataType: 'json',
-                body: JSON.stringify(person)
-			});
-			console.log('[sta] ' + response.status);
-			const text = await response.text();
-			clearValidationError();
-			console.log('[txt] '+ text);
-			if (response.status === 400) {	// BAD REQUEST
-				const payload = JSON.parse(text);
-				const required = payload.daten;
-				console.log('fehlercode: ', payload.nachricht);
-				console.log('required: ', required);
-				required.forEach(field => {
-					const element = $("#" + field);
-					if (!element.hasClass('invalid-input')) {
-						element.addClass("invalid-input");
-					}
-				});
-				window.alert('Die Daten sind nicht vollständig angegeben.');
-				return;
-			} else if (response.status === 409) {	// CONFLICT
-				const payload = JSON.parse(text);
-				if (payload.nachricht === 'EMAIL_ALREADY_IN_USED') {
-					window.alert('Die angegebene Email Adresse wird bereits verwendet.');
-					return;
-				} else if (payload.nachricht === 'CHECK_EMAIL_FAILED') {
-					window.alert('Ein Fehler ist aufgetreten.\nDie Email konnte nicht überprüft werden.');
-					return;
-				} else if (payload.nachricht === 'CREATE_ADRESS_FAILED') {
-					window.alert('Ein Fehler ist aufgetreten.\nDie Kontaktadresse konnte nicht erstellt werden.');
-					return;
-				} else if (payload.nachricht === 'CREATE_PERSON_FAILED') {
-					window.alert('Ein Fehler ist aufgetreten.\nDer Kontakt konnte nicht erstellt werden.');
-					return;
-				} else if (payload.nachricht === 'CREATE_PERSON_FAILED') {
-					window.alert('Ein Fehler ist aufgetreten.\nDer Kontakt konnte nicht erstellt werden.');
-					return;
-				}			
-
-				return;
-			} else if (response.ok) {
-				//window.location.replace("index.html");
-			}
-
-			
-		}
-
-    </script>
-    -->
-
 
     <!--FUSSLEISTE-->
     <hr width="100%" style="color: #00336a; margin-top: 20px;">
