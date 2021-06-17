@@ -120,13 +120,13 @@
 
                     <div class="passwort">
                         <text>Passwort</text><br>
-                        <input type="password" id="passwort" name="passwort" minlength="8" required onkeyup="comparePasswords()"> 
+                        <input type="password" id="passwort1" name="passwort" minlength="8" required onkeyup="comparePasswords()"> 
                     </div>
 
                     <div class="passwort">
                         <text>Passwort Wiederholung</text><br>
-                        <input type="password" id="passwort_wdh" name="passwort" minlength="8" required onkeyup="comparePasswords()"><br>
-                        <b id="alertPassword" style="color: red; font-size: 13px;"></b> <!--Für die Ausgabe comparePasswords() in anmeldung.js-->
+                        <input type="password" id="passwort_wdh" name="passwort_wdh" minlength="8" required onkeyup="comparePasswords()"><br>
+                        <b id="alertPassword" style="color: red; font-size: 13px;"> </b> <!--Für die Ausgabe comparePasswords() in anmeldung.js-->
                     </div>
 
                     <div class="sicherheitsfrage">
@@ -212,7 +212,7 @@
                 const santwort = $('#sicherheitsantwort').val();
                 const strassehausnr = $('#strasse').val();
                 var plzInt = $('#plz').val();
-                const plz = ''+plzInt;
+                const plz = '' + plzInt;
                 console.log("PLZ: " + typeof(plz));
                 const wohnort = $('#ort').val();
                 var person = { 'anrede':anrede, 'vorname':vorname, 'nachname':nachname, 'benutzername':benutzername, 'email':email, 'passwort':passwort, 
