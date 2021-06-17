@@ -33,6 +33,7 @@ serviceRouter.get('/person/alle', function(request, response) {
     }
 });
 
+
 serviceRouter.get('/person/existiert/:id', function(request, response) {
     helper.log('Service Person: Client requested check, if record exists, id=' + request.params.id);
 
@@ -51,6 +52,7 @@ serviceRouter.post('/person', function(request, response) {
     helper.log('Service Person: Client requested creation of new record');
 
     var errorMsgs=[];
+    
     if (helper.isUndefined(request.body.anrede)) {
         errorMsgs.push('anrede fehlt');
     } else if (request.body.anrede.toLowerCase() !== 'herr' && request.body.anrede.toLowerCase() !== 'frau') {
@@ -60,34 +62,49 @@ serviceRouter.post('/person', function(request, response) {
         errorMsgs.push('vorname fehlt');
     if (helper.isUndefined(request.body.nachname)) 
         errorMsgs.push('nachname fehlt');
-    if (helper.isUndefined(request.body.adresse)) {
-        errorMsgs.push('adresse fehlt');
-    
-    
+    if (helper.isUndefined(request.body.benutzername))
+        errorMsgs.push('benutzername fehlt');
     if (helper.isUndefined(request.body.email)) 
         errorMsgs.push('email fehlt');
     if (!helper.isEmail(request.body.email)) 
         errorMsgs.push('email hat ein falsches Format');
-    
-    } else if (!helper.isGermanDateTimeFormat(request.body.geburtstag)) {
-        errorMsgs.push('geburtstag hat das falsche Format, erlaubt: dd.mm.jjjj');
-    } else {
-        request.body.geburtstag = helper.parseDateTimeString(request.body.geburtstag);
-    }
+    if (helper.isUndefined(request.body.sicherheitsfrage))
+        errorMsgs.push('sicherheitsfrage fehlt');
+    if (helper.isUndefined(request.body.sicherheitsantwort))
+        errorMsgs.push('sicherheitsantwort fehlt');
+    if (helper.isUndefined(request.body.passwort))
+        errorMsgs.push('passwort fehlt');
+    if (helper.isUndefined(request.body.strassehausnr))
+        errorMsgs.push('adresse: Straße, Hausnr. fehlt');
+    if (helper.isUndefined(request.body.plz))
+        errorMsgs.push('adresse: plz fehlt');
+    if (helper.isUndefined(request.body.wohnort))
+        errorMsgs.push('adresse: wohnort fehlt');
     
     if (errorMsgs.length > 0) {
-        helper.log('Service Person: Creation not possible, data missing');
+        helper.log('Service Person: Creation not possible, data missing!');
         response.status(400).json(helper.jsonMsgError('Hinzufügen nicht möglich. Fehlende Daten: ' + helper.concatArray(errorMsgs)));
         return;
     }
 
     const personDao = new PersonDao(request.app.locals.dbConnection);
     try {
-        var result = personDao.create(request.body.anrede, request.body.vorname, request.body.nachname, request.body.adresse.id, request.body.telefonnummer, request.body.email, request.body.geburtstag);
+        //check if username exists
+        var username = personDao.existsUsername(request.body.benutzername);
+        if (username == true){
+            helper.logError('Service Person: Error creating new record. Username already exists.');
+            response.status(400);
+            throw new Error('[err] Could not create new record. Username already exists.');
+        }
+        //--
+
+        var result = personDao.create(request.body.anrede, request.body.vorname, request.body.nachname, 
+                    request.body.benutzername, request.body.email, request.body.sicherheitsfrage, request.body.sicherheitsantwort, 
+                    request.body.passwort, request.body.strassehausnr, request.body.plz, request.body.wohnort);
         helper.log('Service Person: Record inserted');
         response.status(200).json(helper.jsonMsgOK(result));
     } catch (ex) {
-        helper.logError('Service Person: Error creating new record. Exception occured: ' + ex.message);
+        helper.logError('Service Person Post: Error creating new record. Exception occured: ' + ex.message);
         response.status(400).json(helper.jsonMsgError(ex.message));
     }    
 });
@@ -107,24 +124,24 @@ serviceRouter.put('/person', function(request, response) {
         errorMsgs.push('vorname fehlt');
     if (helper.isUndefined(request.body.nachname)) 
         errorMsgs.push('nachname fehlt');
-    if (helper.isUndefined(request.body.adresse)) {
-        errorMsgs.push('adresse fehlt');
-    } else if (helper.isUndefined(request.body.adresse.id)) {
-        errorMsgs.push('adresse gesetzt, aber id fehlt');
-    }
-    if (helper.isUndefined(request.body.telefonnummer)) 
-        request.body.telefonnummer = '';
+    if (helper.isUndefined(request.body.benutzername))
+        errorMsgs.push('benutzername fehlt');
     if (helper.isUndefined(request.body.email)) 
         errorMsgs.push('email fehlt');
     if (!helper.isEmail(request.body.email)) 
         errorMsgs.push('email hat ein falsches Format');
-    if (helper.isUndefined(request.body.geburtstag)) {
-        request.body.geburtstag = null;
-    } else if (!helper.isGermanDateTimeFormat(request.body.geburtstag)) {
-        errorMsgs.push('geburtstag hat das falsche Format, erlaubt: dd.mm.jjjj');
-    } else {
-        request.body.geburtstag = helper.parseDateTimeString(request.body.geburtstag);
-    }
+    if (helper.isUndefined(request.body.sicherheitsfrage))
+        errorMsgs.push('sicherheitsfrage fehlt');
+    if (helper.isUndefined(request.body.sicherheitsantwort))
+        errorMsgs.push('sicherheitsantwort fehlt');
+    if (helper.isUndefined(request.body.passwort))
+        errorMsgs.push('passwort fehlt');
+    if (helper.isUndefined(request.body.strassehausnr))
+        errorMsgs.push('adresse: Straße, Hausnr. fehlt');
+    if (helper.isUndefined(request.body.plz))
+        errorMsgs.push('adresse: plz fehlt');
+    if (helper.isUndefined(request.body.wohnort))
+        errorMsgs.push('adresse: wohnort fehlt');
 
     if (errorMsgs.length > 0) {
         helper.log('Service Person: Update not possible, data missing');
@@ -134,11 +151,13 @@ serviceRouter.put('/person', function(request, response) {
 
     const personDao = new PersonDao(request.app.locals.dbConnection);
     try {
-        var result = personDao.update(request.body.id, request.body.anrede, request.body.vorname, request.body.nachname, request.body.adresse.id, request.body.telefonnummer, request.body.email, request.body.geburtstag);
+        var result = personDao.update(request.body.id, request.body.anrede, request.body.vorname, request.body.nachname, 
+            request.body.benutzername, request.body.email, request.body.sicherheitsfrage, request.body.sicherheitsantwort, 
+            request.body.passwort, request.body.strassehausnr, request.body.plz, request.body.wohnort);
         helper.log('Service Person: Record updated, id=' + request.body.id);
         response.status(200).json(helper.jsonMsgOK(result));
     } catch (ex) {
-        helper.logError('Service Person: Error updating record by id. Exception occured: ' + ex.message);
+        helper.logError('Service Person Put: Error updating record by id. Exception occured: ' + ex.message);
         response.status(400).json(helper.jsonMsgError(ex.message));
     }    
 });
