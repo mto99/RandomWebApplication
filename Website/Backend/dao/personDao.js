@@ -70,9 +70,9 @@ class PersonDao {
 
         return false;
     }
+
     
-    
-    //Von Muhammed hinzugefügt für die Registrierung
+    //Von Muhammed hinzugefügt für die Registrierung 
     //Überprüft ob der eingebene Benutzername bereits vergeben ist
     existsUsername(username) {
         var sql = 'SELECT ID FROM User WHERE Benutzername=?';

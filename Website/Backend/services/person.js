@@ -89,7 +89,7 @@ serviceRouter.post('/person', function(request, response) {
 
     const personDao = new PersonDao(request.app.locals.dbConnection);
     try {
-        //check if username exists
+        //check if username exists, else continue
         var username = personDao.existsUsername(request.body.benutzername);
         if (username == true){
             helper.logError('Service Person: Error creating new record. Username already exists.');
