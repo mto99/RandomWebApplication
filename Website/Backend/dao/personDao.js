@@ -74,16 +74,30 @@ class PersonDao {
     
     //Von Muhammed hinzugefügt für die Registrierung 
     //Überprüft ob der eingebene Benutzername bereits vergeben ist
-    existsUsername(username) {
+    existsUsername(name) {
         var sql = 'SELECT ID FROM User WHERE Benutzername=?';
         var statement = this._conn.prepare(sql);
-        var result = statement.get(username);
+        var result = statement.get(name);
 
-        if (result != null){
-            return true;
+        if (helper.isUndefined(result)){
+            throw new Error('No Record found by Benutzername='+name);
         }
-        return false;
+        return helper.objectKeysToLower(result);
     }
+
+    //Gibt das Passwort zurück
+    getPassword(pw){
+        var sql = 'SELECT Passwort FROM User WHERE ID=?';
+        var statement = this._conn.prepare(sql);
+        var result = statement.get(pw);
+
+        if (helper.isUndefined(result)){
+            throw new Error('No Record found by Passwort des Users');
+        }
+        return helper.objectKeysToLower(result);
+    }
+
+    //---------------------------------------
 
     create(anrede = 'Herr', vorname = '', nachname = '', benutzername = '', email = '', sicherheitsfrage = '', 
         sicherheitsantwort = '', passwort = '', strassehausnr = '', plz = '', wohnort = '') {
