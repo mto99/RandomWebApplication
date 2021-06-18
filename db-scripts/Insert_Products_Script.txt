@@ -1,0 +1,111 @@
+INSERT INTO Produkt VALUES(1,'../Bilder/manner_pullover_logosolo_blau.jpg','Pullover blau','Pullover mit Rundhalsausschnitt <br>In Größen S, M, L, XL verfügbar <br>100% Baumwolle',25.199999999999999288,19.0,5,NULL);
+INSERT INTO Produkt VALUES(2,'../Bilder/manner_pullover_logosolo_orange.jpg','Pullover orange','Pullover mit Rundhalsausschnitt <br>In Größen S, M, L, XL verfügbar <br>100% Baumwolle',21.839999999999999858,19.0,
+5,NULL);
+INSERT INTO Produkt VALUES(3,'../Bilder/manner_pullover_logosolo_weiss.jpg','Pullover weiß','Pullover mit Rundhalsausschnitt <br>In Größen S, M, L, XL verfügbar <br>100% Baumwolle',28.559999999999998721,19.0,5,N
+ULL);
+INSERT INTO Produkt VALUES(4,'../Bilder/manner_pullover_logosolo_schwarz.jpg','Pullover schwarz','Pullover mit Rundhalsausschnitt <br>In Größen S, M, L, XL verfügbar <br>100% Baumwolle',25.199999999999999288,19.
+0,5,NULL);
+INSERT INTO Produkt VALUES(5,'../Bilder/manner_pullover_logosolo_blau_2.jpg','Pullover blau melange','Pullover mit Rundhalsausschnitt <br>In Größen S, M, L, XL verfügbar <br>Design: Meliert/Melange <br>100% Baum
+wolle',25.199999999999999288,19.0,5,NULL);
+INSERT INTO Produkt VALUES(6,'../Bilder/manner_pullover_logosolo_orange_2.jpg','Pullover orange melange','Pullover mit Rundhalsausschnitt <br>In Größen S, M, L, XL verfügbar <br>Design: Meliert/Melange <br>100%
+Baumwolle',21.839999999999999858,19.0,5,NULL);
+INSERT INTO Produkt VALUES(7,'../Bilder/manner_pullover_logosolo_weiss_2.jpg','Pullover weiß melange','Pullover mit Rundhalsausschnitt <br>In Größen S, M, L, XL verfügbar <br>Design: Meliert/Melange <br>100% Bau
+mwolle',28.559999999999998721,19.0,1,NULL);
+INSERT INTO Produkt VALUES(8,'../Bilder/manner_pullover_logosolo_schwarz_2.jpg','Pullover schwarz melange','Pullover mit Rundhalsausschnitt <br>In Größen S, M, L, XL verfügbar <br>Design: Meliert/Melange <br>100
+% Baumwolle',25.199999999999999288,19.0,5,NULL);
+INSERT INTO Produkt VALUES(9,'../Bilder/manner_pullover_logotext_blau.jpg','Pullover blau Logo | mit Text','Pullover mit Rundhalsausschnitt <br>In Größen S, M, L, XL verfügbar <br>100% Baumwolle',25.199999999999
+999288,19.0,5,NULL);
+INSERT INTO Produkt VALUES(10,'../Bilder/manner_pullover_logotext_orange.jpg','Pullover orange | Logo mit Text','Pullover mit Rundhalsausschnitt <br>In Größen S, M, L, XL verfügbar <br>100% Baumwolle',21.8399999
+99999999858,19.0,1,NULL);
+INSERT INTO Produkt VALUES(11,'../Bilder/manner_pullover_logotext_weiss.jpg','Pullover weiß Logo | Logo mit Text','Pullover mit Rundhalsausschnitt <br>In Größen S, M, L, XL verfügbar <br>100% Baumwolle',28.55999
+9999999998721,19.0,5,NULL);
+INSERT INTO Produkt VALUES(12,'../Bilder/manner_pullover_logotext_schwarz.jpg','Pullover schwarz | Logo mit Text','Pullover mit Rundhalsausschnitt <br>In Größen S, M, L, XL verfügbar <br>100% Baumwolle',25.19999
+9999999999288,19.0,5,NULL);
+INSERT INTO Produkt VALUES(13,'../Bilder/manner_sweater_logosolo_blau.jpg','Sweater blau','Sweater mit Kängurutasche <br>Kapuze mit Jerseyfutter <br>In Größen S, M, L, XL verfügbar <br>100% Baumwolle',25.1999999
+99999999288,19.0,6,NULL);
+INSERT INTO Produkt VALUES(14,'../Bilder/manner_sweater_logosolo_orange.jpg','Sweater orange','Sweater mit Kängurutasche <br>Kapuze mit Jerseyfutter <br>In Größen S, M, L, XL verfügbar <br>100% Baumwolle',21.839
+999999999999858,19.0,6,NULL);
+INSERT INTO Produkt VALUES(15,'../Bilder/manner_sweater_logosolo_weiss.jpg','Sweater weiß','Sweater mit Kängurutasche <br>Kapuze mit Jerseyfutter <br>In Größen S, M, L, XL verfügbar <br>100% Baumwolle',28.559999
+999999998721,19.0,6,NULL);
+INSERT INTO Produkt VALUES(16,'../Bilder/manner_sweater_logosolo_schwarz.jpg','Sweater schwarz','Sweater mit Kängurutasche <br>Kapuze mit Jerseyfutter <br>In Größen S, M, L, XL verfügbar <br>100% Baumwolle',25.1
+99999999999999288,19.0,6,NULL);
+INSERT INTO Produkt VALUES(17,'../Bilder/manner_sweater_logotext_blau.jpg','Sweater blau | Logo mit Text','Sweater mit Kängurutasche <br>Kapuze mit Jerseyfutter <br>In Größen S, M, L, XL verfügbar <br>100% Baumw
+olle',25.199999999999999288,19.0,6,NULL);
+INSERT INTO Produkt VALUES(18,'../Bilder/manner_sweater_logotext_orange.jpg','Sweater orange | Logo mit Text','Sweater mit Kängurutasche <br>Kapuze mit Jerseyfutter <br>In Größen S, M, L, XL verfügbar <br>100% B
+aumwolle',21.839999999999999858,19.0,6,NULL);
+INSERT INTO Produkt VALUES(19,'../Bilder/manner_sweater_logotext_weiss.jpg','Sweater weiß | Logo mit Text','Sweater mit Kängurutasche <br>Kapuze mit Jerseyfutter <br>In Größen S, M, L, XL verfügbar <br>100% Baum
+wolle',28.559999999999998721,19.0,6,NULL);
+INSERT INTO Produkt VALUES(20,'../Bilder/manner_sweater_logotext_schwarz.jpg','Sweater schwarz | Logo mit Text','Sweater mit Kängurutasche <br>Kapuze mit Jerseyfutter <br>In Größen S, M, L, XL verfügbar <br>100%
+ Baumwolle',25.199999999999999288,19.0,6,NULL);
+INSERT INTO Produkt VALUES(21,'../Bilder/manner_tshirt_logosolo_blau.jpg','T-Shirt blau','T-Shirt mit Rundhalsausschnitt <br>In Größen S, M, L, XL verfügbar <br>100% Baumwolle',16.80000000000000071,19.0,4,NULL);
+
+INSERT INTO Produkt VALUES(22,'../Bilder/manner_tshirt_logosolo_orange.jpg','T-Shirt orange','T-Shirt mit Rundhalsausschnitt <br>In Größen S, M, L, XL verfügbar <br>100% Baumwolle',13.439999999999999502,19.0,4,N
+ULL);
+INSERT INTO Produkt VALUES(23,'../Bilder/manner_tshirt_logosolo_weiss.jpg','T-Shirt weiß','T-Shirt mit Rundhalsausschnitt <br>In Größen S, M, L, XL verfügbar <br>100% Baumwolle',20.160000000000000142,19.0,1,NULL
+);
+INSERT INTO Produkt VALUES(24,'../Bilder/manner_tshirt_logosolo_schwarz.jpg','T-Shirt schwarz','T-Shirt mit Rundhalsausschnitt <br>In Größen S, M, L, XL verfügbar <br>100% Baumwolle',16.80000000000000071,19.0,4,
+NULL);
+INSERT INTO Produkt VALUES(25,'../Bilder/manner_tshirt_logotext_blau.jpg','T-Shirt blau | Logo mit Text','T-Shirt mit Rundhalsausschnitt <br>In Größen S, M, L, XL verfügbar <br>100% Baumwolle',16.800000000000000
+71,19.0,1,NULL);
+INSERT INTO Produkt VALUES(26,'../Bilder/manner_tshirt_logotext_orange.jpg','T-Shirt orange | Logo mit Text','T-Shirt mit Rundhalsausschnitt <br>In Größen S, M, L, XL verfügbar <br>100% Baumwolle',13.43999999999
+9999502,19.0,4,NULL);
+INSERT INTO Produkt VALUES(27,'../Bilder/manner_tshirt_logotext_weiss.jpg','T-Shirt weiß | Logo mit Text','T-Shirt mit Rundhalsausschnitt <br>In Größen S, M, L, XL verfügbar <br>100% Baumwolle',20.16000000000000
+0142,19.0,4,NULL);
+INSERT INTO Produkt VALUES(28,'../Bilder/manner_tshirt_logotext_schwarz.jpg','T-Shirt schwarz | Logo mit Text','T-Shirt mit Rundhalsausschnitt <br>In Größen S, M, L, XL verfügbar <br>100% Baumwolle',16.800000000
+00000071,19.0,4,NULL);
+INSERT INTO Produkt VALUES(29,'../Bilder/frauen_pullover_logosolo_blau.jpg','Pullover blau','Pullover mit Rundhalsausschnitt <br>In Größen S, M, L, XL verfügbar <br>100% Baumwolle',25.199999999999999288,19.0,8,N
+ULL);
+INSERT INTO Produkt VALUES(30,'../Bilder/frauen_pullover_logosolo_orange.jpg','Pullover orange','Pullover mit Rundhalsausschnitt <br>In Größen S, M, L, XL verfügbar <br>100% Baumwolle',21.839999999999999858,19.0
+,8,NULL);
+INSERT INTO Produkt VALUES(31,'../Bilder/frauen_pullover_logosolo_weiss.jpg','Pullover weiß','Pullover mit Rundhalsausschnitt <br>In Größen S, M, L, XL verfügbar <br>100% Baumwolle',28.559999999999998721,19.0,8,
+NULL);
+INSERT INTO Produkt VALUES(32,'../Bilder/frauen_pullover_logosolo_schwarz.jpg','Pullover schwarz','Pullover mit Rundhalsausschnitt <br>In Größen S, M, L, XL verfügbar <br>100% Baumwolle',25.199999999999999288,19
+.0,8,NULL);
+INSERT INTO Produkt VALUES(33,'../Bilder/frauen_pullover_logotext_blau.jpg','Pullover blau','Pullover mit Rundhalsausschnitt <br>In Größen S, M, L, XL verfügbar <br>100% Baumwolle',25.199999999999999288,19.0,8,N
+ULL);
+INSERT INTO Produkt VALUES(34,'../Bilder/frauen_pullover_logotext_orange.jpg','Pullover orange','Pullover mit Rundhalsausschnitt <br>In Größen S, M, L, XL verfügbar <br>100% Baumwolle',21.839999999999999858,19.0
+,8,NULL);
+INSERT INTO Produkt VALUES(35,'../Bilder/frauen_pullover_logotext_weiss.jpg','Pullover weiß','Pullover mit Rundhalsausschnitt <br>In Größen S, M, L, XL verfügbar <br>100% Baumwolle',28.559999999999998721,19.0,8,
+NULL);
+INSERT INTO Produkt VALUES(36,'../Bilder/frauen_pullover_logotext_schwarz.jpg','Pullover schwarz','Pullover mit Rundhalsausschnitt <br>In Größen S, M, L, XL verfügbar <br>100% Baumwolle',25.199999999999999288,19
+.0,8,NULL);
+INSERT INTO Produkt VALUES(37,'../Bilder/frauen_sweater_logosolo_blau.jpg','Sweater blau','Sweater mit Kängurutasche <br>Kapuze mit Jerseyfutter <br>In Größen S, M, L, XL verfügbar <br>100% Baumwolle',25.1999999
+99999999288,19.0,9,NULL);
+INSERT INTO Produkt VALUES(38,'../Bilder/frauen_sweater_logosolo_orange.jpg','Sweater orange','Sweater mit Kängurutasche <br>Kapuze mit Jerseyfutter <br>In Größen S, M, L, XL verfügbar <br>100% Baumwolle',21.839
+999999999999858,19.0,2,NULL);
+INSERT INTO Produkt VALUES(39,'../Bilder/frauen_sweater_logosolo_weiss.jpg','Sweater weiß','Sweater mit Kängurutasche <br>Kapuze mit Jerseyfutter <br>In Größen S, M, L, XL verfügbar <br>100% Baumwolle',28.559999
+999999998721,19.0,9,NULL);
+INSERT INTO Produkt VALUES(40,'../Bilder/frauen_sweater_logosolo_schwarz.jpg','Sweater schwarz','Sweater mit Kängurutasche <br>Kapuze mit Jerseyfutter <br>In Größen S, M, L, XL verfügbar <br>100% Baumwolle',25.1
+99999999999999288,19.0,9,NULL);
+INSERT INTO Produkt VALUES(41,'../Bilder/frauen_sweater_logotext_blau.jpg','Sweater blau | Logo mit Text','Sweater mit Kängurutasche <br>Kapuze mit Jerseyfutter <br>In Größen S, M, L, XL verfügbar <br>100% Baumw
+olle',25.199999999999999288,19.0,9,NULL);
+INSERT INTO Produkt VALUES(42,'../Bilder/frauen_sweater_logotext_orange.jpg','Sweater orange | Logo mit Text','Sweater mit Kängurutasche <br>Kapuze mit Jerseyfutter <br>In Größen S, M, L, XL verfügbar <br>100% B
+aumwolle',21.839999999999999858,19.0,9,NULL);
+INSERT INTO Produkt VALUES(43,'../Bilder/frauen_sweater_logotext_weiss.jpg','Sweater weiß | Logo mit Text','Sweater mit Kängurutasche <br>Kapuze mit Jerseyfutter <br>In Größen S, M, L, XL verfügbar <br>100% Baum
+wolle',28.559999999999998721,19.0,2,NULL);
+INSERT INTO Produkt VALUES(44,'../Bilder/frauen_sweater_logotext_schwarz.jpg','Sweater schwarz | Logo mit Text','Sweater mit Kängurutasche <br>Kapuze mit Jerseyfutter <br>In Größen S, M, L, XL verfügbar <br>100%
+ Baumwolle',25.199999999999999288,19.0,9,NULL);
+INSERT INTO Produkt VALUES(45,'../Bilder/frauen_tshirt_logosolo_blau.jpg','T-Shirt blau','T-Shirt mit Rundhalsausschnitt <br>In Größen S, M, L, XL verfügbar <br>100% Baumwolle',16.80000000000000071,19.0,7,NULL);
+
+INSERT INTO Produkt VALUES(46,'../Bilder/frauen_tshirt_logosolo_orange.jpg','T-Shirt orange','T-Shirt mit Rundhalsausschnitt <br>In Größen S, M, L, XL verfügbar <br>100% Baumwolle',13.439999999999999502,19.0,2,N
+ULL);
+INSERT INTO Produkt VALUES(47,'../Bilder/frauen_tshirt_logosolo_weiss.jpg','T-Shirt weiß','T-Shirt mit Rundhalsausschnitt <br>In Größen S, M, L, XL verfügbar <br>100% Baumwolle',20.160000000000000142,19.0,7,NULL
+);
+INSERT INTO Produkt VALUES(48,'../Bilder/frauen_tshirt_logosolo_schwarz.jpg','T-Shirt schwarz','T-Shirt mit Rundhalsausschnitt <br>In Größen S, M, L, XL verfügbar <br>100% Baumwolle',16.80000000000000071,19.0,7,
+NULL);
+INSERT INTO Produkt VALUES(49,'../Bilder/frauen_tshirt_logotext_blau.jpg','T-Shirt blau | Logo mit Text','T-Shirt mit Rundhalsausschnitt <br>In Größen S, M, L, XL verfügbar <br>100% Baumwolle',16.800000000000000
+71,19.0,7,NULL);
+INSERT INTO Produkt VALUES(50,'../Bilder/frauen_tshirt_logotext_orange.jpg','T-Shirt orange | Logo mit Text','T-Shirt mit Rundhalsausschnitt <br>In Größen S, M, L, XL verfügbar <br>100% Baumwolle',13.43999999999
+9999502,19.0,7,NULL);
+INSERT INTO Produkt VALUES(51,'../Bilder/frauen_tshirt_logotext_weiss.jpg','T-Shirt weiß | Logo mit Text','T-Shirt mit Rundhalsausschnitt <br>In Größen S, M, L, XL verfügbar <br>100% Baumwolle',20.16000000000000
+0142,19.0,7,NULL);
+INSERT INTO Produkt VALUES(52,'../Bilder/frauen_tshirt_logotext_schwarz.jpg','T-Shirt schwarz | Logo mit Text','T-Shirt mit Rundhalsausschnitt <br>In Größen S, M, L, XL verfügbar <br>100% Baumwolle',16.800000000
+00000071,19.0,7,NULL);
+INSERT INTO Produkt VALUES(53,'../Bilder/accessoires_masken_logosolo_blau.jpg','Maske blau','Maske blau',2.1000000000000000888,19.0,10,NULL);
+INSERT INTO Produkt VALUES(54,'../Bilder/accessoires_masken_logosolo_orange.jpg','Maske orange','Maske orange',2.1000000000000000888,19.0,3,NULL);
+INSERT INTO Produkt VALUES(55,'../Bilder/accessoires_masken_logosolo_weiss.jpg','Maske weiß','Maske weiß',2.1000000000000000888,19.0,10,NULL);
+INSERT INTO Produkt VALUES(56,'../Bilder/accessoires_masken_logosolo_schwarz.jpg','Maske schwarz','Maske schwarz',2.1000000000000000888,19.0,3,NULL);
+INSERT INTO Produkt VALUES(57,'../Bilder/accessoires_masken_logotext_blau.jpg','Maske blau | Logo mit Text','Maske blau',2.1000000000000000888,19.0,10,NULL);
+INSERT INTO Produkt VALUES(58,'../Bilder/accessoires_masken_logotext_orange.jpg','Maske orange | Logo mit Text','Maske orange',2.1000000000000000888,19.0,10,NULL);
+INSERT INTO Produkt VALUES(59,'../Bilder/accessoires_masken_logotext_weiss.jpg','Maske weiß | Logo mit Text','Maske weiß',2.1000000000000000888,19.0,10,NULL);
+INSERT INTO Produkt VALUES(60,'../Bilder/accessoires_masken_logotext_schwarz.jpg','Maske schwarz | Logo mit Text','Maske schwarz',2.1000000000000000888,19.0,10,NULL);

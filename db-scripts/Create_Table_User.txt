@@ -1,0 +1,14 @@
+CREATE TABLE User(
+ID integer not null primary key autoincrement,
+Anrede text not null default Herr,
+Vorname text not null,
+Nachname text not null,
+Benutzername text not null,
+Email text not null,
+Sicherheitsfrage text not null,
+Sicherheitsantwort text not null,
+Passwort text not null,
+StrasseHausnr TEXT NOT NULL,
+PLZ TEXT NOT NULL,
+Wohnort TEXT NOT NULL
+);
