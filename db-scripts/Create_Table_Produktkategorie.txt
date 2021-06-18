@@ -1,0 +1,5 @@
+CREATE TABLE Produktkategorie(
+ID integer not null primary key autoincrement,
+Oberkategorie text not null,
+Unterkategorie text not null
+, Bild text not null default '');

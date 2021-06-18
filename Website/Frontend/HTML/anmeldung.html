@@ -67,7 +67,7 @@
         <div class="anmeldung">
             <h3>Anmelden</h3>
             <div class="anmeldung_content">
-                <form class="anmeldeformular" name="anmeldeformular" id="anmeldeformular" method="GET">
+                <form class="anmeldeformular" name="anmeldeformular" id="anmeldeformular" >
                     <text>Benutzername oder E-Mail-Adresse:</text><br>
                     <input type="text" id="name" name="anmelden" maxlength="40"><br>
                     <text>Passwort:</text><br>
@@ -180,13 +180,42 @@
     <script>
         $(document).ready(function(){
 
-            $('#anmeldeformular').submit(function(){
-                //Hier kommt der code für die Anmeldung
+        //ANMELDUNG
+            $('#anmeldeformular').submit(function() {
+                console.log('[sta] Ready for login!');
+
+                //read from data
+                const name = $('#name').val();
+                const password = $('#passwort').val();
+                var loginData = {name, password};
+                var loginDataService = name+';'+password;
+
+                console.log('[inf] Formdata: ', loginData);
+                
+
+                $.ajax({
+                    url: 'http://localhost:8000/wba2api/person/login/'+loginDataService,
+                    method: 'get',
+                    dataType: 'json'
+                    
+                }).done(function (response){
+                    console.log('[sta] login successful!');
+                    console.log('[sta] Response: UserID: ', response);
+                    
+
+                }).fail(function(jqXHR,statusText,error) {
+                    console.log("[err] response code: " + jqXHR.status + "\nerror msg: " + jqXHR.responseText);
+                    console.log("[err] statusText: " + statusText + "\nerror: " + error);
+                });
+                return false;
+
+
             });
 
-
+        
+        //REGISTRIERUNG
             $('#registrierungsform').submit(function() {
-                console.log("[sta] Ready!");
+                console.log("[sta] Ready for signup!");
 
                 //read form data
                 function checkedRadio(){
@@ -202,7 +231,7 @@
                 const email = $('#email').val();
                 function passwortTrue(){
                     if (comparePasswords() == true){ //if both passwords are equal
-                        return $('#passwort').val();
+                        return $('#passwort1').val();
                     } else {
                         alert("FEHLER! Passwörter stimmen nicht überein!");
                     }

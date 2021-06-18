@@ -48,6 +48,40 @@ serviceRouter.get('/person/existiert/:id', function(request, response) {
     }
 });
 
+//von Muhammed hinzugefügt zum Anmelden
+serviceRouter.get('/person/login/:name', function(request, response) {
+    helper.log('Service Person Login: Client requested check if record exists ' + request.params.name);
+
+    const personDao = new PersonDao(request.app.locals.dbConnection);
+    try {
+        //seperate param
+        const parameter = request.params.name;
+        const sepParam = parameter.split(';');
+        //console.log("seperated Param: " + sepParam[0] + " ---- " + sepParam[1]);
+
+        var un = personDao.existsUsername(sepParam[0]);
+        //console.log("ID des Nutzers: " ,un);
+        helper.log('Service Person: Login data valid');
+
+        //check if pw are equal
+        var pw = personDao.getPassword(un.id); //password in db
+        var enteredPW = sepParam[1];        //password entered by user
+        //console.log("PWs in DB: ", pw.passwort , " |  eingabe: " + enteredPW);
+        if (enteredPW != pw.passwort){
+            response.status(400);
+            throw new Error("FAULT! Wrong password!");
+        }
+
+        var result = un; //id des nutzer übergeben als res
+
+        response.status(200).json(helper.jsonMsgOK(result));
+    } catch (ex) {
+        helper.logError('Service Person Post: Error creating new record. Exception occured: ' + ex.message);
+        response.status(400).json(helper.jsonMsgError(ex.message));
+    }    
+});
+
+
 serviceRouter.post('/person', function(request, response) {
     helper.log('Service Person: Client requested creation of new record');
 
