@@ -63,40 +63,37 @@
     <!--ACCOUNT-->
     <div class="content">
 
-        <form class="info_form" action="" method="">
+        <form class="info_form" id='info_form' method="post">
             <h2>Persönliche Daten</h2>
             <div class="content_info">
                 <div class="content_info_top">
                     <div class="form_anrede">
                         <text>Anrede</text><br>
                         <select name="anrede" id="anrede">
-                            <option value="">Herr</option>
-                            <option value="">Frau</option>
+                            <option value="Herr">Herr</option>
+                            <option value="Frau">Frau</option>
                         </select>
                     </div>
 
                     <div class="form_vorname">
                         <text>Vorname</text><br>
-                        <input type="text" id="vorname" name="vorname" maxlength="40" required="on"
-                            value="name">
+                        <input type="text" id="vorname" name="vorname" maxlength="40" required>
                     </div>
 
                     <div class="form_nachname">
                         <text>Nachname</text><br>
-                        <input type="text" id="nachname" name="nachname" maxlength="40" required="on"
-                            value="randomName">
+                        <input type="text" id="nachname" name="nachname" maxlength="40" required>
                     </div>
 
                     <div class="form_benutzername">
                         <text>Benutzername</text><br>
-                        <input type="text" name="benutzername" required="on" maxlength="20" onkeyup="checkUsername()"
-                            value="theUsername">
-                        <b style="color: red;"></b>
+                        <input type="text" name="benutzername" id="benutzername" required maxlength="20">
+                        <b id="alertUsername" style="color: red;"></b>
                     </div>
 
                     <div class="email">
                         <text>E-Mail</text><br>
-                        <input type="email" name="email" required="on" value="random@random.random">
+                        <input type="email" name="email" id="email" required>
                     </div>
 
                     <br>
@@ -108,12 +105,12 @@
 					
 					<div class="form_plz">
                         <text>PLZ</text><br>
-                        <input type="number" id="plz" name="plz" maxlength="5" required>
+                        <input type="text" id="plz" name="plz" maxlength="5" required>
                     </div>
 					
 					<div class="form_stadt">
-                        <text>Stadt</text><br>
-                        <input type="text" id="stadt" name="stadt" required>
+                        <text>Wohnort</text><br>
+                        <input type="text" id="ort" name="ort" required>
                     </div>
                 </div>
 
@@ -121,7 +118,7 @@
                 <div class="content_info_bottom">
 
                     <div class="submit">
-                        <input type="submit" value="Ändern" onclick="submitData()">
+                        <input type="submit" value="Ändern">
                     </div>
 
                     <div><a href="../HTML/reset_change_password.html">&#129046 Passwort ändern</a></div>
@@ -129,6 +126,95 @@
                 </div>
             </div>
         </form>
+
+
+        <script>
+            $(document).ready(function(){
+
+                //prüfen ob jmd eingeloggt ist, ansonsten zur anmeldung.html weiterleiten
+                var check = existsSessionItem('id');
+                if (check == false){
+                    window.location.replace('anmeldung.html');
+                }
+
+                //get id from session
+                const id = getSessionItem('id');
+
+                $.ajax({
+                    url: 'http://localhost:8000/wba2api/person/gib/'+id,
+                    method: 'get',
+                    dataType: 'json'
+
+                }).done(function(response) {
+                    console.log('[sta] Load data successful!');
+                    console.log('[inf] Data', response.daten);
+
+                    //Daten aus der Db eintragen
+                    $('#anrede').val(response.daten.anrede);
+                    $('#vorname').attr('value', response.daten.vorname);
+                    $('#nachname').attr('value', response.daten.nachname);
+                    $('#benutzername').attr('value', response.daten.benutzername);
+                    $('#email').attr('value', response.daten.email);
+                    $('#strasse').attr('value', response.daten.strassehausnr);
+                    $('#plz').attr('value', response.daten.plz);
+                    $('#ort').attr('value', response.daten.wohnort);
+
+                    console.log('[sta] From filled successfully!');
+
+
+                }).fail(function(jqXHR,statusText,error) {
+                    console.log("[err] response code: " + jqXHR.status + "\nerror msg: " + jqXHR.responseText);
+                    console.log("[err] statusText: " + statusText + "\nerror: " + error);
+
+                });
+
+
+            //Submit new data
+                $('#info_form').submit(function() {
+
+                    //read data
+                    
+                    const anrede = $('#anrede').val();
+                    const vorname = $('#vorname').val();
+                    const nachname = $('#nachname').val();
+                    const benutzername = $('#benutzername').val();
+                    const email = $('#email').val();
+                    const strassehausnr = $('#strasse').val();
+                    var plzInt = $('#plz').val();
+                    const plz = '' + plzInt;
+                    const wohnort = $('#ort').val();
+
+                    var person = {anrede, vorname, nachname, benutzername, email, strassehausnr, plz, wohnort, id};
+
+                    console.log('[sta] Form data: ', JSON.stringify(person));
+
+                    // send form with ajax
+                    $.ajax({
+                        //type: 'get',
+                        method: 'put',
+                        url: 'http://localhost:8000/wba2api/person/update',
+                        contentType: 'application/json',
+                        data: JSON.stringify(person)
+
+                    }).done(function(response){
+                        console.log("[inf] successfully updated data");
+                        
+
+                    }).fail(function(jqXHR,statusText,error){
+                        console.log("[err] response code: " + jqXHR.status + "\nerror msg: " + jqXHR.responseText);
+
+                        if (jqXHR.responseText.includes('Username')){
+                            console.log("Benutzername bereits vergeben.");
+                            $('#alertUsername').html('Benutzername bereits vergeben!');
+                        }
+                    });
+                    return false;
+
+                });
+
+            });
+
+        </script>
 
         <hr>
 
