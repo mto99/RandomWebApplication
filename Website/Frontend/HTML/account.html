@@ -124,6 +124,8 @@
                     <div><a href="../HTML/reset_change_password.html">&#129046 Passwort ändern</a></div>
 
                 </div>
+
+                <div><b id="alertWrongUsername" style="color: red; font-size: 13px;"></b><br></div>
             </div>
         </form>
 
@@ -190,7 +192,6 @@
 
                     // send form with ajax
                     $.ajax({
-                        //type: 'get',
                         method: 'put',
                         url: 'http://localhost:8000/wba2api/person/update',
                         contentType: 'application/json',
@@ -198,14 +199,14 @@
 
                     }).done(function(response){
                         console.log("[inf] successfully updated data");
-                        
+                        window.location.replace('account.html');
 
                     }).fail(function(jqXHR,statusText,error){
                         console.log("[err] response code: " + jqXHR.status + "\nerror msg: " + jqXHR.responseText);
 
-                        if (jqXHR.responseText.includes('Username')){
+                        if (jqXHR.responseText.includes('Benutzername existiert bereits')){
                             console.log("Benutzername bereits vergeben.");
-                            $('#alertUsername').html('Benutzername bereits vergeben!');
+                            $('#alertWrongUsername').html('Benutzername bereits vergeben!');
                         }
                     });
                     return false;
