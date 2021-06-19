@@ -11,6 +11,104 @@ class PersonDao {
         return this._conn;
     }
 
+
+//=========================================================
+// Die folgenden Methoden wurden von Muhammmed hinzugefügt
+    //Überprüft ob der eingebene Benutzername bereits vergeben ist
+    existsUsername(name) {
+        var sql = 'SELECT ID FROM User WHERE Benutzername=?';
+        var statement = this._conn.prepare(sql);
+        var result = statement.get(name);
+
+        if (helper.isUndefined(result)){
+            throw new Error('No Record found by Benutzername='+name);
+        }
+        return helper.objectKeysToLower(result);
+    }
+
+    //Überprüft ob der eingebene Benutzername bereits vergeben ist
+    checkIfUsernameexists(name) {
+        var sql = 'SELECT ID FROM User WHERE Benutzername=?';
+        var statement = this._conn.prepare(sql);
+        var result = statement.get(name);
+
+        if (result != null){
+            return true;
+        }
+        return false;
+    }
+
+    //Gibt das Passwort zurück
+    getPassword(pw){
+        var sql = 'SELECT Passwort FROM User WHERE ID=?';
+        var statement = this._conn.prepare(sql);
+        var result = statement.get(pw);
+
+        if (helper.isUndefined(result)){
+            throw new Error('No Record found by Passwort des Users');
+        }
+        return helper.objectKeysToLower(result);
+    }
+
+
+    //Zum ändern der Persönlichen Daten
+    updateData(anrede='', vorname='', nachname='', benutzername='', email='', strassehausnr='', plz='', wohnort='', id){
+        var sql = 'UPDATE User SET Anrede=?,Vorname=?,Nachname=?,Benutzername=?,Email=?,StrasseHausnr=?,PLZ=?,Wohnort=? WHERE ID=?';
+        var statement = this._conn.prepare(sql);
+        var params = [anrede, vorname, nachname, benutzername, email, strassehausnr, plz, wohnort, id];
+        var result = statement.run(params);
+
+        if (result.changes != 1) 
+            throw new Error('Could not update existing Record. Data: ' + params);
+
+        var updatedObj = this.loadById(id);
+        return updatedObj;
+    }
+
+    //Sicherheitsfrage, -antowrt von DB lesen
+    getQuestion(username){
+        var sql = 'SELECT Sicherheitsfrage, Sicherheitsantwort FROM User WHERE Benutzername=?';
+        var statement = this._conn.prepare(sql);
+        var result = statement.get(username);
+
+        if (helper.isUndefined(result)){
+            throw new Error('No Record found by Passwort des Users');
+        }
+        return helper.objectKeysToLower(result);
+    }
+
+    //Ändern des Passworts
+    updatePassword(passwort='',benutzername=''){
+        var sql = 'UPDATE User SET Passwort=? WHERE Benutzername=?';
+        var statement = this._conn.prepare(sql);
+        var params = [passwort, benutzername];
+        var result = statement.run(params);
+
+        if (result.changes != 1) 
+            throw new Error('Could not update existing Record. Data: ' + params);
+
+        //var updatedObj = this.loadById(id);
+        //return updatedObj;
+    }
+
+
+    //Abrufen des Benutzernamen
+    getUsername(id){
+        var sql = 'SELECT Benutzername FROM User WHERE ID=?';
+        var statement = this._conn.prepare(sql);
+        var result = statement.get(id);
+
+        if (helper.isUndefined(result)){
+            throw new Error('No Record found by ID='+id);
+        }
+        return result;
+    }
+
+
+
+//=========================================================
+
+
     loadById(id) {
         /***const adresseDao = new AdresseDao(this._conn);***/
 
@@ -71,33 +169,7 @@ class PersonDao {
         return false;
     }
 
-    
-    //Von Muhammed hinzugefügt für die Registrierung 
-    //Überprüft ob der eingebene Benutzername bereits vergeben ist
-    existsUsername(name) {
-        var sql = 'SELECT ID FROM User WHERE Benutzername=?';
-        var statement = this._conn.prepare(sql);
-        var result = statement.get(name);
 
-        if (helper.isUndefined(result)){
-            throw new Error('No Record found by Benutzername='+name);
-        }
-        return helper.objectKeysToLower(result);
-    }
-
-    //Gibt das Passwort zurück
-    getPassword(pw){
-        var sql = 'SELECT Passwort FROM User WHERE ID=?';
-        var statement = this._conn.prepare(sql);
-        var result = statement.get(pw);
-
-        if (helper.isUndefined(result)){
-            throw new Error('No Record found by Passwort des Users');
-        }
-        return helper.objectKeysToLower(result);
-    }
-
-    //---------------------------------------
 
     create(anrede = 'Herr', vorname = '', nachname = '', benutzername = '', email = '', sicherheitsfrage = '', 
         sicherheitsantwort = '', passwort = '', strassehausnr = '', plz = '', wohnort = '') {
@@ -113,20 +185,6 @@ class PersonDao {
         return newObj;
     }
 
-//von Muhammed hinzugefügt für Datenaktualisierung
-    updateData(anrede='', vorname='', nachname='', benutzername='', email='', strassehausnr='', plz='', wohnort='', id){
-        var sql = 'UPDATE User SET Anrede=?,Vorname=?,Nachname=?,Benutzername=?,Email=?,StrasseHausnr=?,PLZ=?,Wohnort=? WHERE ID=?';
-        var statement = this._conn.prepare(sql);
-        var params = [anrede, vorname, nachname, benutzername, email, strassehausnr, plz, wohnort, id];
-        var result = statement.run(params);
-
-        if (result.changes != 1) 
-            throw new Error('Could not update existing Record. Data: ' + params);
-
-        var updatedObj = this.loadById(id);
-        return updatedObj;
-    }
-//==================================
 
     update(id, anrede = 'Herr', vorname = '', nachname = '', benutzername = '', email = '', sicherheitsfrage = '', 
         sicherheitsantwort = '', passwort = '', strassehausnr = '', plz = '', wohnort = '') {
