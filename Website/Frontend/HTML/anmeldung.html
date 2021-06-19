@@ -70,8 +70,10 @@
                 <form class="anmeldeformular" name="anmeldeformular" id="anmeldeformular" >
                     <text>Benutzername oder E-Mail-Adresse:</text><br>
                     <input type="text" id="name" name="anmelden" maxlength="40"><br>
+                    <b id="alertWrongUsername" style="color: red; font-size: 13px;"></b><br>
                     <text>Passwort:</text><br>
                     <input type="password" id='passwort' name="anmelden" minlength="8"><br>
+                    <b id="alertWrongPassword" style="color: red; font-size: 13px;"></b><br>
                     <a href="../HTML/reset_change_password.html">Passwort vergessen?</a><br>
                     <input type="submit" value="Anmelden">
                 </form>
@@ -191,7 +193,6 @@
                 var loginDataService = name+';'+password;
 
                 console.log('[inf] Formdata: ', loginData);
-                
 
                 $.ajax({
                     url: 'http://localhost:8000/wba2api/person/login/'+loginDataService,
@@ -200,15 +201,34 @@
                     
                 }).done(function (response){
                     console.log('[sta] login successful!');
-                    console.log('[sta] Response: UserID: ', response);
+                    console.log('[sta] Response: UserID: ', response); //unter response.daten.id ist die ID gespeichert
+
+                    setSessionItem('login', true);  //nachweis, dass jmd eingeloggt ist
+                    setSessionItem('id', response.daten.id);    //id des benutzers in session speichern
+
+                    //weiterleiten zur startseite
+                    window.location.replace('index.html');
                     
 
                 }).fail(function(jqXHR,statusText,error) {
                     console.log("[err] response code: " + jqXHR.status + "\nerror msg: " + jqXHR.responseText);
                     console.log("[err] statusText: " + statusText + "\nerror: " + error);
+
+                    //if wrong username
+                    if (jqXHR.responseText.includes('No Record found by Benutzername')){
+                        console.log("[fau] Username does not exist!");
+                        $('#alertWrongUsername').html('Benutzername existiert nicht!');
+                        $('#alertWrongPassword').html(''); //Meldung von Passwort entfernen
+                    }
+
+                    //if passwort is wrong, show alert
+                    if (jqXHR.responseText.includes('Wrong password')){
+                        console.log("[fau] Wrong password!");
+                        $('#alertWrongPassword').html('Falsches Passwort! Erneut versuchen');
+                        $('#alertWrongUsername').html(''); //Meldung von Benutzername entfernen
+                    }
                 });
                 return false;
-
 
             });
 
