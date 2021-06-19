@@ -83,6 +83,56 @@ serviceRouter.get('/person/login/:name', function(request, response) {
 });
 
 
+//Von Muhammed hinzugefügt zum Persönliche Daten ändern
+serviceRouter.put('/person/update', function(request, response) {
+    helper.log('Service Person: Client requested update of new record');
+
+    var errorMsgs=[];
+    if (helper.isUndefined(request.body.id)) 
+        errorMsgs.push('id missing');
+    if (helper.isUndefined(request.body.anrede)) {
+        errorMsgs.push('anrede fehlt');
+    } else if (request.body.anrede.toLowerCase() !== 'herr' && request.body.anrede.toLowerCase() !== 'frau') {
+        errorMsgs.push('anrede falsch. Herr und Frau sind erlaubt');
+    }        
+    if (helper.isUndefined(request.body.vorname)) 
+        errorMsgs.push('vorname fehlt');
+    if (helper.isUndefined(request.body.nachname)) 
+        errorMsgs.push('nachname fehlt');
+    if (helper.isUndefined(request.body.benutzername))
+        errorMsgs.push('benutzername fehlt');
+    if (helper.isUndefined(request.body.email)) 
+        errorMsgs.push('email fehlt');
+    if (!helper.isEmail(request.body.email)) 
+        errorMsgs.push('email hat ein falsches Format');
+    if (helper.isUndefined(request.body.strassehausnr))
+        errorMsgs.push('adresse: Straße, Hausnr. fehlt');
+    if (helper.isUndefined(request.body.plz))
+        errorMsgs.push('adresse: plz fehlt');
+    if (helper.isUndefined(request.body.wohnort))
+        errorMsgs.push('adresse: wohnort fehlt');
+
+    if (errorMsgs.length > 0) {
+        helper.log('Service Person Update: Update not possible, data missing');
+        response.status(400).json(helper.jsonMsgError('Update nicht möglich. Fehlende Daten: ' + helper.concatArray(errorMsgs)));
+        return;
+    }
+
+    const personDao = new PersonDao(request.app.locals.dbConnection);
+    try {
+        var result = personDao.updateData(request.body.anrede, request.body.vorname, request.body.nachname, 
+                    request.body.benutzername, request.body.email, request.body.strassehausnr, request.body.plz, request.body.wohnort, request.body.id);
+        helper.log('Service Person Put: Record updated, id=' + request.body.id);
+        response.status(200).json(helper.jsonMsgOK(result));
+    } catch (ex) {
+        helper.logError('Service Person Put: Error updating record by id. Exception occured: ' + ex.message);
+        response.status(400).json(helper.jsonMsgError(ex.message));
+    }    
+
+});
+//======================================================
+
+
 serviceRouter.post('/person', function(request, response) {
     helper.log('Service Person: Client requested creation of new record');
 

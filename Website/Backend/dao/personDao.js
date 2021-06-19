@@ -113,6 +113,21 @@ class PersonDao {
         return newObj;
     }
 
+//von Muhammed hinzugefügt für Datenaktualisierung
+    updateData(anrede='', vorname='', nachname='', benutzername='', email='', strassehausnr='', plz='', wohnort='', id){
+        var sql = 'UPDATE User SET Anrede=?,Vorname=?,Nachname=?,Benutzername=?,Email=?,StrasseHausnr=?,PLZ=?,Wohnort=? WHERE ID=?';
+        var statement = this._conn.prepare(sql);
+        var params = [anrede, vorname, nachname, benutzername, email, strassehausnr, plz, wohnort, id];
+        var result = statement.run(params);
+
+        if (result.changes != 1) 
+            throw new Error('Could not update existing Record. Data: ' + params);
+
+        var updatedObj = this.loadById(id);
+        return updatedObj;
+    }
+//==================================
+
     update(id, anrede = 'Herr', vorname = '', nachname = '', benutzername = '', email = '', sicherheitsfrage = '', 
         sicherheitsantwort = '', passwort = '', strassehausnr = '', plz = '', wohnort = '') {
         var sql = 'UPDATE User SET \
