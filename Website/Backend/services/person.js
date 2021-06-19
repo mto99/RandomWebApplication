@@ -60,10 +60,11 @@ serviceRouter.get('/person/login/:name', function(request, response) {
         //console.log("seperated Param: " + sepParam[0] + " ---- " + sepParam[1]);
 
         var un = personDao.existsUsername(sepParam[0]);
+        
         //console.log("ID des Nutzers: " ,un);
         helper.log('Service Person: Login data valid');
 
-        //check if pw are equal
+        //check if passwords are equal
         var pw = personDao.getPassword(un.id); //password in db
         var enteredPW = sepParam[1];        //password entered by user
         //console.log("PWs in DB: ", pw.passwort , " |  eingabe: " + enteredPW);
