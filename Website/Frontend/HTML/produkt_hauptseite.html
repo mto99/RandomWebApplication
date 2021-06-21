@@ -7,7 +7,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="../Javascript/sessionHandling.js"></script>
     <script src="../Javascript/urlParameter.js"></script>
-    <script src="../Javascript/suche.js"></script>
+    <script src="../Javascript/forAll.js"></script>
     <script src="../Javascript/account.js"></script> <!--Für Logout-->
 
     <meta charset="utf-8">
@@ -92,18 +92,22 @@
     <script>
 
         $(document).ready(function(){
-            console.log('Document ready, loading data from Service');
+            console.log('[sta] Document ready, loading data from Service');
             
-            var oberkategorie = getUrlFirstParameterValue('oberkategorie');
-            console.log("Url-Parameter: Oberkategorie:" + oberkategorie);
+            var urlParams = getUrlParameters();
+            console.log("Url-Parameter: ", urlParams);
+
+            const oberkategorieName = urlParams[0]['parameterName'];
+            const oberkategorie = urlParams[0]['parameterValue'];
+            console.log("[inf] Parameter: Name: " + oberkategorieName + ", Kategorie: " + oberkategorie);
 
             $.ajax({
-                url: 'http://localhost:8000/wba2api/produktkategorie/alle',
+                url: 'http://localhost:8000/wba2api/produktkategorie/gib/'+oberkategorie,
                 method: 'get',
                 dataType: 'json'
             }).done(function(response){
-                console.log('Data loaded successfully');
-                console.log(response);
+                console.log('[sta] Data loaded successfully');
+                console.log('[inf] Data', response);
 
 
                 //Tabtitel
@@ -115,7 +119,7 @@
                 var content="";
                 content += "<a href='../HTML/index.html'>Home</a>";
                 content += "<span>&#5171</span>";
-                content += "<a href='/' >";
+                content += "<a href=''>";
                 content += oberkategorie;
                 content += '</a> </div>';
 
@@ -129,20 +133,19 @@
                 for (i = 0; i < response.daten.length; i++){
                     var obj = response.daten[i];
 
-                    if (obj.oberkategorie == oberkategorie){
-                        content += "<div class='auswahlmenu_item'>";
-                        content += "<div><a href='../HTML/produkt_produktseite.html?oberkategorie="+oberkategorie+";unterkategorie="+obj.unterkategorie+";id="+obj.id+"'>";
-                        content += obj.unterkategorie;
-                        content += "</a></div>";
-                        content += "<div><b>&#5171</b></div>";
-                        content += "</div>";
-                        content += "<hr class='line'>";
-                        cover = obj.bild;
-                    }
+                    content += "<div class='auswahlmenu_item'>";
+                    content += "<div><a href='../HTML/produkt_produktseite.html?oberkategorie="+oberkategorie+"&unterkategorie="+obj.unterkategorie+"&id="+obj.id+"'>";
+                    content += obj.unterkategorie;
+                    content += "</a></div>";
+                    content += "<div><b>&#5171</b></div>";
+                    content += "</div>";
+                    content += "<hr class='line'>";
+                    cover = obj.bild;
+                    
                 }
 
                 $('.auswahlmenu').html(content);
-
+                console.log('[sta] Append in HTML successfully!');
 
                 //Cover image
                 var content = '<img src="' + cover + '" alt="Cover Image">';
@@ -150,12 +153,10 @@
                 $('.cover_image').html(content);
 
             }).fail(function(jqXHR, statusText, error){
-                console.log('Error occured');
-                console.log('Response code: ' + jqXHR.status + ' - Message: ' + jqXHR.responseText);
-                alert(jqXHR.responseText);
+                console.log('[err] Error occured');
+                console.log('[err] Response code: ' + jqXHR.status + ' - Message: ' + jqXHR.responseText);
             });
 
-            
         });
 
     </script>

@@ -7,7 +7,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="../Javascript/sessionHandling.js"></script>
     <script src="../Javascript/urlParameter.js"></script>
-    <script src="../Javascript/suche.js"></script>
+    <script src="../Javascript/forAll.js"></script>
     <script src="../Javascript/filter.js"></script>
     <script src="../Javascript/account.js"></script> <!--Für Logout-->
 
@@ -137,22 +137,27 @@
 
 
     <script>
-        console.log("Bestätigt:");
+        console.log("[sta] Bestätigt:");
 
         $(document).ready(function() {
-            console.log('loading all products');
+            console.log('[sta] loading all products');
 
-            var oberkategorie = getUrlFirstParameterValue('oberkategorie');
-            var unterkategorie = getUrlSecondParameterValue('unterkategorie');
-            var id = getUrlThirdParameterValue('id');
-            console.log('Url-Parameter: Oberkategorie:'+oberkategorie+', Unterkategorie:'+unterkategorie+', Id:'+id);
+            var urlParams = getUrlParameters();
+            console.log("Url-Parameter: ", urlParams);
+
+            const oberkategorie = urlParams[0]['parameterValue'];
+            const unterkategorie = urlParams[1]['parameterValue'];
+            const unterkategorieID = urlParams[2]['parameterValue'];
+
+            console.log('[inf] Url-Parameter: Oberkategorie:'+oberkategorie+', Unterkategorie:'+unterkategorie+', Id:'+unterkategorieID);
 			
 			$.ajax({
-                url: 'http://localhost:8000/wba2api/produkt/alle',
+                url: 'http://localhost:8000/wba2api/produkt/kategorie/'+unterkategorieID,
                 method: 'get',
 				dataType: 'json'
             }).done(function (response) {
-                console.log(response);
+                console.log('[sta] Data loaded successfully!');
+                console.log('[sta] Data', response);
 
                 //Tabtitel
                 var content = "<title>HS-Shop: "+oberkategorie+" - "+unterkategorie+"</title>";
@@ -164,48 +169,37 @@
                 content += "<span>&#5171</span>";
                 content += "<a href='../HTML/produkt_hauptseite.html?oberkategorie="+oberkategorie+"'>" + oberkategorie + "</a>";
                 content += "<span>&#5171</span>";
-                content += "<a href='../HTML/produkt_produktseite.html?oberkategorie="+oberkategorie+";unterkategorie="+unterkategorie+";id="+id+"'>";
+                content += "<a href=''>";
                 content += unterkategorie;
                 content += "</a> </div>";
 
                 $('.path').html(content);
 
                 //Produkte
-                var content='';
+                content="";
 
-                for (i=0; i< response.daten.length; i++){
-                    var obj = response.daten[i];
+                console.log("Länge " + response.daten.length);
 
-                    //wenn Produkte der Kategorie id entsprechen -->laden
-                    if (obj.kategorieid == id){
-                        content += ' <div class="clothe_box"> ';
-                        content += "<a href='../HTML/produkt.html?oberkategorie="+oberkategorie+";unterkategorie="+unterkategorie+";id="+obj.id+"'>";
-                        content += '<img src="' + obj.bild + '" alt="Produktbild">';
-                        if (oberkategorie == 'Sale'){
-                            content += '<span>' + obj.titel + '</span><br>';
-                            var preis =  (obj.nettopreis*(obj.mehrwertsteuer/100+1)).toFixed(2);
-                            content += '<span><del>' + preis + '</del>\t</span>';
-                            var neuerPreis = (preis *0.9).toFixed(2); //Rabatt
-                            content += '<span>' +neuerPreis +'</span>';
-                            content += '</a>';
-                            content += '</div>';
-                        }
-                        else{
-                            content += '<span>' + obj.titel + '</span><br>';
-                            var preis =  (obj.nettopreis*(obj.mehrwertsteuer/100+1)).toFixed(2);
-                            content += '<span>' + preis + '</span>';
-                            content += '</a>';
-                            content += '</div>';
-                        }
-                        
-                    }
+                for (i=0; i < response.daten.length; i++){
+                    var content="";
+                    content += " <div class='clothe_box'> ";
+                    content += "<a href='../HTML/produkt.html?oberkategorie="+oberkategorie+"&unterkategorie="+unterkategorie+"&id="+response.daten[i]['ID']+"'>";
+                    content += "<img src='" + response.daten[i]['Bild'] + "' alt='Produktbild'>";
+                    content += "<span>" + response.daten[i]['Titel'] + "</span><br>";
+                    var preis =  (response.daten[i]['Nettopreis']*(response.daten[i]['Mehrwertsteuer']/100+1)).toFixed(2);
+                    content += "<span>" + preis + " € </span>";
+                    content += "</a>";
+                    content += "</div>";
+
+                    $('.products').append(content);  
+                    console.log('[inf] Load Product ' + (i+1) + ' of ' + response.daten.length);
                 }
 
-                $('.products').html(content);
+                //$('.products').html(content);
+                console.log("[sta] Appendend in HTML successfully!");
 
             }).fail(function (jqXHR, statusText, error) {
-                console.log('Response Code: ' + jqXHR.status + ' - Fehlermeldung: ' + jqXHR.responseText);
-                alert('Ein Fehler ist aufgetreten');
+                console.log('[err] Response Code: ' + jqXHR.status + ' - Fehlermeldung: ' + jqXHR.responseText);
             });
         });
         

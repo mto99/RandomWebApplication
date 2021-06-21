@@ -7,7 +7,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="../Javascript/sessionHandling.js"></script>
     <script src="../Javascript/urlParameter.js"></script>
-    <script src="../Javascript/suche.js"></script>
+    <script src="../Javascript/forAll.js"></script>
     <script src="../Javascript/account.js"></script> <!--Für Logout-->
     <script src="../Javascript/cart.js"></script> <!--Für Ablegen in Warenkorb-->
 
@@ -48,10 +48,10 @@
                 <hr width="95%">
     
                 <div class="menu_bottom">
-                    <div class="menu_item"><a href="produkt_hauptseite.html" onclick="selectPath('Sale')">Sale</a></div>
-                    <div class="menu_item"><a href="produkt_hauptseite.html" onclick="selectPath('Männer')">Männer</a></div>
-                    <div class="menu_item"><a href="produkt_hauptseite.html" onclick="selectPath('Frauen')">Frauen</a></div>
-                    <div class="menu_item"><a href="produkt_hauptseite.html" onclick="selectPath('Accessoires')">Accessoires</a></div>
+                    <div class="menu_item"><a href="../HTML/produkt_hauptseite.html?oberkategorie=Sale">Sale</a></div>
+                    <div class="menu_item"><a href="../HTML/produkt_hauptseite.html?oberkategorie=Männer">Männer</a></div>
+                    <div class="menu_item"><a href="../HTML/produkt_hauptseite.html?oberkategorie=Frauen">Frauen</a></div>
+                    <div class="menu_item"><a href="../HTML/produkt_hauptseite.html?oberkategorie=Accessoires">Accessoires</a></div>
                     <div class="menu_item"><a title="Warenkorb" href="../HTML/warenkorb.html"><img src="../Bilder/navi_warenkorb.png" alt="Cart"></a></div>
                 </div>
             </div>
@@ -118,37 +118,38 @@
         $(document).ready(function(){
             console.log('Document ready, loading data from Service');
 
-            var oberkategorie = getUrlFirstParameterValue('oberkategorie');
-            var id = getUrlThirdParameterValue('id');
-            console.log('ProduktID:'+id);
+            var urlParams = getUrlParameters();
+            console.log("Url-Parameter: ", urlParams);
+            const oberkategorie = urlParams[0]['parameterValue'];
+            const unterkategorie = urlParams[1]['parameterValue'];
+            const produktID = urlParams[2]['parameterValue'];
+
 
             $.ajax({
-                url: 'http://localhost:8000/wba2api/produkt/alle',
+                url: 'http://localhost:8000/wba2api/produkt/gib/'+produktID,
                 method: 'get',
                 dataType: 'json'
             }).done(function(response){
                 console.log('Data loaded successfully');
-                console.log(response);
 
+                console.log('[sta] Data loaded successfully!');
+                console.log('[sta] Data', response);
 
                 //Tabtitel
-                var content = "<title>HS-Shop: " + response.daten[id].titel + "</title>";
+                var content = "<title>HS-Shop: " + response.daten['Titel'] + "</title>";
                 $('head').append(content);
 
 
-                //PRODUKT
-                var obj = response.daten[id];
-
                 // Bild
-                $('.produkt_image').html("<img src="+obj.bild+" alt='produkt'>");
+                $('.produkt_image').html("<img src="+response.daten['Bild']+" alt='produkt'>");
 
                 //Produkttitel
-                document.getElementById('uberschrift').innerHTML = obj.titel;
+                document.getElementById('uberschrift').innerHTML = response.daten['Titel'];
 
                 //Preis
-                var alterpreis = (obj.nettopreis*(obj.mehrwertsteuer/100+1)).toFixed(2);
+                var alterpreis = (response.daten['Nettopreis']*(response.daten['Mehrwertsteuer']/100+1)).toFixed(2);
                 var preis = (alterpreis*0.9).toFixed(2);
-                if (oberkategorie == 'Sale'){
+                if (oberkategorie == 'Sale'){ //if Sale then add new price 
                     
                     document.getElementById('preis').innerHTML = '<span><del>' + alterpreis + '</del>\t</span><span>' +preis +'</span>';
                 }
@@ -159,12 +160,13 @@
                 document.getElementById
 
                 //Beschreibung
-                document.getElementById('beschreibung').innerHTML = obj.beschreibung;
+                document.getElementById('beschreibung').innerHTML = response.daten['Beschreibung'];
+
+                console.log("[sta] product loaded successfully!");
 
             }).fail(function(jqXHR, statusText, error){
-                console.log('Error occured');
-                console.log('Response code: ' + jqXHR.status + ' - Message: ' + jqXHR.responseText);
-                alert(jqXHR.responseText);
+                console.log('[err] Error occured');
+                console.log('[err] Response code: ' + jqXHR.status + ' - Message: ' + jqXHR.responseText);
             });
 
         });

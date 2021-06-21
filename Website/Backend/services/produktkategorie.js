@@ -5,6 +5,24 @@ var serviceRouter = express.Router();
 
 helper.log('- Service Produktkategorie');
 
+//===========================================================
+//Wurde von Muhammed hinzugefügt
+serviceRouter.get('/produktkategorie/gib/:category', function(request, response) {
+    helper.log('Service Produktkategorie: Client requested one record, id=' + request.params.id);
+
+    const produktkategorieDao = new ProduktkategorieDao(request.app.locals.dbConnection);
+    try {
+        var result = produktkategorieDao.loadCat(request.params.category);
+        helper.log('Service Produktkategorie: Record loaded');
+        response.status(200).json(helper.jsonMsgOK(result));
+    } catch (ex) {
+        helper.logError('Service Produktkategorie: Error loading record by id. Exception occured: ' + ex.message);
+        response.status(400).json(helper.jsonMsgError(ex.message));
+    }
+});
+
+//===========================================================
+
 serviceRouter.get('/produktkategorie/gib/:id', function(request, response) {
     helper.log('Service Produktkategorie: Client requested one record, id=' + request.params.id);
 
