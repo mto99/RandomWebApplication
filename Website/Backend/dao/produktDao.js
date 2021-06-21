@@ -15,9 +15,25 @@ class ProduktDao {
         return this._conn;
     }
 
-    loadById(id){
+//======================================================================
+//Von Muhammed hinzugefügt
+    loadByCategoryId(id){
         const produktkategorieDao = new ProduktkategorieDao(this._conn);
 
+        var sql = 'SELECT * FROM Produkt WHERE KategorieID=?';
+        var statement = this._conn.prepare(sql);
+        var result = statement.all(id);
+
+        if (helper.isUndefined(result)) 
+            throw new Error('No Record found by CategoryID=' + id);
+
+        return result;
+    }
+
+
+//======================================================================
+
+    loadById(id){
         var sql = 'SELECT * FROM Produkt WHERE ID=?';
         var statement = this._conn.prepare(sql);
         var result = statement.get(id);
@@ -25,60 +41,11 @@ class ProduktDao {
         if (helper.isUndefined(result)) 
             throw new Error('No Record found by id=' + id);
 
-        result = helper.objectKeysToLower(result);
-
-        result.KategorieID = produktkategorieDao.loadById(result.KategorieID);
-        delete result.KategorieID;
-
-        /* Gibt es in unserer Datenbank nicht
-        result.mehrwertsteuer = mehrwertsteuerDao.loadById(result.mehrwertsteuerid);
-        delete result.mehrwertsteuerid;
-        if (helper.isNull(result.datenblattid)) {
-            result.datenblatt = null;
-        } else {
-            result.datenblatt = downloadDao.loadById(result.datenblattid);
-        }
-        delete result.datenblattid;
-
-        result.bilder = produktbildDao.loadByParent(result.id);
-        for (i = 0; i < result.bilder.length; i++) {
-            delete result.bilder[i].produktid;
-        }
-        */
-
-        result.Mehrwertsteuer = helper.round((result.Nettopreis / 100) * result.Mehrwertsteuer);
-
-        result.bruttopreis = helper.round(result.Nettopreis + result.Mehrwertsteuer);
-
         return result;
-    
-    }
-
-    //Habe ich hinzugefügt
-    loadByCategoryId(id){
-        const produktkategorieDao = new ProduktkategorieDao(this._conn);
-
-        var sql = 'SELECT * FROM Produkt WHERE KategorieID=?';
-        var statement = this._conn.prepare(sql);
-        var result = statement.get(id);
-
-        if (helper.isUndefined(result)) 
-            throw new Error('No Record found by id=' + id);
-
-        result = helper.objectKeysToLower(result);
-
-        //noch fehlerhaft
-
-        result.Mehrwertsteuer = helper.round((result.Nettopreis / 100) * result.Mehrwertsteuer);
-
-        result.bruttopreis = helper.round(result.Nettopreis + result.Mehrwertsteuer);
     }
 
 
     loadAll() {
-        const produktkategorieDao = new ProduktkategorieDao(this._conn);
-        var categories = produktkategorieDao.loadAll();
-
         var sql = 'SELECT * FROM Produkt';
         var statement = this._conn.prepare(sql);
         var result = statement.all();
@@ -104,6 +71,7 @@ class ProduktDao {
 
         return result;
     }
+
 
     exists(id) {
         var sql = 'SELECT COUNT(ID) AS cnt FROM Produkt WHERE ID=?';

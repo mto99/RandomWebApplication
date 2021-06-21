@@ -5,6 +5,27 @@ var serviceRouter = express.Router();
 
 helper.log('- Service Produkt');
 
+//============================================================
+//Von Muhammed hinzugefügt
+serviceRouter.get('/produkt/kategorie/:id', function(request, response){
+    helper.log('Service Produkt: Client requested records with id=' + request.params.id);
+
+    const produktDao = new ProduktDao(request.app.locals.dbConnection);
+    try{
+        var result = produktDao.loadByCategoryId(request.params.id);
+        helper.log('Service Produkt: Records loaded, id=' + result);
+        response.status(200).json(helper.jsonMsgOK(result));
+    } catch (ex) {
+        helper.logError('Service Produkt: Error loading records by CategoryId. Exception occured: ' + ex.message);
+        response.status(400).json(helper.jsonMsgError(ex.message));
+    }
+    
+});
+
+
+
+//============================================================
+
 serviceRouter.get('/produkt/gib/:id', function(request, response) {
     helper.log('Service Produkt: Client requested one record, id=' + request.params.id);
 
@@ -19,21 +40,6 @@ serviceRouter.get('/produkt/gib/:id', function(request, response) {
     }
 });
 
-//Habe ich hinzugefügt
-serviceRouter.get('/produkt/kategorie/:id', function(request, response){
-    helper.log('Service Produkt: Client requested records with id=' + request.params.id);
-
-    const produktDao = new ProduktDao(request.app.locals.dbConnection);
-    try{
-        var result = produktDao.loadByCategoryId(request.params.id);
-        helper.log('Service Produkt: Records loaded, count=' +result.length);
-        response.status(200).json(helper.jsonMsgOK(result));
-    } catch (ex) {
-        helper.logError('Service Produkt: Error loading records by CategoryId. Exception occured: ' + ex.message);
-        response.status(400).json(helper.jsonMsgError(ex.message));
-    }
-    
-});
 
 serviceRouter.get('/produkt/alle/', function(request, response) {
     helper.log('Service Produkt: Client requested all records');

@@ -10,6 +10,22 @@ class ProduktkategorieDao {
         return this._conn;
     }
 
+//======================================================================
+//Wurde von Muhammed hinzugefügt
+    loadCat(name) {
+        var sql = 'SELECT * FROM Produktkategorie WHERE Oberkategorie=?';
+        var statement = this._conn.prepare(sql);
+        var result = statement.all(name);
+
+        if (helper.isUndefined(result))
+            throw new Error('No Record found by Category=' +name);
+        
+        return helper.arrayObjectKeysToLower(result);
+    }
+
+
+//======================================================================
+
     loadById(id) {
         var sql = 'SELECT * FROM Produktkategorie WHERE ID=?';
         var statement = this._conn.prepare(sql);
@@ -18,19 +34,6 @@ class ProduktkategorieDao {
         if (helper.isUndefined(result)) 
             throw new Error('No Record found by id=' + id);
 
-        return helper.objectKeysToLower(result);
-    }
-
-
-//HABE ICH HINZUGEFÜGT------------------------------------------
-    loadCat(id) {
-        var sql = 'SELECT * FROM Produktkategorie WHERE Oberkategorie=?';
-        var statement = this._conn.prepare(sql);
-        var result = statement.get(id);
-
-        if (helper.isUndefined(result))
-            throw new Error('No Record found by id=' +id);
-        
         return helper.objectKeysToLower(result);
     }
 
@@ -57,7 +60,7 @@ class ProduktkategorieDao {
     }
 
     create(oberkategorie = '', unterkategorie = '', bild = '') {
-        var sql = 'INSERT INTO Produktkategorie (Oberkategorie, Unterkategorie, Bild) VALUES (?)';
+        var sql = 'INSERT INTO Produktkategorie (Oberkategorie, Unterkategorie, Bild) VALUES (?,?,?)';
         var statement = this._conn.prepare(sql);
         var params = [oberkategorie, unterkategorie, bild];
         var result = statement.run(params);
