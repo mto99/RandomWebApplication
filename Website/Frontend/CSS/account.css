@@ -139,13 +139,18 @@ body{
         margin: 2px;
     }
 
+    .tabelle_datum{
+        width: 18%;
+        margin: 2px;
+    }
+
     #artikel{
         color: black;
         font-size: 13px;
         font-weight: bold;
     }
 
-    #anzahl, #stuckzahl, #summe{
+    #anzahl, #stuckzahl, #summe, #datum{
         color: black;
         font-size: 10px;
         font-weight: bold;
@@ -178,7 +183,7 @@ body{
         width: 40px;
     }
 
-    .stuckpreis, .summe{
+    .anzahl, .stuckpreis, .summe, .datum{
         font-size: 10px;
     }
 
@@ -250,6 +255,11 @@ body{
         margin: 5px 10px 5px 10px;
     }
 
+    .tabelle_datum{
+        width: 17%;
+        margin: 5px 10px 5px 10px;
+    }
+
     .tabelle_blank{
         width: 5%;
         margin: 5px 0 5px 10px;
@@ -261,7 +271,7 @@ body{
         font-weight: bold;
     }
 
-    #anzahl, #stuckzahl, #summe{
+    #anzahl, #stuckzahl, #summe, #datum{
         color: black;
         font-size: 13px;
         font-weight: bold;
@@ -294,7 +304,7 @@ body{
         width: 50px;
     }
 
-    .stuckpreis, .summe{
+    .anzahl, .stuckpreis, .summe, .datum{
         font-size: 20px;
     }
 
