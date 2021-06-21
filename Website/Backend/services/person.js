@@ -162,8 +162,38 @@ serviceRouter.put('/person/changePassword/:param', function(request, response) {
 });
 
 
+//Zum Abrufen der Käufe für User mit ID:...
+serviceRouter.get('/person/kaeufe/:id', function(request, response) {
+    helper.log('Service Person Load Purchases: Client requested check if record exists ' + request.params.name);
+
+    const personDao = new PersonDao(request.app.locals.dbConnection);
+    try {
+        const parameter = request.params.id; //id of User
+        console.log("UserID: " + parameter);
+
+        //check if passwords are equal
+        var result = personDao.getPurchases(parseInt(parameter)); //Benutzername in db
+
+        var products = [];
+        for (i=0; i<result.length; i++){
+            var element = personDao.getProducts(result[i]['ProduktID']);
+            products.push(element);
+        }
+
+        //console.log("Element: ", products);
+
+        response.status(200).json(helper.jsonMsgOK([result,products]));
+    } catch (ex) {
+        helper.logError('Service Person GetPurchases: Error loading records. Exception occured: ' + ex.message);
+        response.status(400).json(helper.jsonMsgError(ex.message));
+    }    
+});
+
+
 
 //====================================
+
+
 
 serviceRouter.get('/person/gib/:id', function(request, response) {
     helper.log('Service Person: Client requested one record, id=' + request.params.id);

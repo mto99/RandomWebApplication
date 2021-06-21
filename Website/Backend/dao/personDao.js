@@ -105,6 +105,33 @@ class PersonDao {
     }
 
 
+    //Abrufen der Käufe für User mit ID:....
+    getPurchases(id){
+        var sql = 'SELECT * FROM Kaeufe WHERE UserID=?';
+        var statement = this._conn.prepare(sql);
+        var result = statement.all(id);
+
+        if (helper.isUndefined(result)){
+            throw new Error('No Record found by UserID='+id);
+        }
+
+        return result;
+    }
+
+    //Abrufen der Produkte
+    getProducts(id){
+        var sql = 'SELECT * FROM Produkt WHERE ID=?';
+        var statement = this._conn.prepare(sql);
+        var result = statement.get(id);
+
+        if (helper.isUndefined(result)){
+            throw new Error('No Record found by UserID='+id);
+        }
+
+        return result;
+    }
+
+
 
 //=========================================================
 

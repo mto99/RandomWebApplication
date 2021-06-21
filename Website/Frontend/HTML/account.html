@@ -161,7 +161,7 @@
                     $('#plz').attr('value', response.daten.plz);
                     $('#ort').attr('value', response.daten.wohnort);
 
-                    console.log('[sta] From filled successfully!');
+                    console.log('[sta] Personal data loaded and filled successfully!');
 
 
                 }).fail(function(jqXHR,statusText,error) {
@@ -211,9 +211,101 @@
                     });
                     return false;
 
-                });
+                }); //end submit ajax
 
-            });
+
+            //Käufe laden
+                $.ajax({
+                    url: 'http://localhost:8000/wba2api/person/kaeufe/'+id,
+                    method: 'get',
+                    dataType: 'json'
+
+                }).done(function(response) {
+                    console.log('[sta] Load purchases data successfully!');
+                    console.log('[inf] Data', response.daten);
+
+                    //Daten aus der Db lesen
+                    /*Info über response.daten:
+                        Array 0: Käufe enthalten aus DB Kaeufe
+                        Array 1: Produkte enthalten aus DB Produkt
+                    */
+
+                    if (response.daten[0].length <= 0 ){
+                        $('.content_kaufe_bottom').append("<span><b style='color: black;'>Noch keine Käufe vorhanden!</b></span>");
+                        console.log('[sta] No purchases found!')
+                    }else{
+
+                        var content = "";
+                        content += "<div class='tabelle_top'> \
+                                    <div class='tabelle_artikel'> \
+                                        <span id='artikel'>Artikel</span> \
+                                    </div> \
+                                    <div class='tabelle_anzahl'> \
+                                        <span id='anzahl'>Anzahl</span> \
+                                    </div> \
+                                    <div class='tabelle_stuckpreis'> \
+                                        <span id='stuckzahl'>Einzelpreis</span> \
+                                    </div> \
+                                    <div class='tabelle_summe'> \
+                                        <span id='summe'>Summe</span> \
+                                    </div> \
+                                    <div class='tabelle_datum'> \
+                                        <span id='datum'>Kaufdatum</span> \
+                                    </div> \
+                                    </div> \
+                                    <hr>";
+
+                        $('.content_kaufe_bottom').append(content);
+
+                        //Käufe laden
+                        for (i=0; i < response.daten[0].length; i++){
+                            content = "";
+                            content += "<div class='tabelle_content'>";
+                            content += "<div class='tabelle_artikel'>";
+                            content += "<div>";
+                            content += "<img src='" + response.daten[1][i]['Bild'] + "'>" ;
+                            content += "</div>";
+                            content += "<div>";
+                            content += "<span class='artikelname'>" + response.daten[1][i]['Titel'] + "</span><br>";
+                            content += "<span class='artikelbeschreibung'>" + response.daten[1][i]['Beschreibung'] + "</span>";
+                            content += "</div>";
+                            content += "</div>";
+                            content += "<div class='tabelle_anzahl'>";
+                            content += "<span class='anzahl'>" + response.daten[0][i]['Menge'] + "</span>";
+                            content += "</div>";
+                            content += "<div class='tabelle_stuckpreis'>";
+                            var ms = 1 + (response.daten[1][i]['Mehrwertsteuer'] / 100);
+                            var preis = (response.daten[1][i]['Nettopreis'] * ms).toFixed(2);
+                            content += "<span class='stuckpreis'>" + preis + "€ </span>";
+                            content += "</div>";
+                            content += "<div class='tabelle_summe'>";
+                            var summe = preis * response.daten[0][i]['Menge'];
+                            content += "<span class='summe'>" + summe + "€ </span>";
+                            content += "</div>";
+                            content += "<div class='tabelle_datum'>";
+                            content += "<span class='datum'>" + response.daten[0][i]['Datum'] + "</span>";
+                            content += "</div>";
+                            content += "</div>";
+                            content += "<hr>";
+
+                            $('.content_kaufe_bottom').append(content);
+
+                            console.log("[sta] Successfully load Purchase " + (i+1) + " of " + response.daten[0].length);
+                        }
+                    }
+
+                    console.log('[sta] Purchases appended successfully!');
+
+                }).fail(function(jqXHR,statusText,error) {
+                    console.log("[err] response code: " + jqXHR.status + "\nerror msg: " + jqXHR.responseText);
+                    console.log("[err] statusText: " + statusText + "\nerror: " + error);
+                    $('.content_kaufe_bottom').append("<span><b style='color: red;'>Ein Fehler ist aufgetreten! Bitte Seite neuladen!</b></span>");
+                    console.log('[sta] ERROR while loading data!')
+
+                });//end Käufe laden
+
+
+            }); //end document
 
         </script>
 
@@ -222,107 +314,11 @@
         <div class="content_kaufe">
             <h2>Käufe</h2>
             <div class="content_kaufe_bottom">
-                <div class="tabelle_top">
-                    <div class="tabelle_artikel">
-                        <span id="artikel">Artikel</span>
-                    </div>
+                
 
-                    <div class="tabelle_anzahl">
-                        <span id="anzahl">Anzahl</span>
-                    </div>
+                <!--HIER WERDEN DIE KÄUFE DYNAMISCH ANGEZEIGT-->
 
-                    <div class="tabelle_stuckpreis">
-                        <span id="stuckzahl">Einzelpreis</span>
-                    </div>
-
-                    <div class="tabelle_summe">
-                        <span id="summe">Summe</span>
-                    </div>
-
-                </div>
-
-                <hr>
-
-                <div class="tabelle_content">
-                    <div class="tabelle_artikel">
-                        <div>
-                            <img src="../Bilder/maske.jpeg">
-                        </div>
-                        <div>
-                            <span class="artikelname">Offizielle Maske der HS-AlbSig</span><br>
-                            <span class="artikelbeschreibung">100% Baumwolle</span>
-                        </div>
-                        
-                    </div>
-
-                    <div class="tabelle_anzahl">
-                        <select name="anzahl" id="anzahl">
-                            <option value="1" selected="selected">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="7">7</option>
-                            <option value="6">6</option>
-                            <option value="9">9</option>
-                            <option value="8">8</option>
-                            <option value="10">10</option>
-                        </select>
-                    </div>
-
-                    <div class="tabelle_stuckpreis">
-                        <span class="stuckpreis">5,00€</span>
-                    </div>
-
-                    <div class="tabelle_summe">
-                        <span class="summe">0,00€</span>
-                    </div>
-
-                    
-                </div>
-
-                <hr>
-
-                <div class="tabelle_content">
-                    <div class="tabelle_artikel">
-                        <div>
-                            <img src="../Bilder/maske1.jpeg">
-                        </div>
-                        <div>
-                            <span class="artikelname">Offizielle Maske der HS-AlbSig</span><br>
-                            <span class="artikelbeschreibung">100% Baumwolle</span>
-                        </div>
-                        
-                    </div>
-
-                    <div class="tabelle_anzahl">
-                        <select name="anzahl" id="anzahl">
-                            <option value="1" selected="selected">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="7">7</option>
-                            <option value="6">6</option>
-                            <option value="9">9</option>
-                            <option value="8">8</option>
-                            <option value="10">10</option>
-                        </select>
-                    </div>
-
-                    <div class="tabelle_stuckpreis">
-                        <span class="stuckpreis">9,99€</span>
-                    </div>
-
-                    <div class="tabelle_summe">
-                        <span class="summe">0,00€</span>
-                    </div>
-
-                    
-                </div>
-
-                <hr>
-
+                
 
             </div>
         </div>

@@ -1,0 +1,9 @@
+CREATE TABLE Kaeufe(
+ID integer not null primary key autoincrement,
+UserID integer not null,
+ProduktID integer not null,
+Groesse text,
+Menge integer not null default 1,
+Preis real not null,
+Datum text not null
+);
