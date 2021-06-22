@@ -12,6 +12,19 @@
 
     <meta charset="utf-8">
     <title>HS-Shop: Anmelden/Registrieren</title>
+
+    <script>
+        function checkIfPLZ(){
+            var plz = $('#plz').val();
+            var plzStr = plz.toString();
+            if (plzStr.length >5){
+                document.getElementById('alertPLZ').innerHTML = "PLZ falsch!";
+                return false;
+            }
+            document.getElementById('alertPLZ').innerHTML = "";
+            return true;
+        }
+    </script>
 </head> 
 
 <body>
@@ -153,7 +166,8 @@
 					
 					<div class="form_plz">
                         <text>PLZ</text><br>
-                        <input type="number" id="plz" name="plz" maxlength="5" required>
+                        <input type="number" id="plz" name="plz" required onkeyup="checkIfPLZ()"><br>
+                        <b id="alertPLZ" style="color: red; font-size: 13px;"> </b> 
                     </div>
 					
 					<div class="form_ort">
@@ -261,7 +275,9 @@
                 const santwort = $('#sicherheitsantwort').val();
                 const strassehausnr = $('#strasse').val();
                 var plzInt = $('#plz').val();
-                const plz = '' + plzInt;
+                if (checkIfPLZ() == true){
+                    const plz = '' + plzInt;
+                }
                 console.log("PLZ: " + typeof(plz));
                 const wohnort = $('#ort').val();
                 var person = { 'anrede':anrede, 'vorname':vorname, 'nachname':nachname, 'benutzername':benutzername, 'email':email, 'passwort':passwort, 
@@ -277,7 +293,7 @@
                     contentType: 'application/json',
                     data: JSON.stringify(person)
                 }).done(function(response){
-                    console.log("[inf] success");
+                    console.log("[inf] successfully signed up!");
                     window.location.replace("anmeldung.html");
 
                 }).fail(function(jqXHR,statusText,error){

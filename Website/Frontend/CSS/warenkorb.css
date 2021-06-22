@@ -153,17 +153,22 @@ body{
     }
 
     .tabelle_anzahl{
+        width: 11%;
+        margin: 2px;
+    }
+
+    .tabelle_grosse{
         width: 14%;
         margin: 2px;
     }
 
     .tabelle_stuckpreis{
-        width: 18%;
+        width: 15%;
         margin: 2px;
     }
 
     .tabelle_summe{
-        width: 18%;
+        width: 15%;
         margin: 2px;
     }
 
@@ -178,7 +183,7 @@ body{
         font-weight: bold;
     }
 
-    #anzahl, #stuckzahl, #summe{
+    #anzahl, #grosse, #stuckzahl, #summe{
         color: black;
         font-size: 10px;
         font-weight: bold;
@@ -287,6 +292,11 @@ body{
         margin: 5px 10px 5px 10px;
     }
 
+    .tabelle_grosse{
+        width: 10%;
+        margin: 5px 10px 5px 10px;
+    }
+
     .tabelle_stuckpreis{
         width: 17%;
         margin: 5px 10px 5px 10px;
@@ -308,7 +318,7 @@ body{
         font-weight: bold;
     }
 
-    #anzahl, #stuckzahl, #summe{
+    #anzahl, #grosse, #stuckzahl, #summe{
         color: black;
         font-size: 13px;
         font-weight: bold;

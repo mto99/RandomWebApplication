@@ -97,7 +97,9 @@
                         <option value="10">10</option>
                     </select>
 
-                    <input type="button" onclick="productToCart()" value="In den Warenkorb">
+                    <input type="button" id="tochart" value="In den Warenkorb">
+                    <p><span id="alertGroesse" style="color: red;"></span></p>
+                    <p><span id="alertChart" style="color: green;"></span></p>
                 </div>
             </div>
 
@@ -167,6 +169,57 @@
             }).fail(function(jqXHR, statusText, error){
                 console.log('[err] Error occured');
                 console.log('[err] Response code: ' + jqXHR.status + ' - Message: ' + jqXHR.responseText);
+            });
+
+
+            //Dem Warenkorb hinzufügen
+            $('#tochart').click(function() {
+
+                //Abfrage ob jmd angemeldet
+                //Wenn nicht angemeldet, dann werden die Artikel im sessionStoragr gespeichert
+                //Wenn jmd angemeldet, dann in das Table Warenkorb mit der UserID des Benutzers
+
+                if (existsSessionItem('id')){
+                    console.log("[inf] Ein Benutzer ist angemeldet.");
+
+                    //Daten des Produkt lesen
+                    const userID = getSessionItem('id');
+                    //produktID bereits oben definiert
+                    const menge = $('#anzahl').val();
+                    const groesse = $('#grosse').val();
+                    if (groesse == ''){
+                        $('#alertGroesse').append("Bitte Größe auswählen!");
+                        throw new Error("[err] Wähle ine Größe aus!");
+                    }
+
+                    var produkt = {'userid':userID,'produktid':produktID,'menge':menge,'groesse':groesse};
+                    console.log("[inf] Produkt Data: ", produkt);
+
+                    $.ajax({
+                        type: 'get',
+                        method: 'post',
+                        url: 'http://localhost:8000/wba2api/produkt/warenkorb',
+                        contentType: 'application/json',
+                        data: JSON.stringify(produkt)
+                    }).done(function(response){
+                        console.log('[sta] Data post successfully!');
+                        console.log('[sta] Data', response);
+                        $('#alertGroesse').html("");
+                        $('#alertChart').html("Artikel wurde dem Warenkorb hinzugefügt!");
+
+                    }).fail(function(jqXHR, statusText, error){
+                        console.log('[err] Error occured');
+                        console.log('[err] Response code: ' + jqXHR.status + ' - Message: ' + jqXHR.responseText);
+                    });
+                    return false;
+
+                }
+                else{
+                    console.log("[inf] Der Benutzer ist nicht angemeldet.");
+                    alert("Um auf dieser Seite einzukaufen, registrieren Sie sich bitte:");
+                    window.location.replace('anmeldung.html');
+                }
+
             });
 
         });

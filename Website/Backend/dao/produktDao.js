@@ -31,6 +31,65 @@ class ProduktDao {
     }
 
 
+
+//Warenkorb-------------------------------------------------------------
+
+    toCart(userid=0, produktid=0, menge, groesse=''){
+
+        var sql = 'INSERT INTO Warenkorb (UserID,ProduktID,Menge,Groesse) VALUES (?,?,?,?)';
+        var statement = this._conn.prepare(sql);
+        var params = [userid, produktid, menge, groesse];
+        var result = statement.run(params);
+
+        if (result.changes != 1) 
+            throw new Error('Could not insert new Record in Table Warenkorb. Data: ' + params);
+
+        
+        var newObj = this.loadById(result.lastInsertRowid);
+        return newObj;
+    }
+
+    //Artikel abrufen aus dem Warenkorb für den User mit ID: ...
+    getCart(id){
+        var sql = 'SELECT * FROM Warenkorb WHERE UserID=?';
+        var statement = this._conn.prepare(sql);
+        var result = statement.all(id);
+
+        if (helper.isUndefined(result)) 
+            throw new Error('No Record found by id=' + id);
+
+        return result;
+    }
+
+    //Warenkorb nach Einkauf löschen für UserID:...
+    delCart(id){
+        var sql = 'DELETE FROM Warenkorb WHERE UserID=?';
+        var statement = this._conn.prepare(sql);
+        var result = statement.run(id);
+
+        return result;
+    }
+
+
+
+//Kasse-----------------------------------------------------------------
+
+    toPurchases(userid=0, produktid=0, groesse='', menge, preis=0.0, datum='', zahlungsart='', zahlungsinfo=''){
+        var sql = 'INSERT INTO Kaeufe (UserID,ProduktID,Groesse,Menge,Preis,Datum,Zahlungsart,Zahlungsinfo) VALUES (?,?,?,?,?,?,?,?)';
+        var statement = this._conn.prepare(sql);
+        var params = [userid, produktid, groesse, menge, preis, datum, zahlungsart, zahlungsinfo];
+        var result = statement.run(params);
+
+        if (result.changes != 1) 
+            throw new Error('Could not insert new Record in Table Warenkorb. Data: ' + params);
+
+        
+        var newObj = this.loadById(result.lastInsertRowid);
+        return newObj;
+    }
+
+
+
 //======================================================================
 
     loadById(id){
@@ -122,12 +181,7 @@ class ProduktDao {
 
     delete(id) {
         try {
-            /*
-            const produktbildDao = new ProduktbildDao(this._conn);
-            produktbildDao.deleteByParent(id);
-            */
-
-            var sql = 'DELETE FROM Produkt WHERE ID=?';
+            var sql = 'DELETE FROM Warenkorb WHERE ID=?';
             var statement = this._conn.prepare(sql);
             var result = statement.run(id);
 

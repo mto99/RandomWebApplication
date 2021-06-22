@@ -136,6 +136,7 @@
                 //prüfen ob jmd eingeloggt ist, ansonsten zur anmeldung.html weiterleiten
                 var check = existsSessionItem('id');
                 if (check == false){
+                    alert("Bitte registrieren/anmelden!");
                     window.location.replace('anmeldung.html');
                 }
 
@@ -276,10 +277,10 @@
                             content += "<div class='tabelle_stuckpreis'>";
                             var ms = 1 + (response.daten[1][i]['Mehrwertsteuer'] / 100);
                             var preis = (response.daten[1][i]['Nettopreis'] * ms).toFixed(2);
-                            content += "<span class='stuckpreis'>" + preis + "€ </span>";
+                            content += "<span class='stuckpreis'>" + (preis/response.daten[0][i]['Menge']).toFixed(2) + "€ </span>";
                             content += "</div>";
                             content += "<div class='tabelle_summe'>";
-                            var summe = preis * response.daten[0][i]['Menge'];
+                            var summe = preis;
                             content += "<span class='summe'>" + summe + "€ </span>";
                             content += "</div>";
                             content += "<div class='tabelle_datum'>";
@@ -290,7 +291,7 @@
 
                             $('.content_kaufe_bottom').append(content);
 
-                            console.log("[sta] Successfully load Purchase " + (i+1) + " of " + response.daten[0].length);
+                            console.log("[sta] Successfully load Purchase.");
                         }
                     }
 
