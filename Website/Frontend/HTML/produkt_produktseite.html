@@ -8,7 +8,6 @@
     <script src="../Javascript/sessionHandling.js"></script>
     <script src="../Javascript/urlParameter.js"></script>
     <script src="../Javascript/forAll.js"></script>
-    <script src="../Javascript/filter.js"></script>
     <script src="../Javascript/account.js"></script> <!--Für Logout-->
 
     <meta charset="utf-8">
@@ -77,7 +76,7 @@
                 <div class="filter">
                     <hr>
                     <h3>Filter</h3>
-                    <form action="" method="">
+                    <form id="filter" action="" method="">
 
                         <div class="filter_sortierung">
                             <h5>Sortierung</h5>
@@ -92,29 +91,18 @@
                             <h5>Preis</h5>
                             <div class="filter_preis_box">
                                 <div class="min_preis">
-                                    <input inputmode="decimal" type="text" id="minpreis" name="preis" onkeyup="checkIfNumber()">
+                                    <input inputmode="decimal" type="number" id="minpreis" name="preis">
                                 </div>
                                 <strong>-</strong>
                                 <div class="max_preis">
-                                    <input inputmode="decimal" type="text" id="maxpreis" name="preis" onkeyup="checkIfNumber()">
+                                    <input inputmode="decimal" type="number" id="maxpreis" name="preis">
                                 </div>
                             </div>
                             
                         </div>
 
-                        <div class="filter_grosse">
-                            <h5>Größe</h5>
-                            <select name="size" id="size">
-                                <option value="allegrossen" selected="on">Alle Größen</option>
-                                <option value="s">S</option>
-                                <option value="m">M</option>
-                                <option value="l">L</option>
-                                <option value="xl">XL</option>
-                            </select>
-                        </div>
-
                         <div class="filter_auswahlen">
-                            <input type="submit" id="filter_auswahlen" value="Filter auswählen" onclick="">
+                            <input type="submit" id="filter_auswahlen" value="Filter auswählen" >
                         </div>
 
                     </form>
@@ -140,6 +128,7 @@
         console.log("[sta] Bestätigt:");
 
         $(document).ready(function() {
+            var objects;
             console.log('[sta] loading all products');
 
             var urlParams = getUrlParameters();
@@ -158,6 +147,7 @@
             }).done(function (response) {
                 console.log('[sta] Data loaded successfully!');
                 console.log('[sta] Data', response);
+                objects = response.daten;
 
                 //Tabtitel
                 var content = "<title>HS-Shop: "+oberkategorie+" - "+unterkategorie+"</title>";
@@ -178,7 +168,6 @@
                 //Produkte
                 content="";
 
-                console.log("Länge " + response.daten.length);
 
                 for (i=0; i < response.daten.length; i++){
                     var content="";
@@ -192,17 +181,21 @@
                     content += "</div>";
 
                     $('.products').append(content);  
-                    console.log('[inf] Load Product ' + (i+1) + ' of ' + response.daten.length);
+                    console.log('[inf] Load Product');
                 }
 
                 //$('.products').html(content);
                 console.log("[sta] Appendend in HTML successfully!");
 
+
             }).fail(function (jqXHR, statusText, error) {
                 console.log('[err] Response Code: ' + jqXHR.status + ' - Fehlermeldung: ' + jqXHR.responseText);
             });
-        });
         
+    
+			
+        });
+
     </script>
 
 

@@ -3,7 +3,7 @@ const ProduktDao = require('../dao/produktDao.js');
 const express = require('express');
 var serviceRouter = express.Router();
 
-helper.log('- Service Produkt');
+helper.log('- Service Produkt & Warenkorb');
 
 //============================================================
 //Von Muhammed hinzugefügt
@@ -20,6 +20,120 @@ serviceRouter.get('/produkt/kategorie/:id', function(request, response){
         response.status(400).json(helper.jsonMsgError(ex.message));
     }
     
+});
+
+
+//Warenkorb---------------------------------------------------
+
+serviceRouter.post('/produkt/warenkorb', function(request, response) {
+    helper.log('Service Produkt: Client requested creation of new record');
+
+
+    const produktDao = new ProduktDao(request.app.locals.dbConnection);
+    try {
+        var result = produktDao.toCart(request.body.userid, request.body.produktid, request.body.menge, request.body.groesse);
+        helper.log('Service Warenkorb: Record inserted');
+        response.status(200).json(helper.jsonMsgOK(result));
+    } catch (ex) {
+        helper.logError('Service Warenkorb: Error creating new record. Exception occured: ' + ex.message);
+        response.status(400).json(helper.jsonMsgError(ex.message));
+    }
+});
+
+//Artikel aus dem Warenkorb holen für Benutzer
+serviceRouter.get('/produkt/warenkorb/gib/:id', function(request, response) {
+    helper.log('Service Produkt: Client requested cart of user with ID:...');
+
+    const produktDao = new ProduktDao(request.app.locals.dbConnection);
+    try {
+
+        //Artikel aus dem Warenkorb holen
+        var cart = produktDao.getCart(request.params.id);
+        console.log('[inf] Artikel aus dem Warenkorb für UserID ' + request.params.id + ': ', cart);
+
+        //Produkte laden mit der ProduktID aus dem Warenkorb
+
+        var result = Array();
+        for (i=0; i < cart.length; i++){
+            result.push(produktDao.loadById(cart[i]['ProduktID']));
+        }
+
+        //console.log('[inf] Produkte: ', result);
+
+        helper.log('Service Warenkorb: Record inserted');
+        response.status(200).json(helper.jsonMsgOK([result,cart])); 
+    } catch (ex) {
+        helper.logError('Service Warenkorb: Error creating new record. Exception occured: ' + ex.message);
+        response.status(400).json(helper.jsonMsgError(ex.message));
+    }
+
+});
+
+//Artikel vom Warenkorb löschen
+serviceRouter.delete('/produkt/warenkorb/delete/:id', function(request, response) {
+    helper.log('Service Person: Client requested deletion of record, id=' + request.params.id);
+
+    const produktDao = new ProduktDao(request.app.locals.dbConnection);
+    try {
+        //var obj = produktDao.loadById(request.params.id);
+        var obj = produktDao.delete(request.params.id);
+        helper.log('Service Person: Deletion of record successfull, id=' + request.params.id);
+        response.status(200).json(helper.jsonMsgOK({ 'gelöscht': true, 'eintrag': obj }));
+    } catch (ex) {
+        helper.logError('Service Person: Error deleting record. Exception occured: ' + ex.message);
+        response.status(400).json(helper.jsonMsgError(ex.message));
+    }
+});
+
+
+//Warenkorb leeren
+serviceRouter.delete('/produkt/warenkorb/empty/:id', function(request, response) {
+    helper.log('Service Person: Client requested deletion of record, id=' + request.params.id);
+
+    const produktDao = new ProduktDao(request.app.locals.dbConnection);
+    try {
+        var obj = produktDao.delCart(request.params.id);
+        helper.log('Service Person: Deletion of record successfull, id=' + request.params.id);
+        response.status(200).json(helper.jsonMsgOK({ 'gelöscht': true, 'eintrag': obj }));
+    } catch (ex) {
+        helper.logError('Service Person: Error deleting record. Exception occured: ' + ex.message);
+        response.status(400).json(helper.jsonMsgError(ex.message));
+    }
+});
+
+//Artikel kaufen und in Table Käufe einfügen
+serviceRouter.post('/produkt/kasse', function(request, response) {
+    helper.log('Service Produkt: Client requested creation of new record');
+
+
+    const produktDao = new ProduktDao(request.app.locals.dbConnection);
+    try {
+
+        //parameter lesen
+        const id = request.body.id;
+        const summe = request.body.sum;
+        console.log("UserID: " + id);
+        const zahlungsart = request.body.zahlungsart;
+        const zahlungsinfo = request.body.zahlungsinfo;
+        const productList = [];
+        const datum = new Date().toDateString();
+
+        //Aus dem Warenkorb die IDs der Produkte des UserIDs = ....
+        var cart = produktDao.getCart(id);
+        console.log("Cart:", cart[0]['Menge']);
+
+        for (i=0; i < cart.length; i++){
+            var result = produktDao.toPurchases(id, cart[i]['ProduktID'], cart[i]['Groesse'], cart[i]['Menge'], summe, datum, zahlungsart, zahlungsinfo);
+            console.log("Result: " + result);
+        }        
+
+        var result = cart;
+        helper.log('Service Kasse: Record inserted');
+        response.status(200).json(helper.jsonMsgOK(result));
+    } catch (ex) {
+        helper.logError('Service Kasse: Error creating new record. Exception occured: ' + ex.message);
+        response.status(400).json(helper.jsonMsgError(ex.message));
+    }
 });
 
 

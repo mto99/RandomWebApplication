@@ -118,7 +118,7 @@ class PersonDao {
         return result;
     }
 
-    //Abrufen der Produkte
+    //Abrufen der Produkte der Käufe ^
     getProducts(id){
         var sql = 'SELECT * FROM Produkt WHERE ID=?';
         var statement = this._conn.prepare(sql);

@@ -6,13 +6,36 @@
     <link rel="stylesheet" type="text/css" href="../CSS/fussleiste.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="../Javascript/sessionHandling.js"></script>
-    <script src="../Javascript/cartSumCalc.js"></script>
     <script src="../Javascript/forAll.js"></script>
     <script src="../Javascript/kasse.js"></script> <!--Kasse Tabs-->
     <script src="../Javascript/account.js"></script> <!--Für Logout-->
 
     <meta charset="utf-8">
     <title>HS-Shop: Kasse</title>
+    <script>
+        function checkIfNumber(){
+            var ccv = $('#ccv').val();
+            let ccvStr = ccv.toString();
+
+            if (ccvStr.length > 3){
+                document.getElementById('fault1').innerHTML = "CCV zu lang!";
+                return false;
+            }else{
+                document.getElementById('fault1').innerHTML = "";
+                return true;
+            }
+
+            if (ccv > 999){
+                document.getElementById('fault1').innerHTML = "CCV muss eine Zahl sein!";
+                return false;
+            }else{
+                document.getElementById('fault1').innerHTML = "";
+                return true;
+            }
+            
+        }
+
+    </script>
 </head>
 
 <body>
@@ -50,10 +73,10 @@
                 <hr width="95%">
     
                 <div class="menu_bottom">
-                    <div class="menu_item"><a href="produkt_hauptseite.html" onclick="selectPath('Sale')">Sale</a></div>
-                    <div class="menu_item"><a href="produkt_hauptseite.html" onclick="selectPath('Männer')">Männer</a></div>
-                    <div class="menu_item"><a href="produkt_hauptseite.html" onclick="selectPath('Frauen')">Frauen</a></div>
-                    <div class="menu_item"><a href="produkt_hauptseite.html" onclick="selectPath('Accessoires')">Accessoires</a></div>
+                    <div class="menu_item"><a href="../HTML/produkt_hauptseite.html?oberkategorie=Sale">Sale</a></div>
+                    <div class="menu_item"><a href="../HTML/produkt_hauptseite.html?oberkategorie=Männer">Männer</a></div>
+                    <div class="menu_item"><a href="../HTML/produkt_hauptseite.html?oberkategorie=Frauen">Frauen</a></div>
+                    <div class="menu_item"><a href="../HTML/produkt_hauptseite.html?oberkategorie=Accessoires">Accessoires</a></div>
                     <div class="menu_item"><a title="Warenkorb" href="../HTML/warenkorb.html"><img src="../Bilder/navi_warenkorb.png" alt="Cart"></a></div>
                 </div>
             </div>
@@ -67,7 +90,7 @@
     <div class="content">
         <div class="content_top">
             <h2>Kasse</h2>
-            <p>Gesamtsumme: <span id="endpreis">00,00€</span></p>
+            <p>Gesamtsumme: <b><span id="endpreis">00,00€</span></b></p>
             <p> </p>
 
             <h3>Wählen Sie eine Zahlungsart aus:</h3>
@@ -77,15 +100,15 @@
 
              <!-- Tab links -->
             <div class="tab">
-                <button class="tablinks" onclick="openTab(event, 'Kreditkarte')">Kreditkarte</button>
-                <button class="tablinks" onclick="openTab(event, 'SEPA')">SEPA</button>
-                <button class="tablinks" onclick="openTab(event, 'Auf_Rechnung')">Auf Rechnung</button>
+                <button class="tablinks" id="tab1" onclick="openTab(event, 'Kreditkarte')">Kreditkarte</button>
+                <button class="tablinks" id="tab2" onclick="openTab(event, 'SEPA')">SEPA</button>
+                <button class="tablinks" id="tab3" onclick="openTab(event, 'Auf_Rechnung')">Auf Rechnung</button>
             </div>
             
             <!-- Tab content -->
             <div id="Kreditkarte" class="tabcontent">
                 <h3>Kreditkarte</h3>
-                <form class="form_kreditkarte" action="" method="">
+                <form class="form_kreditkarte" method="">
                     <div class="kartennummer">
                         <text>Kreditkartennummer</text><br>
                         <input type="number" id="kartennummer" name="kartennummer" maxlength="16" required>
@@ -93,30 +116,17 @@
                     
                     <div class="ccv">
                         <text>CCV</text><br>
-                        <input type="number" name="ccv" required maxlength="3" onkeyup="checkIfNumber()">
+                        <input type="number" id="ccv" name="ccv" required maxlength="3" onkeyup="checkIfNumber()">
+                        <b id="fault1" style="color: red;"></b>
                     </div>
 
                     <div class="ablaufdatum">
                         <text>Ablaufdatum</text><br>
-                        <input type="month" name="benutzername" required placeholder="yyyy/MM">
+                        <input type="month" id="ablaufdatum" name="benutzername" required placeholder="yyyy/MM">
                     </div>
 
                     <hr>
 
-                    <div class="strasse">
-                        <text>Straße, Hausnummer</text><br>
-                        <input type="text" name="strasse" required="on">
-                    </div>
-
-                    <div class="plz">
-                        <text>PLZ</text><br>
-                        <input type="number" name="plz" maxlength="5" required>
-                    </div>
-
-                    <div class="stadt">
-                        <text>Stadt</text><br>
-                        <input type="text" name="stadt" required>
-                    </div>
 
                     <div class="agb">
                         <input type="checkbox" name="agb" required>
@@ -124,7 +134,7 @@
                     </div>
 
                     <div class="buy">
-                        <input type="submit" value="Bezahlen" onclick="buy()">
+                        <input type="submit" value="Bezahlen">
                     </div>
 
                 </form>
@@ -133,41 +143,25 @@
             <div id="SEPA" class="tabcontent">
                 <h3>SEPA</h3>
                 
-                <form class="form_sepa" action="" method="">
+                <form class="form_sepa" method="">
                     <div class="iban">
                         <text>Kontoinhaber</text><br>
-                        <input type="text" name="kontoinhaber" required onkeyup="">
+                        <input type="text" id="kontoinhaber" name="kontoinhaber" required onkeyup="">
                     </div>
 
                     <div class="ccv">
                         <text>IBAN</text><br>
-                        <input type="text" id="iban" name="iban" required maxlength="24" onkeyup="checkIfIBAN()">
+                        <input type="text" id="iban" name="iban" required maxlength="24" value="DE">
                         <b id="fault2" style="color: red;"></b>
                     </div>
 
                     <div class="BIC">
                         <text>BIC</text><br>
-                        <input type="text" name="bic" required maxlength="">
+                        <input type="text" id="bic" name="bic" required maxlength="">
                     </div>
 
                     <hr>
 
-                    <div class="strasse">
-                        <text>Straße, Hausnummer</text><br>
-                        <input type="text" name="strasse" required>
-                    </div>
-
-                    <div class="ort">
-                        <div class="plz">
-                            <text>PLZ</text><br>
-                            <input type="number" name="plz" required maxlength="5">
-                        </div>
-
-                        <div class="stadt">
-                            <text>Stadt</text><br>
-                            <input type="text" name="stadt" required>
-                        </div>
-                    </div>
 
                     <div class="agb">
                         <input type="checkbox" name="agb" required>
@@ -175,56 +169,181 @@
                     </div>
 
                     <div class="buy">
-                        <input type="submit" value="Bezahlen" onclick="buy()">
+                        <input type="submit" value="Bezahlen">
                     </div>
 
                 </form>
 
             </div>
             
-            <div id="Auf_Rechnung" class="tabcontent">
-                <h3>Auf Rechnung</h3>
-                <span id="uberweisungsdaten"><b>Überweisungsdaten</b></span><br>
-                <span id="empfanger_name"><b>Zahlungsempfänger:</b> HS-Shop</span><br>
-                <span id="empfanger_iban"><b>IBAN:</b> DE00 1111 2222 3333 4444 5555 66</span><br>
-                <span id="empfanger_bic"><b>BIC: </b>BIC123456</span><br>
-                <span id="empfanger_bank"><b>Bank:</b> Spahrkasse Zollernalb</span><br> <!--Rechtschreibfehler mit Absicht ;)-->
+            <form class="form_aufrechnung" >
+                <div id="Auf_Rechnung" class="tabcontent">
+                    <h3>Auf Rechnung</h3>
+                    <span id="uberweisungsdaten"><b>Überweisungsdaten</b></span><br>
+                    <span id="empfanger_name"><b>Zahlungsempfänger:</b> HS-Shop</span><br>
+                    <span id="empfanger_iban"><b>IBAN:</b> DE00 1111 2222 3333 4444 5555 66</span><br>
+                    <span id="empfanger_bic"><b>BIC: </b>BIC123456</span><br>
+                    <span id="empfanger_bank"><b>Bank:</b> Spahrkasse Zollernalb</span><br> <!--Rechtschreibfehler mit Absicht ;)-->
 
-                <hr>
+                    <hr>
 
-                <div class="strasse">
-                    <text>Straße, Hausnummer</text><br>
-                    <input type="text" name="strasse" required>
-                </div>
+                    
 
-                <div class="ort">
-                    <div class="plz">
-                        <text>PLZ</text><br>
-                        <input type="number" name="plz" required maxlength="5">
+                    <div class="agb">
+                        <input type="checkbox" name="agb" required>
+                        Ich stimme den <a href="../HTML/agb.html">AGBs</a> zu.
                     </div>
 
-                    <div class="stadt">
-                        <text>Stadt</text><br>
-                        <input type="text" name="stadt" required>
+                    <div class="buy">
+                        <input type="submit" value="Kaufen">
                     </div>
-                </div>
-
-                <div class="agb">
-                    <input type="checkbox" name="agb" required>
-                    Ich stimme den <a href="../HTML/agb.html">AGBs</a> zu.
-                </div>
-
-                <div class="buy">
-                    <input type="submit" value="Kaufen" onclick="buy()">
-                </div>
-                
-            </div> 
+                    
+                </div> 
+            </form>
 
         </div> 
 
 
     </div>
     <!--ENDE SEITENINHALT-->
+
+    <script>
+        $(document).ready(function(){
+
+            //prüfen ob jmd eingeloggt ist, ansonsten zur anmeldung.html weiterleiten
+            var check = existsSessionItem('id');
+            if (check == false){
+                window.location.replace('anmeldung.html');
+            }
+
+            //get id from session
+            const id = getSessionItem('id');
+            const sum = getSessionItem('Gesamtsumme');
+
+            //Gesamtsumme eintragen
+            $('#endpreis').html(getSessionItem('Gesamtsumme') + "€");
+
+
+            //BEI KERDITKARTE
+            $('.form_kreditkarte').submit( function() {
+                console.log("[sta] Payment: Kreditkarte");
+
+                //Read data
+                const zahlungsart = "Kreditkarte";
+                const kartennummer = $('#kartennummer').val();
+                const ccv = $('#ccv').val();
+                const ablaufdatum = $('#ablaufdatum').val();
+                const zahlungsinfo = "" + kartennummer + "&" + ccv + "&" + ablaufdatum;
+
+                var payment = {'id':id,'sum':sum,'zahlungsart':zahlungsart,'zahlungsinfo':zahlungsinfo};
+
+                console.log('[inf] Data: ', payment);
+
+                $.ajax({
+                    type: 'get',
+                    method: 'post',
+                    url: 'http://localhost:8000/wba2api/produkt/kasse',
+                    contentType: 'application/json',
+                    data: JSON.stringify(payment)
+                }).done(function(response) {
+                    console.log('[sta] Load data successful!');
+                    console.log('[inf] Data', response.daten);
+                    $('.content').html("");
+                    $('.content').append("<p style='text-align: center; font-size: 25px; margin: 30px;'>Vielen Dank für Ihren Einkauf!</p>");
+
+                }).fail(function(jqXHR,statusText,error) {
+                    console.log("[err] response code: " + jqXHR.status + "\nerror msg: " + jqXHR.responseText);
+                    console.log("[err] statusText: " + statusText + "\nerror: " + error);
+
+                });
+                return false;
+
+            });
+
+            //BEI SEPA
+            $('.form_sepa').submit(function() {
+                console.log("[sta] Payment: SEPA");
+
+                //Read data
+                const zahlungsart = "SEPA";
+                const kontoinhaber = $('#kontoinhaber').val();
+                const iban = $('#iban').val();
+                const bic = $('#bic').val();
+                const zahlungsinfo = "" + kontoinhaber + "&" + iban + "&" + bic;
+
+                var payment = {'id':id,'sum':sum,'zahlungsart':zahlungsart,'zahlungsinfo':zahlungsinfo};
+
+                console.log('[inf] Data: ', payment);
+
+                $.ajax({
+                    type: 'get',
+                    method: 'post',
+                    url: 'http://localhost:8000/wba2api/produkt/kasse',
+                    contentType: 'application/json',
+                    data: JSON.stringify(payment)
+                }).done(function(response) {
+                    console.log('[sta] Load data successful!');
+                    console.log('[inf] Data', response.daten);
+                    $('.content').html("");
+                    $('.content').append("<p style='text-align: center; font-size: 25px; margin: 30px;'>Vielen Dank für Ihren Einkauf!</p>");
+
+                }).fail(function(jqXHR,statusText,error) {
+                    console.log("[err] response code: " + jqXHR.status + "\nerror msg: " + jqXHR.responseText);
+                    console.log("[err] statusText: " + statusText + "\nerror: " + error);
+
+                });
+                return false;
+
+            });
+
+            //BEI AUF RECHNUNG
+            $('.form_aufrechnung').submit(function() {
+                console.log("[sta] Payment: Auf Rechnung");
+
+                const zahlungsart = "Auf Rechnung";
+                const zahlungsinfo = "siehe Bankdaten"
+                var payment = {'id':id,'sum':sum,'zahlungsart':zahlungsart,'zahlungsinfo':zahlungsinfo};
+
+                console.log('[inf] Data: ', payment)
+
+                $.ajax({
+                    type: 'get',
+                    method: 'post',
+                    url: 'http://localhost:8000/wba2api/produkt/kasse',
+                    contentType: 'application/json',
+                    data: JSON.stringify(payment)
+                }).done(function(response) {
+                    console.log('[sta] Load data successful!');
+                    console.log('[inf] Data', response.daten);
+                    $('.content').html("");
+                    $('.content').append("<p style='text-align: center; font-size: 25px; margin: 30px;'>Vielen Dank für Ihren Einkauf!</p>");
+
+                }).fail(function(jqXHR,statusText,error) {
+                    console.log("[err] response code: " + jqXHR.status + "\nerror msg: " + jqXHR.responseText);
+                    console.log("[err] statusText: " + statusText + "\nerror: " + error);
+
+                });
+                
+
+
+                $.ajax({
+                    type: 'delete',
+                    url: 'http://localhost:8000/wba2api/produkt/warenkorb/empty/'+id,
+                    cache: false
+                }).done(function(response){
+                    console.log("[sta] Cart is know empty!");
+
+                }).fail(function (jqXHR,statusText, error){
+                    console.log('[err] Error occured: Could not empty cart!');
+                    console.log('[err] Response code: ' + jqXHR.status + ' - Message: ' + jqXHR.responseText);
+                });
+                return false;
+
+            });
+
+        });//end document ready
+
+    </script>
 
 
     <!--FUSSLEISTE-->

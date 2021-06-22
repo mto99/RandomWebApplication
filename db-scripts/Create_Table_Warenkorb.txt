@@ -3,6 +3,5 @@ ID integer not null primary key autoincrement,
 UserID integer not null,
 ProduktID integer not null,
 Menge integer not null default 1,
-constraint fk_Warenkorb foreign key (UserID) references User(ID),
-constraint fk_Warenkorb2 foreign key (ProduktID) references Produkt(ID)
+Groesse text
 );

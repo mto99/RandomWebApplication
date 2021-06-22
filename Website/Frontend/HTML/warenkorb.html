@@ -7,6 +7,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="../Javascript/forAll.js"></script>
     <script src="../Javascript/sessionHandling.js"></script>
+    <script src="../Javascript/urlParameter.js"></script>
     <script src="../Javascript/account.js"></script> <!--Für Logout-->
 
     <meta charset="utf-8">
@@ -68,7 +69,7 @@
             <div class="path">
                 <a href="../Startseite/startseite.html">Home</a>
                 <span>&#5171</span>
-                <a href="../Warenkorb/warenkorb.html">Warenkorb</a>
+                <a href="">Warenkorb</a>
             </div>
 
             <div class="warenkorb_top">
@@ -87,6 +88,10 @@
                         <span id="anzahl">Anzahl</span>
                     </div>
 
+                    <div class="tabelle_grosse">
+                        <span id="grosse">Größe</span>
+                    </div>
+
                     <div class="tabelle_stuckpreis">
                         <span id="stuckzahl">Einzelpreis</span>
                     </div>
@@ -103,93 +108,11 @@
 
                 <hr>
 
-                <div class="tabelle_content">
-                    <div class="tabelle_artikel">
-                        <div>
-                            <img src="../Bilder/maske.jpeg">
-                        </div>
-                        <div>
-                            <span class="artikelname">Offizielle Maske der HS-AlbSig</span><br>
-                            <span class="artikelbeschreibung">100% Baumwolle</span>
-                        </div>
-                        
-                    </div>
+                <p><span id="alertNoProduct" style="color: black; font-size: 18px;"></span></p>
 
-                    <div class="tabelle_anzahl">
-                        <select name="anzahl" id="anzahl">
-                            <option value="1" selected="selected">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="7">7</option>
-                            <option value="6">6</option>
-                            <option value="9">9</option>
-                            <option value="8">8</option>
-                            <option value="10">10</option>
-                        </select>
-                    </div>
+                <!-- Hier wird der Inhalt dynamisch erzeugt-->
 
-                    <div class="tabelle_stuckpreis">
-                        <span class="stuckpreis">5,00€</span>
-                    </div>
-
-                    <div class="tabelle_summe">
-                        <span class="summe">0,00€</span>
-                    </div>
-
-                    <div class="tabelle_blank">
-                        <input title="Entfernen" type="button" onclick="" value="&#10006">
-                    </div>
-
-                    
-                </div>
-
-                <hr>
-
-                <div class="tabelle_content">
-                    <div class="tabelle_artikel">
-                        <div>
-                            <img src="../Bilder/maske1.jpeg">
-                        </div>
-                        <div>
-                            <span class="artikelname">Offizielle Maske der HS-AlbSig</span><br>
-                            <span class="artikelbeschreibung">100% Baumwolle</span>
-                        </div>
-                        
-                    </div>
-
-                    <div class="tabelle_anzahl">
-                        <select name="anzahl" id="anzahl">
-                            <option value="1" selected="selected">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="7">7</option>
-                            <option value="6">6</option>
-                            <option value="9">9</option>
-                            <option value="8">8</option>
-                            <option value="10">10</option>
-                        </select>
-                    </div>
-
-                    <div class="tabelle_stuckpreis">
-                        <span class="stuckpreis">9,99€</span>
-                    </div>
-
-                    <div class="tabelle_summe">
-                        <span class="summe">0,00€</span>
-                    </div>
-
-                    <div class="tabelle_blank">
-                        <input title="Entfernen" type="button" onclick="" value="&#10006">
-                    </div>
-
-                    
-                </div>
-
-                <hr>
+                
 
                 <div class="tabelle_bottom">
                     <div class="tabelle_bottom_right">
@@ -222,8 +145,8 @@
                         </a>
                     </div>
 
-                    <div>
-                        <a href="kasse.html"><input id="zurkasse" type="button" onclick="" value="Zur Kasse"></a>
+                    <div id="zurkasse_div" >
+                        <a href="kasse.html"><input id="zurkasse" type="button" value="Zur Kasse"></a>
                     </div>
 
                 </div>
@@ -232,6 +155,179 @@
         </div>
     </main>
     <!--ENDE WARENKORB-->
+
+    <script>
+        $(document).ready(function(){
+            console.log('Document ready, loading data from Service');
+
+            var id = getSessionItem('id');
+
+            $.ajax({
+                url: 'http://localhost:8000/wba2api/produkt/warenkorb/gib/'+id,
+                method: 'get',
+                dataType: 'json'
+            }).done(function(response){
+                console.log('Data loaded successfully');
+
+                console.log('[sta] Data loaded successfully!');
+                console.log('[sta] Data', response);
+
+                if (response.daten[0].length == 0){
+                    $('#alertNoProduct').html("Noch keine Produkte im Warenkorb!");
+                }
+                else{
+
+                    var preisList = Array();
+                    var mwstList = Array();
+
+                    for (i=0; i < response.daten[0].length; i++){
+                        var content = "";
+
+                        //response.daten beinhaltet zwei Arrays
+                        // Array 0 sind die Produkte aus T produkt
+                        // Array 1 sind die Produkte aus Warenkorb
+
+                        content += "<hr>";
+
+                        content += "<div class='tabelle_content " + response.daten[1][i]['ID'] +"'>";
+                        content += "<div class='tabelle_artikel'>";
+                        content += "<div>";
+                        content += "<img src='" + response.daten[0][i]['Bild'] + "'>";
+                        content += "</div>";
+                        content += "<div>";
+                        content += "<span class='artikelname'>" + response.daten[0][i]['Titel'] + "</span><br>";
+                        content += "<span class='artikelbeschreibung'>" + response.daten[0][i]['Beschreibung'] + "</span>";
+                        content += "</div>";
+                        content += "</div>";
+
+                        content += "<div class='tabelle_anzahl'>";
+                        content += "<select name='anzahl' id='menge'> \
+                                        <option value='1'>1</option> \
+                                        <option value='2'>2</option> \
+                                        <option value='3'>3</option> \
+                                        <option value='4'>4</option> \
+                                        <option value='5'>5</option> \
+                                        <option value='7'>7</option> \
+                                        <option value='6'>6</option> \
+                                        <option value='9'>9</option> \
+                                        <option value='8'>8</option> \
+                                        <option value='10'>10</option> \
+                                    </select>";
+                        
+
+                        content += "</div>";
+
+                        content += "<div class='tabelle_grosse'>";
+                        content += "<span class='grosse'>" + response.daten[1][i]['Groesse'].toUpperCase() + "</span>";
+                        content += "</div>";
+
+                        //Preis berechnen
+                        var rabatt=0, preis=0, endpreis=0, mwst=0;
+                        if (response.daten[0][i]['Rabatt'] > 0){ //wenn Artikel Sale
+                            var rabatt =1 - ( response.daten[0][i]['Rabatt'] / 100 );
+                            var preis = response.daten[0][i]['Nettopreis'].toFixed(2) * (1+ (response.daten[0][i]['Mehrwertsteuer'] /100 ));
+                            preis = preis.toFixed(2) * rabatt.toFixed(2);
+                            var endpreis = preis.toFixed(2);
+                            var mwst = endpreis * (response.daten[0][i]['Mehrwertsteuer'] /100 );
+                        
+                        }else{  //wenn nicht Sale
+                            var preis = response.daten[0][i]['Nettopreis'].toFixed(2) * (1+ (response.daten[0][i]['Mehrwertsteuer'] /100 ));
+                            var endpreis = preis.toFixed(2);
+                            var mwst = endpreis * (response.daten[0][i]['Mehrwertsteuer'] /100 );
+                        }
+
+                        preisList.push(endpreis * response.daten[1][i]['Menge']);
+                        mwstList.push(mwst * response.daten[1][i]['Menge']);
+
+                        content += "<div class='tabelle_stuckpreis'>";
+                        content += "<span class='stuckpreis'>" + endpreis + "€</span>";
+                        content += "</div>";
+
+                        content += "<div class='tabelle_summe'>";
+                        content += "<span class='summe'>" + (endpreis * response.daten[1][i]['Menge']).toFixed(2) + "€</span>";
+                        content += "</div>";
+
+                        content += "<div class='tabelle_blank'>";
+                        content += "<input title='Entfernen' id='remove' type='button' onclick='removeItem("+ response.daten[1][i]['ID'] +")' value='&#10006'>";
+                        content += "</div>";
+
+                        content += "</div>";
+
+                        $('.tabelle_top').after(content);
+
+                        $('#menge').val(response.daten[1][i]['Menge']); //Die Menge auswählen
+
+                        console.log("[inf] Load element " + (i+1) + " of " + response.daten[0].length);
+                    } //end for
+
+                    //Preise berechnen
+                    var artikelsumme = 0;
+                    var mwstsumme = 0;
+
+                    for (i=0; i < preisList.length; i++){
+                        artikelsumme = artikelsumme + parseFloat(preisList[i]);
+                    }
+
+                    for (i=0; i < mwstList.length; i++){
+                        mwstsumme = mwstsumme + parseFloat(mwstList[i]);
+                    }
+
+                    $('#artikelsumme').html(artikelsumme+"€");
+
+                    if (artikelsumme<50){
+                        var versandkosten = 4.95;
+                        $('#versandkosten').html(versandkosten+"€");
+                    }else{
+                        var versandkosten = 0.0;
+                        $('#versandkosten').html(versandkosten.toFixed(2)+"€");
+                    }
+
+                    var gesamtsumme = (artikelsumme+versandkosten).toFixed(2);
+                    $('#gesamtsumme').html(gesamtsumme +"€");
+                    $('#gesamtsumme_mit_mwst').html(mwstsumme.toFixed(2)+"€");
+
+                    //Preis in localStorage eintragen
+                    setSessionItem('Gesamtsumme', gesamtsumme);
+
+                } //end else
+
+                //wenn keine Produkte im Warenkorb Kasse Button ausblenden
+                if (document.getElementById('alertNoProduct').innerHTML != ''){
+                    $('#zurkasse_div').html("<a href=''><input id='zurkasse' type='button' value='Zur Kasse'></a>");
+                }
+                
+
+            }).fail(function(jqXHR, statusText, error){
+                console.log('[err] Error occured');
+                console.log('[err] Response code: ' + jqXHR.status + ' - Message: ' + jqXHR.responseText);
+
+            });//end ajax
+
+
+        }); //end document ready
+
+    </script>
+
+    <script>
+        function removeItem(id){
+
+            $.ajax({
+                type: 'delete',
+                url: 'http://localhost:8000/wba2api/produkt/warenkorb/delete/'+id,
+                cache: false
+            }).done(function(response){
+                console.log("[sta] Element removed successfully!");
+                window.location.reload();
+
+
+            }).fail(function (jqXHR,statusText, error){
+                console.log('[err] Error occured: Could not remove element from cart!');
+                console.log('[err] Response code: ' + jqXHR.status + ' - Message: ' + jqXHR.responseText);
+            });
+            return false;
+        }
+
+    </script>
 
 
     <!--FUSSLEISTE-->
@@ -278,7 +374,7 @@
                     <h3>Kategorien</h3>
                     <a href="../HTML/produkt_hauptseite.html?oberkategorie=Sale">Sale</a><br>
                     <a href="../HTML/produkt_hauptseite.html?oberkategorie=Männer">Männer</a><br>
-                    <a href="../HTML/produkt_hauptseite.html?oberkategorie=Frauen">Frauen</a><r>
+                    <a href="../HTML/produkt_hauptseite.html?oberkategorie=Frauen">Frauen</a><br>
                     <a href="../HTML/produkt_hauptseite.html?oberkategorie=Accessoires">Accessoires</a><br>
                 </div>
 
