@@ -11,6 +11,7 @@
     <script src="../Javascript/account.js"></script> <!--Für Logout-->
 
     <meta charset="utf-8">
+
     
 </head>
 
@@ -74,38 +75,7 @@
             <div class="sidepanel">
                 
                 <div class="filter">
-                    <hr>
-                    <h3>Filter</h3>
-                    <form id="filter" action="" method="">
-
-                        <div class="filter_sortierung">
-                            <h5>Sortierung</h5>
-                            <select name="sort" id="sort">
-                                <option value="beliebig" selected>Beliebig</option>
-                                <option value="niedrigster_preis">Niedrigster Preis</option>
-                                <option value="hochster_preis">Höchster Preis</option>
-                            </select>
-                        </div>
-
-                        <div class="filter_preis">
-                            <h5>Preis</h5>
-                            <div class="filter_preis_box">
-                                <div class="min_preis">
-                                    <input inputmode="decimal" type="number" id="minpreis" name="preis">
-                                </div>
-                                <strong>-</strong>
-                                <div class="max_preis">
-                                    <input inputmode="decimal" type="number" id="maxpreis" name="preis">
-                                </div>
-                            </div>
-                            
-                        </div>
-
-                        <div class="filter_auswahlen">
-                            <input type="submit" id="filter_auswahlen" value="Filter auswählen" >
-                        </div>
-
-                    </form>
+                    <!--Filter wurde entfernt-->
                 </div>
     
             </div>
@@ -175,8 +145,15 @@
                     content += "<a href='../HTML/produkt.html?oberkategorie="+oberkategorie+"&unterkategorie="+unterkategorie+"&id="+response.daten[i]['ID']+"'>";
                     content += "<img src='" + response.daten[i]['Bild'] + "' alt='Produktbild'>";
                     content += "<span>" + response.daten[i]['Titel'] + "</span><br>";
-                    var preis =  (response.daten[i]['Nettopreis']*(response.daten[i]['Mehrwertsteuer']/100+1)).toFixed(2);
-                    content += "<span>" + preis + " € </span>";
+                    if (response.daten[i]['Rabatt'] != null){
+                        var rabatt = 1 -( response.daten[i]['Rabatt'] /100);
+                        var alterpreis =  (response.daten[i]['Nettopreis']*(response.daten[i]['Mehrwertsteuer']/100+1)).toFixed(2);
+                        var preis = (response.daten[i]['Nettopreis'] * rabatt * (response.daten[i]['Mehrwertsteuer']/100+1)).toFixed(2);
+                        content += "<span><del>" + alterpreis + "€    </del>" + preis + " € </span>";
+                    }else{
+                        var preis =  (response.daten[i]['Nettopreis']*(response.daten[i]['Mehrwertsteuer']/100+1)).toFixed(2);
+                        content += "<span>" + preis + " € </span>";
+                    }
                     content += "</a>";
                     content += "</div>";
 
@@ -193,10 +170,10 @@
             });
         
     
-			
         });
 
     </script>
+
 
 
     <!--FUSSLEISTE-->
