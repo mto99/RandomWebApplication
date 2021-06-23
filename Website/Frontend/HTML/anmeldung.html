@@ -219,10 +219,14 @@
 
                     setSessionItem('login', true);  //nachweis, dass jmd eingeloggt ist
                     setSessionItem('id', response.daten.id);    //id des benutzers in session speichern
-
-                    //weiterleiten zur startseite
-                    window.location.replace('index.html');
                     
+                    if (response.daten['id'] == 1){ //wenn admin eingeloggt auf nachrichten weiterleiten
+                        window.location.replace('nachrichten.html');
+                    }else{
+                        //weiterleiten zur startseite
+                        window.location.replace('index.html');
+                    }
+
 
                 }).fail(function(jqXHR,statusText,error) {
                     console.log("[err] response code: " + jqXHR.status + "\nerror msg: " + jqXHR.responseText);

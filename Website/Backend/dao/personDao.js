@@ -131,6 +131,56 @@ class PersonDao {
         return result;
     }
 
+//Kontakt--------------------------------------------------
+
+    createMessage(anrede = '', vorname = '', nachname = '', email = '', betreff='', text='') {
+        var sql = 'INSERT INTO Nachricht (Anrede,Vorname,Nachname,Email,Betreff,Text) VALUES (?,?,?,?,?,?)';
+        var statement = this._conn.prepare(sql);
+        var params = [anrede, vorname, nachname, email, betreff, text];
+        var result = statement.run(params);
+
+        if (result.changes != 1) 
+            throw new Error('Could not insert new Record. Data: ' + params);
+
+        var newObj = this.loadByIdMessage(result.lastInsertRowid);
+        return newObj;
+    }
+
+
+    getMessage(){
+        var sql = 'SELECT * FROM Nachricht';
+        var statement = this._conn.prepare(sql);
+        var result = statement.all();
+
+        if (helper.isArrayEmpty(result)) 
+            return [];
+        
+        result = helper.arrayObjectKeysToLower(result);
+
+        return result;
+    }
+
+    delMessage(id) {
+        var sql = 'DELETE FROM Nachricht WHERE ID=?';
+        var statement = this._conn.prepare(sql);
+        var result = statement.run(id);
+
+        return result;
+    }
+
+
+    loadByIdMessage(id){
+        var sql = 'SELECT * FROM Nachricht WHERE ID=?';
+        var statement = this._conn.prepare(sql);
+        var result = statement.get(id);
+
+        if (helper.isUndefined(result)) 
+            throw new Error('No Record found by id=' + id);
+
+        result = helper.objectKeysToLower(result);
+
+        return result;
+    }
 
 
 //=========================================================
