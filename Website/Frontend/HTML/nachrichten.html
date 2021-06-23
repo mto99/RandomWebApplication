@@ -2,7 +2,7 @@
 <html>
 <head>
     <link rel="stylesheet" type="text/css" href="../CSS/navileiste.css">
-    <link rel="stylesheet" type="text/css" href="../CSS/kontakt.css">
+    <link rel="stylesheet" type="text/css" href="../CSS/nachrichten.css">
     <link rel="stylesheet" type="text/css" href="../CSS/fussleiste.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="../Javascript/sessionHandling.js"></script>
@@ -68,109 +68,120 @@
             <a href="../HTML/kontakt.html">Kontakt</a>
         </div>
 
-        <div class="einleitung">
-            <h1>Schreiben Sie uns!</h1>
-            <p>Wir freuen uns immer über Ihr Feedback, damit wir Ihnen den bestmöglichsten Service bieten können!</p>
-            <p>Haben Sie andersweitige Probleme, können Sie gerne sich mit Ihren Fragen an uns wenden - Hierzu einfach unser Kontaktformular ausfüllen und mit der entsprechenden Nachricht an uns senden!</p>
+        <div class="kontaktHeader">
+            <h1>Kontaktarchiv</h1>
             <hr width="100%">
         </div>
-        
 
         <div class="subcontent">
-            <div class="kontakt">
-                <h3>Kontaktformular</h3>
-                <form class="formular" id='formular' method='POST'>
-                    <div class="form_anrede">
-                        <text>Anrede</text><br>
-                        <label>Herr</label><input type="radio" name="anrede" value="Herr" checked>
-                        <label>Frau</label><input type="radio" name="anrede" value="Frau">
-                    </div>
-
-                    <div class="form_vorname">
-                        <text>Vorname</text><br>
-                        <input type="text" id="vorname" name="vorname" maxlength="40" required>
-                    </div>
-
-                    <div class="form_nachname">
-                        <text>Nachname</text><br>
-                        <input type="text" id="nachname" name="nachname" maxlength="40" required>
-                    </div>
-                    
-                    <div class="email">
-                        <text>E-Mail</text><br>
-                        <input type="email" id="email" name="email" required>
-                    </div>
-                    
-                    <div class="betreff">
-                        <text>Betreff</text><br>
-                        <input type="text" id="betreff" name="betreff" maxlength="40" required>
-                    </div>
-                    
-                    <div class="textarea">
-                        <text>Ihr Anliegen</text><br>
-                        <textarea id='text' placeholder="Geben Sie Ihren Text ein.."></textarea>
-                    </div>
-
-                    <div class="submit">
-                        <input type="submit" value="Abschicken">
-                    </div>
-                    
-                </form>
-            </div>
-
-            <div class="kontaktinfo">
-                <h3>Kontakt</h3>
-                <span><text>Telefon:</text> 01234567 <br>
-                <tab>Mon - Don: 9:00 - 15:00 Uhr </tab><br>
-                <text>E-Mail:</text> kontakt.randomwebapplication@gmail.com <br></span>
-            </div>
-        </div>
-        
+            <h3>Alle Nachrichten - aufgelistet:</h3>
+            
+            <!--Dynamischer Inhalt-->
+        </div>   
     </div>
     <!--Ende Kontaktformular-->
 
     <script>
         $(document).ready(function(){
-            console.log('Document ready.');
+            console.log('Document ready, loading data from Service');
 
-            $('#formular').submit(function() {
-
-                //read form data
-                const anrede = $("input[name*='anrede']:checked").val();
-                const vorname = $('#vorname').val();
-                const nachname = $('#nachname').val();
-                const email = $('#email').val();
-                const betreff = $('#betreff').val();
-                const text = $('#text').val();
-
-                var message = {'anrede':anrede,'vorname':vorname, 'nachname':nachname, 'email':email, 'betreff':betreff, 'text':text};
-
-                console.log("[sta] Data read successfull!");
-                console.log("[sta] Data: ", message);
-
-                $.ajax({
-                    type: 'get',
-                    method: 'post',
-                    url: 'http://localhost:8000/wba2api/person/nachricht/absenden',
-                    contentType: 'application/json',
-                    data: JSON.stringify(message)
-
-                }).done(function(response){
-                    console.log('Message sent successfully');
+            if (getSessionItem('id') != 1){
+                window.location.replace('account.html');
+            }
 
 
-                }).fail(function(jqXHR, statusText, error){
-                    console.log('[err] Error occured');
-                    console.log('[err] Response code: ' + jqXHR.status + ' - Message: ' + jqXHR.responseText);
+            $.ajax({
+                url: 'http://localhost:8000/wba2api/person/nachricht',
+                method: 'get',
+                dataType: 'json'
+            }).done(function(response){
+                console.log('Data loaded successfully');
 
-                });//end ajax
-                return false;
+                console.log('[sta] Data loaded successfully!');
+                console.log('[sta] Data', response);
 
-            });//end submit
+                if (response.daten.length == 0 ){
+                    $('.subcontent').html("<p><span style='font-size: 20px; align-items: center;'>Zurzeit keine Nachrichten.</span></p>");
+
+                }else{
+                    for (i=0; i < response.daten.length; i++){
+                        var content = "";
+
+                        content += "<div class='nachricht'>";
+                        content += "<div class='fullName'>";
+                        content += "<div class='anrede'>";
+                        content += "<span id='anrede'>" + response.daten[i]['anrede'] +"</span>";
+                        content += "</div>";
+
+                        content += "<div class='vorname'>";
+                        content += "<span id='vorname'>" + response.daten[i]['vorname'] + "</span>";
+                        content += "</div>";
+
+                        content += "<div class='nachname'>";
+                        content += "<span id='nachname'>" + response.daten[i]['nachname'] + "</span>";
+                        content += "</div>";
+                        content += "</div>";
+
+                        content += "<div class='email'>";
+                        content += "<span id='email'>" + response.daten[i]['email'] + "</span>";
+                        content += "</div>";
+
+                        content += "<div class='betreff'>";
+                        content += "<span id='betreff'>" + response.daten[i]['betreff'] + "</span>";
+                        content += "</div>";
+
+                        content += "<div class='textarea'>";
+                        content += "<span id='textarea'>" + response.daten[i]['text'] + "</span>";
+                        content += "</div>";
+
+                        content += "<div class='remove'>";
+                        content += "<input title='Entfernen' id='remove' type='button' onclick='removeItem(" + response.daten[i]['id'] + ")' value='&#10006'>";
+                        content += "</div>";
+                        content += "</div>";
+                        content += "<hr>";
+
+                        $('.subcontent').append(content);
+                        console.log("[sta] Load message.");
+
+
+                    }//end for
+
+                    console.log("[sta] Load messages successfully.");
+
+
+                }//end else
+
+
+            }).fail(function(jqXHR, statusText, error){
+                console.log('[err] Error occured');
+                console.log('[err] Response code: ' + jqXHR.status + ' - Message: ' + jqXHR.responseText);
+
+            });//end ajax
 
         });
+    </script>
+
+    <script>
+        function removeItem(id){
+
+            $.ajax({
+                type: 'delete',
+                url: 'http://localhost:8000/wba2api/person/nachricht/delete/'+id,
+                cache: false
+            }).done(function(response){
+                console.log("[sta] Message removed successfully!");
+                window.location.reload();
+
+
+            }).fail(function (jqXHR,statusText, error){
+                console.log('[err] Error occured: Could not remove message!');
+                console.log('[err] Response code: ' + jqXHR.status + ' - Message: ' + jqXHR.responseText);
+            });
+            return false;
+        }
 
     </script>
+
 
     <!--FUSSLEISTE-->
     <hr width="100%" style="color: #00336a; margin-top: 20px;">
@@ -216,7 +227,7 @@
                     <h3>Kategorien</h3>
                     <a href="../HTML/produkt_hauptseite.html?oberkategorie=Sale">Sale</a><br>
                     <a href="../HTML/produkt_hauptseite.html?oberkategorie=Männer">Männer</a><br>
-                    <a href="../HTML/produkt_hauptseite.html?oberkategorie=Frauen">Frauen</a><br>
+                    <a href="../HTML/produkt_hauptseite.html?oberkategorie=Frauen">Frauen</a><r>
                     <a href="../HTML/produkt_hauptseite.html?oberkategorie=Accessoires">Accessoires</a><br>
                 </div>
 

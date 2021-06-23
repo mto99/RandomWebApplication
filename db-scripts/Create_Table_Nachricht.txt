@@ -1,0 +1,9 @@
+create table Nachricht(
+ID integer not null primary key autoincrement,
+Anrede text not null,
+Vorname text not null,
+Nachname text not null,
+Email text not null,
+Betreff text not null,
+Text text not null
+);

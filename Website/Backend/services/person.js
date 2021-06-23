@@ -190,6 +190,57 @@ serviceRouter.get('/person/kaeufe/:id', function(request, response) {
 });
 
 
+//Nachricht abschicken
+
+
+serviceRouter.post('/person/nachricht/absenden', function(request, response) {
+    helper.log('Service Kontakt: Client requested creation of new record');
+
+    const personDao = new PersonDao(request.app.locals.dbConnection);
+    try {
+        var result = personDao.createMessage(request.body.anrede, request.body.vorname, request.body.nachname, 
+                            request.body.email, request.body.betreff, request.body.text);
+        helper.log('Service Kontakt: Record inserted');
+        response.status(200).json(helper.jsonMsgOK(result));
+    } catch (ex) {
+        helper.logError('Service Kontakt Post: Error creating new record. Exception occured: ' + ex.message);
+        response.status(400).json(helper.jsonMsgError(ex.message));
+    }    
+});
+
+
+//Nachirchten abrufen
+
+//Zum Abrufen der Käufe für User mit ID:...
+serviceRouter.get('/person/nachricht', function(request, response) {
+    helper.log('Service Person Load Purchases: Client requested check if record exists ' + request.params.name);
+
+    const personDao = new PersonDao(request.app.locals.dbConnection);
+    try {
+        var result = personDao.getMessage();
+        response.status(200).json(helper.jsonMsgOK(result));
+    } catch (ex) {
+        helper.logError('Service Person GetPurchases: Error loading records. Exception occured: ' + ex.message);
+        response.status(400).json(helper.jsonMsgError(ex.message));
+    }    
+});
+
+
+//Zum löschen einzelner NAchrichten
+serviceRouter.delete('/person/nachricht/delete/:id', function(request, response) {
+    helper.log('Service Person: Client requested deletion of record, id=' + request.params.id);
+
+    const personDao = new PersonDao(request.app.locals.dbConnection);
+    try {
+        var obj = personDao.delMessage(request.params.id);
+        helper.log('Service Message: Deletion of record successfull, id=' + request.params.id);
+        response.status(200).json(helper.jsonMsgOK({ 'gelöscht': true, 'eintrag': obj }));
+    } catch (ex) {
+        helper.logError('Service Person: Error deleting record. Exception occured: ' + ex.message);
+        response.status(400).json(helper.jsonMsgError(ex.message));
+    }
+});
+
 
 //====================================
 
