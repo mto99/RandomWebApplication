@@ -1,5 +1,6 @@
 const helper = require('../helper.js');
 const ProduktDao = require('../dao/produktDao.js');
+const ProduktkategorieDao = require('../dao/produktkategorieDao.js');
 const express = require('express');
 var serviceRouter = express.Router();
 
@@ -134,6 +135,32 @@ serviceRouter.post('/produkt/kasse', function(request, response) {
         helper.logError('Service Kasse: Error creating new record. Exception occured: ' + ex.message);
         response.status(400).json(helper.jsonMsgError(ex.message));
     }
+});
+
+//Suche-------------------------------------------------------
+serviceRouter.get('/produkt/suche/gib/:name', function(request, response){
+    helper.log('Service Produkt: Client requested records with Search=' + request.params.id);
+
+    const produktDao = new ProduktDao(request.app.locals.dbConnection);
+    const produktkategorieDao = new ProduktkategorieDao(request.app.locals.dbConnection);
+    try{
+
+        var result = produktDao.getSearch(request.params.name);
+        //console.log("Result: ",result);
+
+        var kategorieArray = Array();//array für die kategorieids
+        for (i=0; i < result.length; i++){
+            var resultCat = produktkategorieDao.loadById(result[i]['KategorieID']);
+            kategorieArray.push(resultCat);
+        }
+
+        helper.log('Service Produkt: Records loaded, Search=' + result);
+        response.status(200).json(helper.jsonMsgOK([result,kategorieArray]));
+    } catch (ex) {
+        helper.logError('Service Produkt: Error loading records by Search. Exception occured: ' + ex.message);
+        response.status(400).json(helper.jsonMsgError(ex.message));
+    }
+    
 });
 
 

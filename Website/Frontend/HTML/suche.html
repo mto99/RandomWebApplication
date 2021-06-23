@@ -65,16 +65,76 @@
         <h2>Suchergebnisse</h2>
 
         <div class="suchergebnis">
-            <ul>
-                <li><a href="../HTML/frauen_tshirts.html">Frauen T-Shirts</a></li>
-                <li><a href="../HTML/manner_tshirts_polos.html">Männer T-Shirts</a></li>
-                <li><a href="../HTML/sale_manner.html">Sale Männer T-Shirts</a></li>
-            </ul>
+
+            <!--Dynamischer Inhalt-->
+            
             
         </div>
 
     </div>
     <!--ENDE SEITENINHALT-->
+
+    <script>
+        $(document).ready(function() {
+
+            var suchbegriff = sessionStorage.getItem('Suchbegriff');
+            console.log("[inf] Suchbegriff: "+ suchbegriff);
+
+            $.ajax({
+                url: 'http://localhost:8000/wba2api/produkt/suche/gib/'+suchbegriff,
+                type: 'get',
+                dataType: 'json'
+            }).done(function(response){
+                console.log("[sta] Data loaded successfully!");
+                console.log("[inf] Data: ", response.daten);
+
+                //Zwei Arrays aus response.daten
+                //0. Array: Suchergebisse
+                //1. Array: Produktkategorien
+
+                if(response.daten[0].length == 0){
+
+                    $('.suchergebnis').append("<p><span style='font-size: 20px; align-items: center; '>Keine Treffer!</span></p>");
+                }
+                else{
+
+                    for (i=0; i< response.daten[0].length; i++){
+                        var content = "";
+
+                        content += "<div class='ergebnis'>";
+                        //link erstellen
+                        var oberkategorie = response.daten[1][i]['oberkategorie'];
+                        var unterkategorie = response.daten[1][i]['unterkategorie'];
+                        var id = response.daten[0][i]['ID'];
+
+                        var link = "../HTML/produkt.html?oberkategorie="+oberkategorie+"&unterkategorie="+unterkategorie+"&id="+id;
+                        content += "<a href='" + link +"'";
+                        content += "<div class='bild'>";
+                        content += "<img src='" + response.daten[0][i]['Bild'] + "' alt='Produktbild'";
+                        content += "</div>";
+                        content += "<div class='titel'>";
+                        content += "<span id='titel'>" + response.daten[0][i]['Titel'] + "</span>";
+                        content += "</div>";
+                        content += "</div>";
+                        content += "<hr>";
+
+                        $('.suchergebnis').append(content);
+                        console.log("[sta] Element loaded!");
+
+                    }
+                }
+
+                console.log("[sta] Search was succesfull!");
+
+
+            }).fail(function (jqXHR,statusText, error){
+                console.log('[err] Error occured: Could not remove element from cart!');
+                console.log('[err] Response code: ' + jqXHR.status + ' - Message: ' + jqXHR.responseText);
+            });
+            return false;
+
+        });
+    </script>
 
 
     <!--FUSSLEISTE-->
