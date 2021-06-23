@@ -12,6 +12,11 @@ body{
     padding: 10px;
 }
 
+hr{
+    color: #00336a;
+    width: 100%;
+}
+
 @media screen and (min-width:1px){
     body{
         margin: 1cm 0 1cm 0;
@@ -28,11 +33,25 @@ body{
     }
 
     .suchergebnis{
+        display: flex;
+        flex-direction: column;
         text-decoration: underline;
         line-height: 2;
         padding: 10px;
         font-size: 18px;
     }
+
+    .ergebnis{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        
+    }
+
+    .ergebnis img{
+        width: 120px;
+    }
+    
 
 
 }
@@ -41,6 +60,12 @@ body{
 @media screen and (min-width: 601px){
     body{
         margin: 1cm 1cm 1cm 1cm;
+    }
+
+    .ergebnis{
+        float: left;
+        padding: 10px;
+
     }
 
     /*Der Rest wie min width: 1px*/

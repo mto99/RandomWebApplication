@@ -71,6 +71,17 @@ class ProduktDao {
     }
 
 
+//Suche-------------------------------------------------------------
+
+    getSearch(name){
+        var sql = 'SELECT * FROM Produkt WHERE instr(Titel,?)';
+        var statement = this._conn.prepare(sql);
+        var result = statement.all(name);
+
+        return result;
+    }
+
+
 
 //Kasse-----------------------------------------------------------------
 
