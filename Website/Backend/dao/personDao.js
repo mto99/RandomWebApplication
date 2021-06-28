@@ -21,13 +21,13 @@ class PersonDao {
         var result = statement.get(name);
 
         if (helper.isUndefined(result)){
-            throw new Error('No Record found by Benutzername='+name);
+            return false;
         }
         return helper.objectKeysToLower(result);
     }
 
     //Überprüft ob der eingebene Benutzername bereits vergeben ist
-    checkIfUsernameexists(name) {
+    checkIfUsernameExists(name) {
         var sql = 'SELECT ID FROM User WHERE Benutzername=?';
         var statement = this._conn.prepare(sql);
         var result = statement.get(name);

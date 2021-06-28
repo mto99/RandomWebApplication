@@ -1,5 +1,8 @@
 "# RandomWebApplication-" 
 
+WARNUNG FÜR FREMDE
+        Dieser Shop ist nur ein ein Schulprojekt und keine echte Website. Wir übernehmen keinerlei Haftung.
+
 #Ordner Website:
 HTML:   - index.html --> Startseite
         - 

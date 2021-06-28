@@ -56,21 +56,11 @@ try {
     var serviceRouter = require('./services/person.js');
     app.use(TOPLEVELPATH, serviceRouter);
     
-    serviceRouter = require('./services/download.js');
-    app.use(TOPLEVELPATH, serviceRouter);
-    
     serviceRouter = require('./services/produktkategorie.js');
-    app.use(TOPLEVELPATH, serviceRouter);
-
-    serviceRouter = require('./services/zahlungsart.js');
     app.use(TOPLEVELPATH, serviceRouter);
 
     serviceRouter = require('./services/produkt.js');
     app.use(TOPLEVELPATH, serviceRouter);
-
-    serviceRouter = require('./services/bestellung.js');
-    app.use(TOPLEVELPATH, serviceRouter);
-
 
     // send default error message if no matching endpoint found
     app.use(function (request, response) {
