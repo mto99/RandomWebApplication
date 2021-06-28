@@ -15,8 +15,8 @@
 
     <script>
         function checkIfPLZ(){
-            var plz = $('#plz').val();
-            var plzStr = plz.toString();
+            let plz = $('#plz').val();
+            let plzStr = plz.toString();
             if (plzStr.length >5){
                 document.getElementById('alertPLZ').innerHTML = "PLZ falsch!";
                 return false;
@@ -212,7 +212,7 @@
                     url: 'http://localhost:8000/wba2api/person/login/'+loginDataService,
                     method: 'get',
                     dataType: 'json'
-                    
+
                 }).done(function (response){
                     console.log('[sta] login successful!');
                     console.log('[sta] Response: UserID: ', response); //unter response.daten.id ist die ID gespeichert
@@ -278,11 +278,14 @@
                 const sfrage = $('#sicherheitsfrage').val();
                 const santwort = $('#sicherheitsantwort').val();
                 const strassehausnr = $('#strasse').val();
-                var plzInt = $('#plz').val();
-                if (checkIfPLZ() == true){
-                    const plz = '' + plzInt;
+                function plzTrue(){
+                    if (checkIfPLZ() == true){
+                        return $('#plz').val().toString();
+                    }else{
+                        alert("FEHLER! PLZ falsch!");
+                    }
                 }
-                console.log("PLZ: " + typeof(plz));
+                const plz = plzTrue();
                 const wohnort = $('#ort').val();
                 var person = { 'anrede':anrede, 'vorname':vorname, 'nachname':nachname, 'benutzername':benutzername, 'email':email, 'passwort':passwort, 
                         'sicherheitsfrage':sfrage, 'sicherheitsantwort':santwort, 'strassehausnr':strassehausnr, 'plz':plz, 'wohnort':wohnort };

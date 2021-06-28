@@ -45,45 +45,17 @@ serviceRouter.get('/person/login/:name', function(request, response) {
 serviceRouter.put('/person/update', function(request, response) {
     helper.log('Service Person: Client requested update of new record');
 
-    var errorMsgs=[];
-    if (helper.isUndefined(request.body.id)) 
-        errorMsgs.push('id missing');
-    if (helper.isUndefined(request.body.anrede)) {
-        errorMsgs.push('anrede fehlt');
-    } else if (request.body.anrede.toLowerCase() !== 'herr' && request.body.anrede.toLowerCase() !== 'frau') {
-        errorMsgs.push('anrede falsch. Herr und Frau sind erlaubt');
-    }        
-    if (helper.isUndefined(request.body.vorname)) 
-        errorMsgs.push('vorname fehlt');
-    if (helper.isUndefined(request.body.nachname)) 
-        errorMsgs.push('nachname fehlt');
-    if (helper.isUndefined(request.body.benutzername))
-        errorMsgs.push('benutzername fehlt');
-    if (helper.isUndefined(request.body.email)) 
-        errorMsgs.push('email fehlt');
-    if (!helper.isEmail(request.body.email)) 
-        errorMsgs.push('email hat ein falsches Format');
-    if (helper.isUndefined(request.body.strassehausnr))
-        errorMsgs.push('adresse: Straße, Hausnr. fehlt');
-    if (helper.isUndefined(request.body.plz))
-        errorMsgs.push('adresse: plz fehlt');
-    if (helper.isUndefined(request.body.wohnort))
-        errorMsgs.push('adresse: wohnort fehlt');
-
-    if (errorMsgs.length > 0) {
-        helper.log('Service Person Update: Update not possible, data missing');
-        response.status(400).json(helper.jsonMsgError('Update nicht möglich. Fehlende Daten: ' + helper.concatArray(errorMsgs)));
-        return;
-    }
-
     const personDao = new PersonDao(request.app.locals.dbConnection);
     try {
         //check if username exists
-        
-        var check = personDao.checkIfUsernameexists(request.body.benutzername);
+        var check = personDao.checkIfUsernameExists(request.body.benutzername);
+        console.log("Check if Username exists: " +check);
         if (check == true){
-            response.status(400);
-            throw new Error('[err] Benutzername existiert bereits!');
+
+            //if the username ist not changed
+            if (request.body.benutzername != personDao.getUsername(request.body.id)['Benutzername']) {
+                throw new Error('[err] Benutzername existiert bereits!');
+            }
         }
         
 
@@ -336,10 +308,9 @@ serviceRouter.post('/person', function(request, response) {
         var username = personDao.existsUsername(request.body.benutzername);
         if (username == true){
             helper.logError('Service Person: Error creating new record. Username already exists.');
-            response.status(400);
             throw new Error('[err] Could not create new record. Username already exists.');
         }
-        //--
+        //end if
 
         var result = personDao.create(request.body.anrede, request.body.vorname, request.body.nachname, 
                     request.body.benutzername, request.body.email, request.body.sicherheitsfrage, request.body.sicherheitsantwort, 
